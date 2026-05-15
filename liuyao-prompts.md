@@ -197,5 +197,5 @@
 - **改风格 / 改边界** → 改 admin 后台 `liuyao_system_prompt`（5 分钟内生效，缓存自动失效）。
 - **改卦象上下文字段（增减字段）** → 改 `build_hexagram_context()`。
 - **改首次解卦结构（六段标题）** → 改 `build_opening_user_message()`。
-- **改人物画像 / 应期的具体维度** → 改 `CHARACTER_PROMPT` / `TIMING_PROMPT` 常量。
-- **新增第三个快捷按钮** → 在 `QUICK_PROMPTS` / `QUICK_LABELS` 加键值；前端 `LIUYAO_QUICK_BUTTONS` 加一项；后端 schema `LiuyaoChatQuickReq.kind` 的 Literal 加成员。
+- **改人物画像 / 应期的具体维度** → 在管理后台 `/admin/config/liuyao_quick_buttons` 编辑对应按钮的 prompt 即可（即时生效，含版本回滚）。`prompts.py` 里 `CHARACTER_PROMPT` / `TIMING_PROMPT` 仅作为初始种子（见 `migrations/008_seed_liuyao_quick_buttons.sql`），运行时已不再读取。
+- **新增 / 删除快捷按钮** → 管理后台 `/admin/config/liuyao_quick_buttons` 直接增删；无需改代码。
