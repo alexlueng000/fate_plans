@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>命理首页（Dashboard）改版方案 v2.0</title>
+<style>
+  :root {
+    --c-bg: #FAF7F2; --c-surface: #FFFFFF; --c-card: #F5F1EA;
+    --c-border: #E5DFD5; --c-border-strong: #C8BFB0;
+    --c-text: #2C2825; --c-text-secondary: #6B655C; --c-text-muted: #9A9388;
+    --c-primary: #B54434; --c-primary-bg: rgba(181,68,52,0.05);
+    --c-green: #5A7A5A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Noto Serif SC","Songti SC",serif;background:var(--c-bg);color:var(--c-text);line-height:1.7;font-size:15px}
+  .container{max-width:920px;margin:0 auto;padding:48px 24px 96px}
+  .doc-hero{text-align:center;padding:56px 0 48px;border-bottom:1px solid var(--c-border);margin-bottom:48px}
+  .doc-hero .eyebrow{font-size:12px;letter-spacing:.08em;color:var(--c-primary);font-weight:600;margin-bottom:12px}
+  .doc-hero h1{font-size:28px;font-weight:700;color:var(--c-text);margin-bottom:16px}
+  .doc-hero .subtitle{font-size:16px;color:var(--c-text-secondary);max-width:560px;margin:0 auto}
+  section{margin-bottom:48px}
+  h2{font-size:22px;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--c-primary);display:inline-block}
+  h3{font-size:17px;font-weight:600;margin:24px 0 12px}
+  h4{font-size:15px;font-weight:600;color:var(--c-text-secondary);margin:16px 0 8px}
+  p{margin-bottom:12px}
+  ul,ol{margin:8px 0 16px 20px}
+  li{margin-bottom:6px}
+  table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px}
+  th,td{padding:10px 14px;border:1px solid var(--c-border);text-align:left;vertical-align:top}
+  th{background:var(--c-card);font-weight:600;white-space:nowrap}
+  tr:nth-child(even) td{background:rgba(245,241,234,.4)}
+  .before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  .before-after .col{padding:16px;border:1px solid var(--c-border)}
+  .before-after .before{background:#FFF5F3;border-color:#F0CFC8}
+  .before-after .after{background:#F3F8F3;border-color:#C8DCC8}
+  .before-after .label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+  .before .label{color:#C0392B}
+  .after .label{color:var(--c-green)}
+  .mockup{background:var(--c-surface);border:1px solid var(--c-border);overflow:hidden;margin:16px 0 24px}
+  .mockup-header{background:var(--c-card);padding:10px 16px;font-size:12px;font-weight:600;color:var(--c-text-muted);border-bottom:1px solid var(--c-border)}
+  .mockup-body{padding:20px}
+  .dash-sim{font-size:13px}
+  .dash-sim .dash-header{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:12px;border-bottom:1px solid var(--c-border);margin-bottom:16px}
+  .dash-sim .dash-header h5{font-size:18px;font-weight:700;color:var(--c-text)}
+  .sim-module{border:1px solid var(--c-border);padding:14px;margin-bottom:12px}
+  .sim-module.primary{border:2px solid var(--c-primary);background:rgba(181,68,52,.02)}
+  .sim-module .sim-label{font-size:11px;color:var(--c-text-muted);font-weight:600;margin-bottom:6px}
+  .sim-module .sim-title{font-size:16px;font-weight:600;margin-bottom:6px}
+  .sim-module .sim-desc{font-size:13px;color:var(--c-text-secondary)}
+  .sim-btn{display:inline-block;padding:6px 14px;font-size:12px;font-weight:600;border-radius:3px;margin-top:8px}
+  .sim-btn.primary{background:var(--c-primary);color:#fff}
+  .sim-btn.secondary{border:1px solid var(--c-border-strong);color:var(--c-primary);background:var(--c-surface)}
+  .sim-reminder-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--c-card);border:1px solid var(--c-border);font-size:12px;color:var(--c-text-secondary);margin-bottom:12px}
+  .sim-reminder-bar .stamp{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--c-primary);color:#fff;font-size:10px;font-weight:700;flex-shrink:0}
+  .sim-record{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--c-border);font-size:12px}
+  .sim-record:last-child{border-bottom:none}
+  .sim-record .rec-title{font-weight:600;color:var(--c-text)}
+  .sim-record .rec-meta{color:var(--c-text-muted);font-size:11px}
+  .sim-tag{display:inline-block;padding:1px 6px;font-size:10px;font-weight:600;border-radius:2px;margin-left:6px}
+  .sim-tag.ongoing{background:var(--c-primary-bg);color:var(--c-primary)}
+  .sim-tag.done{background:rgba(90,122,90,.1);color:var(--c-green)}
+  code{background:var(--c-card);padding:1px 5px;font-size:13px;font-family:"Cascadia Code","Fira Code",monospace;border-radius:2px;color:var(--c-primary)}
+  pre{background:#2C2825;color:#E5DFD5;padding:16px 20px;overflow-x:auto;font-size:13px;line-height:1.6;border-radius:4px;margin:12px 0}
+  pre code{background:none;color:inherit;padding:0}
+  .note{background:rgba(181,68,52,.04);border-left:3px solid var(--c-primary);padding:12px 16px;margin:12px 0;font-size:14px;color:var(--c-text-secondary)}
+  .note strong{color:var(--c-primary)}
+  .toc{background:var(--c-surface);border:1px solid var(--c-border);padding:20px 24px;margin-bottom:40px}
+  .toc h4{margin:0 0 12px}
+  .toc ol{margin:0 0 0 20px}
+  .toc li{margin-bottom:4px}
+  .toc a{color:var(--c-primary);text-decoration:none}
+  .arch-diagram{background:var(--c-surface);border:1px solid var(--c-border);padding:24px;margin:16px 0;font-size:13px}
+  .arch-layer{padding:12px 16px;margin-bottom:8px;border:1px solid var(--c-border);text-align:center}
+  .arch-layer.l1{background:rgba(181,68,52,.08);border-color:var(--c-primary)}
+  .arch-layer.l2{background:var(--c-card)}
+  .arch-layer.l3{background:rgba(245,241,234,.5);border-style:dashed}
+  .arch-layer .layer-label{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--c-text-muted);margin-bottom:4px}
+  .arch-arrow{text-align:center;color:var(--c-text-muted);font-size:16px;margin:2px 0}
+  .footer-note{text-align:center;padding:32px 0 0;border-top:1px solid var(--c-border);margin-top:48px;font-size:12px;color:var(--c-text-muted)}
+  @media(max-width:700px){.before-after{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="doc-hero">
+  <p class="eyebrow">DASHBOARD REDESIGN v2.0 - 2026-08-18</p>
+  <h1>命理首页（工作台）改版方案</h1>
+  <p class="subtitle">基于 10 位顶级 UI 专家评审 + 源码逐行分析，输出可落地的信息架构、文案、视觉规范与实施清单。</p>
+</div>
+
+<div class="toc">
+  <h4>目录</h4>
+  <ol>
+    <li><a href="#s1">现有代码结构分析</a></li>
+    <li><a href="#s2">核心问题诊断（三大系统性问题）</a></li>
+    <li><a href="#s3">新信息架构：四层金字塔</a></li>
+    <li><a href="#s4">逐模块改版方案（含改前改后对照）</a></li>
+    <li><a href="#s5">新文案规范</a></li>
+    <li><a href="#s6">视觉设计规范</a></li>
+    <li><a href="#s7">组件级代码改动指引</a></li>
+    <li><a href="#s8">分阶段实施清单</a></li>
+    <li><a href="#s9">验收标准与埋点</a></li>
+  </ol>
+</div>
+
+<section id="s1">
+<h2>一、现有代码结构分析</h2>
+<p>从 <code>page.tsx</code> + 5 个子组件源码逐行提取，当前 dashboard 由以下模块构成（按渲染顺序）：</p>
+<table>
+<tr><th>顺序</th><th>模块</th><th>组件</th><th>内容</th><th>视觉权重</th></tr>
+<tr><td>1</td><td>页面标题</td><td>page.tsx header</td><td>eyebrow + H1 + 副标题 + 右侧用户信息</td><td>中</td></tr>
+<tr><td>2</td><td>今日八字提示</td><td>TodayReminderCard</td><td>标题 + 农历 + 适合/少做/提醒三栏</td><td><strong>高（占满首屏宽度）</strong></td></tr>
+<tr><td>3</td><td>当前最适合继续</td><td>ContinueLastCard</td><td>上次判断/卡点/下一步 + 继续分析CTA</td><td>高（但位置在今日提示之下）</td></tr>
+<tr><td>4</td><td>新开分析入口 x2</td><td>page.tsx inline</td><td>八字长期趋势 + 六爻具体问题 并排卡片</td><td>中</td></tr>
+<tr><td>5</td><td>最近解读记录</td><td>RecentRecords</td><td>5条记录列表 + 全部记录链接</td><td>中</td></tr>
+<tr><td>6</td><td>底部三入口</td><td>page.tsx inline</td><td>查看命理报告/全部记录/常见问题</td><td>低</td></tr>
+</table>
+<div class="note">
+<strong>关键发现：</strong>组件文件中还包含 <code>CareerTaskCard.tsx</code> 和 <code>RelationshipTaskCard.tsx</code> 两个任务卡片组件，但<strong>未在 page.tsx 中渲染</strong>——说明已有"任务追踪"的产品能力但尚未接入 dashboard。这是改版的重要增量。
+</div>
+</section>
+
+<section id="s2">
+<h2>二、核心问题诊断（三大系统性问题）</h2>
+
+<h3>问题 1：视觉权重倒置——锦上添花占了主位</h3>
+<p>"今日八字提示"是通用运势建议，信息密度低但占满首屏宽度且紧跟 header。而真正承载"续作价值"的 ContinueLastCard 被压在下面。用户进来第一眼看到的不是"我上次的事"，而是"今天适合做什么"。</p>
+
+<div class="before-after">
+<div class="col before">
+<p class="label">当前顺序</p>
+<ol>
+<li>Header</li>
+<li><strong>今日八字提示</strong>（占满宽度，三栏）</li>
+<li>当前最适合继续（续作卡片）</li>
+<li>新开分析 x2</li>
+<li>最近记录</li>
+<li>底部三入口</li>
+</ol>
+</div>
+<div class="col after">
+<p class="label">改版后顺序</p>
+<ol>
+<li>Header（含进度条）</li>
+<li><strong>当前最适合继续</strong>（主CTA，最大视觉）</li>
+<li>新开分析（单行二选一）</li>
+<li>最近记录（加状态标签）</li>
+<li>今日八字提示（压缩为单行条）</li>
+<li>底部三入口（折叠到右上角）</li>
+</ol>
+</div>
+</div>
+
+<h3>问题 2："算法报告体"文案——不是朋友在跟你说话</h3>
+<p>ContinueLastCard 中的摘要文本：上次判断 / 当前卡点 / 推荐下一步——这是系统输出格式，不是人在跟你聊天。用户刚登录就被"判断/卡点/下一步"包围，情绪上是负担。</p>
+
+<h3>问题 3：重复入口导致决策瘫痪</h3>
+<p>首屏存在 3 个"去分析"入口：ContinueLastCard 的"继续分析"、"开始八字分析"、"起一卦"。其中"八字长期趋势"卡片与 ContinueLastCard（当 type=bazi 时）信息明显重复——用户看到两个相似入口会犹豫"我该点哪个"。</p>
+</section>
+
+<section id="s3">
+<h2>三、新信息架构：四层金字塔</h2>
+<p>遵循 Don Norman 的"心智模型优先"和 Julie Zhuo 的"dashboard = 客厅"原则，将模块按用户回访时的心理优先级重新排列：</p>
+
+<div class="arch-diagram">
+<div class="arch-layer l1">
+<div class="layer-label">L1 - 续作层（首屏 70% 视觉权重）</div>
+<p><strong>当前最适合继续</strong> -- "你上次问的事，接着聊"</p>
+<p style="font-size:12px;color:var(--c-text-muted)">主 CTA / 最大卡片 / 含上次摘要 + 继续按钮</p>
+</div>
+<div class="arch-arrow">v</div>
+<div class="arch-layer l2">
+<div class="layer-label">L2 - 开启层（次屏 / 简洁二选一）</div>
+<p><strong>新开分析</strong> -- "想看另一件事？" -> 八字 / 六爻</p>
+<p style="font-size:12px;color:var(--c-text-muted)">单行横排 / 不再占大块面积</p>
+</div>
+<div class="arch-arrow">v</div>
+<div class="arch-layer l2">
+<div class="layer-label">L3 - 回顾层（第三屏）</div>
+<p><strong>最近解读记录</strong> -- 带状态标签 + "聊到第几轮"</p>
+<p style="font-size:12px;color:var(--c-text-muted)">5 条列表 / 进行中/已完结 / 可继续追问</p>
+</div>
+<div class="arch-arrow">v</div>
+<div class="arch-layer l3">
+<div class="layer-label">L4 - 锦上添花层（底部 / 压缩为单行条）</div>
+<p><strong>今日八字提示</strong> -- 单行横条，不再占三栏大卡</p>
+<p style="font-size:12px;color:var(--c-text-muted)">农历 + 一句话提醒 / 点击可展开详情</p>
+</div>
+</div>
+
+<div class="note">
+<strong>设计哲学：</strong>用户回到 dashboard 时，最强烈的需求是"我上次做的事到哪了"，而不是"今天运势如何"。运势是锦上添花，续作是核心价值。
+</div>
+</section>
+
+<section id="s4">
+<h2>四、逐模块改版方案</h2>
+
+<h3>4.1 页面标题区（Header）</h3>
+<p>文件：<code>fate-frontend/app/dashboard/page.tsx</code> 第 181-205 行</p>
+<div class="before-after">
+<div class="col before">
+<p class="label">改前</p>
+<p><strong>eyebrow：</strong>今日命理概览</p>
+<p><strong>H1：</strong>回到你的问题，而不是重新开始。</p>
+<p><strong>副标题：</strong>八字看长期趋势，六爻看具体事项。这里先帮你接上当前最重要的一步。</p>
+<p><strong>右侧：</strong>男 / 1993-03-09 07:30 / 广东阳春 / 日主：己</p>
+</div>
+<div class="col after">
+<p class="label">改后</p>
+<p><strong>eyebrow：</strong>删除</p>
+<p><strong>H1：</strong>回到你的问题，而不是重新开始。（保持不变）</p>
+<p><strong>副标题：</strong>删除</p>
+<p><strong>右侧：</strong>男 / 1993 己巳年 / 广东阳春 / 修改档案 -></p>
+<p><strong>新增：</strong>轻量进度条"本月已解读 7 次 / 还有 13 次免费额度"</p>
+</div>
+</div>
+<h4>改动原因</h4>
+<ul>
+<li>eyebrow 和副标题都是对 H1 的重复——H1 已足够有力</li>
+<li>右侧用户信息缺"修改入口"——加"修改档案 ->"</li>
+<li>进度条增加回访奖励感——让用户每次回来都看到"进展"</li>
+<li>年份简化为干支年（己巳年），更有品牌调性</li>
+</ul>
+
+<h3>4.2 当前最适合继续（ContinueLastCard）-- 核心区块</h3>
+<p>文件：<code>fate-frontend/app/dashboard/components/ContinueLastCard.tsx</code></p>
+
+<h4>4.2.1 文案改写</h4>
+<div class="before-after">
+<div class="col before">
+<p class="label">改前</p>
+<p><strong>模块标签：</strong>当前最适合继续</p>
+<p><strong>类型标签：</strong>八字 / 长期趋势 | 六爻 / 具体事项</p>
+<p><strong>摘要：</strong>问题摘要：{question}</p>
+<p><strong>上次判断：</strong>{conclusion}</p>
+<p><strong>当前卡点：</strong>适合继续把长期趋势落到当前阶段...</p>
+<p><strong>推荐下一步：</strong>建议继续看：这个阶段真正要调整的...</p>
+<p><strong>主CTA：</strong>继续分析</p>
+<p><strong>次CTA：</strong>查看上次结论</p>
+</div>
+<div class="col after">
+<p class="label">改后</p>
+<p><strong>模块标签：</strong>接着上次 -> (加朱砂印章"续")</p>
+<p><strong>类型标签：</strong>八字 / 长期方向 | 六爻 / 这件事</p>
+<p><strong>摘要：</strong>你上次问的是：{question}。上次聊到了{conclusion}。这次可以接着往下看。</p>
+<p><strong>时间标签：</strong>3 天前 / 第 4 轮对话</p>
+<p><strong>主CTA：</strong>接着聊</p>
+<p><strong>次CTA：</strong>看上次完整结论 -></p>
+</div>
+</div>
+
+<h4>4.2.2 文案改动原因</h4>
+<table>
+<tr><th>改前</th><th>改后</th><th>原因</th></tr>
+<tr><td>当前最适合继续</td><td>接着上次 -></td><td>口语化，像朋友说"接着来"而非系统判断</td></tr>
+<tr><td>上次判断/当前卡点/推荐下一步</td><td>你上次问的是.../上次聊到了.../这次可以接着往下看</td><td>从"算法报告体"改为"对话感"——主语从系统变为"你"</td></tr>
+<tr><td>适合继续把长期趋势落到当前阶段...</td><td>删除（合并到摘要正文）</td><td>抽象术语对用户没有信息增量</td></tr>
+<tr><td>继续分析</td><td>接着聊</td><td>"分析"是工具语言，"聊"是对话语言</td></tr>
+<tr><td>查看上次结论</td><td>看上次完整结论 -></td><td>加"完整"暗示有更多内容，增加点击动机</td></tr>
+<tr><td>—</td><td>第 4 轮对话</td><td>新增——让用户知道"聊到哪了"</td></tr>
+</table>
+
+<h4>4.2.3 视觉改动</h4>
+<ul>
+<li>模块标签旁加朱砂红小印章"续"——品牌专属符号</li>
+<li>主 CTA 按钮加宽到 160px、高度 48px——成为页面最强视觉锚点</li>
+<li>三段摘要合并为两段自然语句，删除三个 label</li>
+<li>时间标签从右上角灰色小字改为 CTA 按钮下方一行说明</li>
+</ul>
+
+<h4>4.2.4 空状态改写</h4>
+<div class="before-after">
+<div class="col before">
+<p class="label">改前（EmptyState）</p>
+<p><strong>标题：</strong>还没有解读记录</p>
+<p><strong>正文：</strong>可以先从八字看长期趋势，或用六爻问一件具体事。记录会在这里形成回访入口。</p>
+</div>
+<div class="col after">
+<p class="label">改后</p>
+<p><strong>标题：</strong>还没有开始过。</p>
+<p><strong>正文：</strong>下面两个入口，选一个试试——八字看大方向，六爻问一件具体的事。</p>
+</div>
+</div>
+
+<h3>4.3 今日八字提示（TodayReminderCard）-- 降级为单行条</h3>
+<p>文件：<code>fate-frontend/app/dashboard/components/TodayReminderCard.tsx</code></p>
+<h4>核心改动：从三栏大卡 -> 单行横条</h4>
+<div class="before-after">
+<div class="col before">
+<p class="label">改前（三栏布局）</p>
+<p>占满首屏宽度，左右两栏：左栏标题+农历+closing_sentence，右栏三格（适合/少做/提醒）</p>
+<p>视觉权重：<strong>高</strong></p>
+</div>
+<div class="col after">
+<p class="label">改后（单行横条）</p>
+<p>压缩为 40px 高横条，移到页面底部：农历 + {data.title} + {data.closing_sentence} + 展开详情</p>
+<p>视觉权重：<strong>低</strong>（锦上添花）</p>
+</div>
+</div>
+<h4>改动原因</h4>
+<ul>
+<li>Edward Tufte："数据墨水比要高"——今日提示信息密度低但占顶级地产</li>
+<li>Julie Zhuo："dashboard 是客厅"——客厅的主位不该放日历</li>
+<li>展开/折叠交互保留完整信息，只是不默认占据视觉中心</li>
+</ul>
+
+<h3>4.4 新开分析入口 -- 从两张大卡 -> 单行二选一</h3>
+<p>文件：<code>fate-frontend/app/dashboard/page.tsx</code> 第 48-63 行 + 第 220-243 行</p>
+<div class="before-after">
+<div class="col before">
+<p class="label">改前（两张大卡并排）</p>
+<p>grid 2列，每张卡 min-h-164px：</p>
+<p><strong>八字长期趋势</strong>：适合看长期方向、性格优势、事业路径、关系模式和阶段运势。CTA: 开始八字分析</p>
+<p><strong>六爻具体问题</strong>：适合判断一个具体事项... CTA: 起一卦</p>
+</div>
+<div class="col after">
+<p class="label">改后（单行横排）</p>
+<p>想看另一件事？<br>
+八字 / 看大方向 -> | 六爻 / 问一件事 -></p>
+<p>高度从 164px 压缩到约 56px</p>
+</div>
+</div>
+<h4>文案改动</h4>
+<table>
+<tr><th>位置</th><th>改前</th><th>改后</th></tr>
+<tr><td>卡片1标题</td><td>八字长期趋势</td><td>八字 / 看大方向</td></tr>
+<tr><td>卡片1描述</td><td>适合看长期方向、性格优势、事业路径、关系模式和阶段运势。</td><td>性格底层、事业路径、关系模式。</td></tr>
+<tr><td>卡片1CTA</td><td>开始八字分析</td><td>开始 -></td></tr>
+<tr><td>卡片2标题</td><td>六爻具体问题</td><td>六爻 / 问一件事</td></tr>
+<tr><td>卡片2描述</td><td>适合判断一个具体事项：要不要合作、能不能成、是否继续、对方态度如何。</td><td>合作、跳槽、要不要继续、对方态度。</td></tr>
+<tr><td>卡片2CTA</td><td>起一卦</td><td>起卦 -></td></tr>
+<tr><td>新增引导语</td><td>新开分析</td><td>想看另一件事？</td></tr>
+</table>
+
+<h3>4.5 最近解读记录（RecentRecords）-- 加状态标签</h3>
+<p>文件：<code>fate-frontend/app/dashboard/components/RecentRecords.tsx</code></p>
+<table>
+<tr><th>字段</th><th>改前</th><th>改后</th></tr>
+<tr><td>标题</td><td>最近解读记录</td><td>最近记录</td></tr>
+<tr><td>副标题</td><td>回看过往判断，也可以从记录里继续追问。</td><td>点任意一条可以接着聊。</td></tr>
+<tr><td>每条记录</td><td>图标+标题+摘要+时间</td><td>图标+标题+[状态标签]+摘要+时间 / 第N轮</td></tr>
+<tr><td>—</td><td>—</td><td>状态标签：进行中(红)/已完结(绿)</td></tr>
+<tr><td>全部链接</td><td>全部记录 -></td><td>查看全部 -></td></tr>
+</table>
+<h4>状态标签判定逻辑</h4>
+<pre><code>// 判断状态：如果对话轮数 >= 3，标记"已完结"；否则"进行中"
+const status = item.message_count >= 3 ? 'done' : 'ongoing';
+const statusLabel = status === 'done' ? '已完结' : '进行中';</code></pre>
+
+<h3>4.6 底部三入口 -- 折叠到右上角</h3>
+<p>文件：<code>fate-frontend/app/dashboard/page.tsx</code> 第 248-270 行</p>
+<div class="before-after">
+<div class="col before">
+<p class="label">改前</p>
+<p>三个等权重小按钮并排（grid 3列）：查看命理报告 / 查看全部记录 / 常见问题。占满底部一整行。</p>
+</div>
+<div class="col after">
+<p class="label">改后</p>
+<p>折叠为 header 右上角一个"更多"图标按钮，展开后下拉菜单：命理报告 / 全部记录 / 常见问题 / 账户设置。释放底部空间。</p>
+</div>
+</div>
+</section>
+
+<section id="s5">
+<h2>五、新文案规范</h2>
+
+<h3>5.1 语气原则</h3>
+<table>
+<tr><th>原则</th><th>说明</th><th>示例</th></tr>
+<tr><td>对话感 > 报告体</td><td>像朋友在跟你聊天，不是系统在输出报告</td><td>"接着聊" > "继续分析"</td></tr>
+<tr><td>正向 > 否定</td><td>正面表述，不用"不是...而是..."</td><td>"多一个看问题的角度" > "不是替你决定"</td></tr>
+<tr><td>具体 > 抽象</td><td>用可量化的词</td><td>"3 分钟""第 4 轮""本月 7 次"</td></tr>
+<tr><td>口语 > 书面</td><td>正常人说话的用词</td><td>"问一件事" > "判断一个具体事项"</td></tr>
+<tr><td>你 > 我们</td><td>主语永远是"你"不是"系统"</td><td>"你上次问的是" > "上次判断："</td></tr>
+</table>
+
+<h3>5.2 全页文案对照表</h3>
+<table>
+<tr><th>位置</th><th>改前</th><th>改后</th></tr>
+<tr><td>Header eyebrow</td><td>今日命理概览</td><td>删除</td></tr>
+<tr><td>Header H1</td><td>回到你的问题，而不是重新开始。</td><td>保持不变</td></tr>
+<tr><td>Header 副标题</td><td>八字看长期趋势，六爻看具体事项。这里先帮你接上当前最重要的一步。</td><td>删除</td></tr>
+<tr><td>Header 右侧</td><td>男 / 1993-03-09 07:30 / 广东阳春 / 日主：己</td><td>男 / 1993 己巳年 / 广东阳春 / 修改档案 -></td></tr>
+<tr><td>ContinueLast 标签</td><td>当前最适合继续</td><td>接着上次 -></td></tr>
+<tr><td>ContinueLast 类型</td><td>八字 / 长期趋势</td><td>八字 / 长期方向</td></tr>
+<tr><td>ContinueLast 类型</td><td>六爻 / 具体事项</td><td>六爻 / 这件事</td></tr>
+<tr><td>ContinueLast 摘要</td><td>问题摘要：{question}</td><td>你上次问的是：{question}</td></tr>
+<tr><td>ContinueLast 上次判断</td><td>上次判断：{conclusion}</td><td>上次聊到了{conclusion}。这次可以接着往下看。</td></tr>
+<tr><td>ContinueLast 卡点(bazi)</td><td>适合继续把长期趋势落到当前阶段...</td><td>删除（合并到摘要正文）</td></tr>
+<tr><td>ContinueLast 卡点(liuyao)</td><td>适合继续围绕这件具体事判断下一步...</td><td>删除（合并到摘要正文）</td></tr>
+<tr><td>ContinueLast 下一步(bazi)</td><td>建议继续看：这个阶段真正要调整的节奏和取舍。</td><td>删除</td></tr>
+<tr><td>ContinueLast 下一步(liuyao)</td><td>建议继续判断：是否值得推进下一步...</td><td>删除</td></tr>
+<tr><td>ContinueLast 主CTA</td><td>继续分析</td><td>接着聊</td></tr>
+<tr><td>ContinueLast 次CTA</td><td>查看上次结论</td><td>看上次完整结论 -></td></tr>
+<tr><td>ContinueLast 空状态标题</td><td>还没有解读记录</td><td>还没有开始过。</td></tr>
+<tr><td>ContinueLast 空状态正文</td><td>可以先从八字看长期趋势，或用六爻问一件具体事。记录会在这里形成回访入口。</td><td>下面两个入口，选一个试试——八字看大方向，六爻问一件具体的事。</td></tr>
+<tr><td>新开分析1标题</td><td>八字长期趋势</td><td>八字 / 看大方向</td></tr>
+<tr><td>新开分析1描述</td><td>适合看长期方向、性格优势、事业路径、关系模式和阶段运势。</td><td>性格底层、事业路径、关系模式。</td></tr>
+<tr><td>新开分析1CTA</td><td>开始八字分析</td><td>开始 -></td></tr>
+<tr><td>新开分析2标题</td><td>六爻具体问题</td><td>六爻 / 问一件事</td></tr>
+<tr><td>新开分析2描述</td><td>适合判断一个具体事项：要不要合作、能不能成、是否继续、对方态度如何。</td><td>合作、跳槽、要不要继续、对方态度。</td></tr>
+<tr><td>新开分析2CTA</td><td>起一卦</td><td>起卦 -></td></tr>
+<tr><td>新开分析引导语</td><td>新开分析</td><td>想看另一件事？</td></tr>
+<tr><td>RecentRecords 标题</td><td>最近解读记录</td><td>最近记录</td></tr>
+<tr><td>RecentRecords 副标题</td><td>回看过往判断，也可以从记录里继续追问。</td><td>点任意一条可以接着聊。</td></tr>
+<tr><td>RecentRecords 链接</td><td>全部记录 -></td><td>查看全部 -></td></tr>
+<tr><td>RecentRecords 空状态</td><td>还没有记录。你可以先从上面的八字或六爻入口开始。</td><td>还没有记录。从上面的入口开始吧。</td></tr>
+<tr><td>TodayReminder 标签</td><td>今日八字提示</td><td>今日 / 点击展开 -></td></tr>
+<tr><td>底部入口1</td><td>查看命理报告</td><td>命理报告（折叠到右上角）</td></tr>
+<tr><td>底部入口2</td><td>查看全部记录</td><td>全部记录（折叠到右上角）</td></tr>
+<tr><td>底部入口3</td><td>常见问题</td><td>常见问题（折叠到右上角）</td></tr>
+<tr><td>LoadingView</td><td>正在整理命理首页</td><td>正在加载...</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>六、视觉设计规范</h2>
+
+<h3>6.1 模块视觉权重表</h3>
+<table>
+<tr><th>模块</th><th>视觉权重</th><th>高度</th><th>边框</th><th>阴影</th><th>背景色</th></tr>
+<tr><td>ContinueLastCard</td><td><strong>最高</strong></td><td>约280px</td><td>2px solid var(--c-primary)</td><td>0 4px 16px rgba(60,40,20,0.12)</td><td>rgba(181,68,52,0.02)</td></tr>
+<tr><td>新开分析（二选一）</td><td>中</td><td>约56px</td><td>1px solid var(--c-border)</td><td>无</td><td>var(--c-surface)</td></tr>
+<tr><td>RecentRecords</td><td>中</td><td>约220px</td><td>1px solid var(--c-border)</td><td>无</td><td>var(--c-surface)</td></tr>
+<tr><td>TodayReminder（单行条）</td><td>低</td><td>约40px</td><td>1px solid var(--c-border)</td><td>无</td><td>var(--c-card)</td></tr>
+<tr><td>底部入口</td><td>—</td><td>0（折叠）</td><td>—</td><td>—</td><td>—</td></tr>
+</table>
+
+<h3>6.2 按钮层级</h3>
+<table>
+<tr><th>层级</th><th>用法</th><th>样式</th><th>尺寸</th></tr>
+<tr><td>主CTA</td><td>ContinueLastCard"接着聊"</td><td>bg: var(--c-primary), color: #fff, radius: 3px</td><td>160px x 48px</td></tr>
+<tr><td>次CTA</td><td>ContinueLastCard"看上次完整结论 ->"</td><td>bg: transparent, color: var(--c-primary)</td><td>auto x 44px</td></tr>
+<tr><td>入口链接</td><td>新开分析x2</td><td>color: var(--c-primary), underline: hover</td><td>auto</td></tr>
+<tr><td>文字链接</td><td>"修改档案 ->"等</td><td>color: var(--c-primary), text-sm</td><td>auto</td></tr>
+</table>
+
+<h3>6.3 品牌专属符号</h3>
+<table>
+<tr><th>符号</th><th>位置</th><th>样式</th><th>用途</th></tr>
+<tr><td>朱砂红印章"续"</td><td>ContinueLastCard 模块标签旁</td><td>18px圆形, bg: var(--c-primary), color: #fff, font: 10px Serif</td><td>标识"续作"模块</td></tr>
+<tr><td>朱砂红印章"日"</td><td>TodayReminder 单行条左侧</td><td>22px圆形, 同上</td><td>标识"今日提示"</td></tr>
+<tr><td>竖排小字（可选）</td><td>ContinueLastCard 类型标签</td><td>writing-mode: vertical-rl, font: 11px Serif</td><td>东方品牌调性</td></tr>
+</table>
+
+<h3>6.4 间距规范</h3>
+<table>
+<tr><th>位置</th><th>改前</th><th>改后</th></tr>
+<tr><td>模块间距</td><td>mb-5 (20px)</td><td>mb-4 (16px)——增加首屏信息密度</td></tr>
+<tr><td>卡片内边距</td><td>p-5 / sm:p-8</td><td>p-5 / sm:p-6——略减</td></tr>
+<tr><td>Header 下边距</td><td>mb-6 / sm:mb-8</td><td>mb-4 / sm:mb-6——缩减</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>七、组件级代码改动指引</h2>
+
+<h3>7.1 page.tsx 结构调整</h3>
+<pre><code>// 改前渲染顺序
+&lt;Header /&gt;
+&lt;TodayReminderCard /&gt;        // 占满宽度，三栏
+&lt;ContinueLastCard /&gt;           // 被压在下面
+&lt;NEW_ANALYSIS_ENTRIES /&gt;       // 两张大卡
+&lt;RecentRecords /&gt;
+&lt;底部三入口 /&gt;
+
+// 改后渲染顺序
+&lt;Header + ProgressBar /&gt;
+&lt;ContinueLastCard /&gt;           // 升到首屏主位
+&lt;NewAnalysisInline /&gt;          // 压缩为单行横排
+&lt;RecentRecords /&gt;              // 加状态标签
+&lt;TodayReminderBar /&gt;          // 压缩为单行条
+// 底部三入口 -> 折叠到 Header 右上角</code></pre>
+
+<h3>7.2 TodayReminderCard 改造</h3>
+<pre><code>// 新增 useState 控制展开/折叠
+const [expanded, setExpanded] = useState(false);
+
+// 折叠态：单行横条
+&lt;div className="flex items-center gap-3 px-4 py-2.5 bg-[var(--color-bg-alt)] border cursor-pointer"
+     onClick={() =&gt; setExpanded(!expanded)}&gt;
+  &lt;Stamp text="日" /&gt;
+  &lt;span className="text-xs text-muted"&gt;{data.lunar_display}&lt;/span&gt;
+  &lt;span className="text-sm text-secondary truncate"&gt;{data.title} - {data.closing_sentence}&lt;/span&gt;
+  &lt;ChevronDown className="ml-auto h-4 w-4" /&gt;
+&lt;/div&gt;
+
+// 展开态：显示完整三栏
+{expanded &amp;&amp; &lt;div className="grid gap-3 sm:grid-cols-3 p-4"&gt;...&lt;/div&gt;}</code></pre>
+
+<h3>7.3 ContinueLastCard 摘要改写</h3>
+<pre><code>// 改前：三段式 label
+&lt;p&gt;&lt;span className="font-medium"&gt;上次判断：&lt;/span&gt;{conclusion}&lt;/p&gt;
+&lt;p&gt;&lt;span className="font-medium"&gt;当前卡点：&lt;/span&gt;{currentStuckPoint(type)}&lt;/p&gt;
+&lt;p&gt;&lt;span className="font-medium"&gt;推荐下一步：&lt;/span&gt;{recommendedNextStep(type)}&lt;/p&gt;
+
+// 改后：自然对话语句
+&lt;p className="text-[15px] leading-7"&gt;
+  你上次问的是：{question}。
+  上次聊到了{conclusion}。这次可以接着往下看。
+&lt;/p&gt;
+&lt;p className="mt-2 text-xs text-muted"&gt;
+  {formatRelative(latest.item.updated_at)} / 第 {item.message_count || '?'} 轮对话
+&lt;/p&gt;</code></pre>
+
+<h3>7.4 RecentRecords 加状态标签</h3>
+<pre><code>const status = item.message_count >= 3 ? 'done' : 'ongoing';
+
+&lt;div className="flex items-center gap-2"&gt;
+  &lt;Icon /&gt;
+  &lt;p className="truncate font-medium"&gt;{displayTitle(item, type)}&lt;/p&gt;
+  &lt;span className={cn("tag", status === 'done' ? "green" : "red")}&gt;
+    {status === 'done' ? '已完结' : '进行中'}
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;p className="text-sm text-secondary"&gt;
+  {previewText(item, ...)} / 第 {item.message_count || 1} 轮
+&lt;/p&gt;</code></pre>
+
+<h3>7.5 新开分析入口压缩</h3>
+<pre><code>// 改前：grid 2列大卡
+&lt;div className="grid gap-4 lg:grid-cols-2"&gt;
+  {NEW_ANALYSIS_ENTRIES.map(... =&gt; &lt;Link className="min-h-[164px]..."&gt;...&lt;/Link&gt;)}
+&lt;/div&gt;
+
+// 改后：单行横排
+&lt;div className="flex items-center gap-4 border px-5 py-3"&gt;
+  &lt;span className="text-xs text-muted"&gt;想看另一件事？&lt;/span&gt;
+  &lt;Link href="/panel" className="text-sm font-medium text-primary hover:underline"&gt;
+    八字 / 看大方向 -&gt;
+  &lt;/Link&gt;
+  &lt;span className="text-border-strong"&gt;|&lt;/span&gt;
+  &lt;Link href="/liuyao" className="text-sm font-medium text-primary hover:underline"&gt;
+    六爻 / 问一件事 -&gt;
+  &lt;/Link&gt;
+&lt;/div&gt;</code></pre>
+
+<h3>7.6 底部三入口折叠到 Header</h3>
+<pre><code>// 改前：底部 grid 3列
+&lt;section className="mt-4 grid gap-3 sm:grid-cols-3"&gt;
+  &lt;Link href="/report"&gt;查看命理报告&lt;/Link&gt;
+  &lt;Link href="/history"&gt;查看全部记录&lt;/Link&gt;
+  &lt;Link href="/faq"&gt;常见问题&lt;/Link&gt;
+&lt;/section&gt;
+
+// 改后：删除底部 section，在 Header 右侧加"更多"下拉
+&lt;div className="relative"&gt;
+  &lt;button onClick={() =&gt; setMenuOpen(!menuOpen)}&gt;
+    &lt;MoreHorizontal /&gt;
+  &lt;/button&gt;
+  {menuOpen &amp;&amp; (
+    &lt;div className="absolute right-0 top-full mt-2"&gt;
+      &lt;Link href="/report"&gt;命理报告&lt;/Link&gt;
+      &lt;Link href="/history"&gt;全部记录&lt;/Link&gt;
+      &lt;Link href="/faq"&gt;常见问题&lt;/Link&gt;
+      &lt;Link href="/settings"&gt;账户设置&lt;/Link&gt;
+    &lt;/div&gt;
+  )}
+&lt;/div&gt;</code></pre>
+
+<h3>7.7 Header 加进度条</h3>
+<pre><code>&lt;div className="flex items-center gap-2 text-xs text-muted"&gt;
+  &lt;span&gt;本月已解读 {monthlyCount} 次&lt;/span&gt;
+  &lt;div className="h-1 w-24 bg-border rounded-full overflow-hidden"&gt;
+    &lt;div className="h-full bg-primary"
+         style={{ width: `${Math.min(monthlyCount / 20 * 100, 100)}%` }} /&gt;
+  &lt;/div&gt;
+  {remainingFree &gt; 0 &amp;&amp; &lt;span&gt;还有 {remainingFree} 次免费额度&lt;/span&gt;}
+&lt;/div&gt;</code></pre>
+</section>
+
+<section id="s8">
+<h2>八、分阶段实施清单</h2>
+
+<h3>P0 / 今天上线（纯文案 + CSS，0.5 天）</h3>
+<table>
+<tr><th>#</th><th>改动</th><th>文件</th><th>类型</th></tr>
+<tr><td>1</td><td>Header：删除 eyebrow 和副标题，右侧加"修改档案 ->"</td><td>page.tsx</td><td>文案+结构</td></tr>
+<tr><td>2</td><td>ContinueLastCard：三段式 label 改为自然语句</td><td>ContinueLastCard.tsx</td><td>文案</td></tr>
+<tr><td>3</td><td>ContinueLastCard：CTA"继续分析"->"接着聊"</td><td>ContinueLastCard.tsx</td><td>文案</td></tr>
+<tr><td>4</td><td>ContinueLastCard：次CTA"查看上次结论"->"看上次完整结论 ->"</td><td>ContinueLastCard.tsx</td><td>文案</td></tr>
+<tr><td>5</td><td>ContinueLastCard：currentStuckPoint/recommendedNextStep 删除或留空</td><td>ContinueLastCard.tsx</td><td>文案</td></tr>
+<tr><td>6</td><td>新开分析：文案简化（标题/描述/CTA 全改）</td><td>page.tsx</td><td>文案</td></tr>
+<tr><td>7</td><td>RecentRecords：标题和副标题简化</td><td>RecentRecords.tsx</td><td>文案</td></tr>
+<tr><td>8</td><td>LoadingView："正在整理命理首页"->"正在加载..."</td><td>page.tsx</td><td>文案</td></tr>
+</table>
+
+<h3>P1 / 本周完成（结构+样式调整，1.5 天）</h3>
+<table>
+<tr><th>#</th><th>改动</th><th>文件</th><th>类型</th></tr>
+<tr><td>9</td><td>渲染顺序调换：ContinueLastCard 上移到 TodayReminderCard 之前</td><td>page.tsx</td><td>结构</td></tr>
+<tr><td>10</td><td>TodayReminderCard：从三栏大卡改为可展开单行条</td><td>TodayReminderCard.tsx</td><td>结构+样式</td></tr>
+<tr><td>11</td><td>新开分析：从 grid 2列大卡改为单行横排</td><td>page.tsx</td><td>结构+样式</td></tr>
+<tr><td>12</td><td>ContinueLastCard：边框升级为 2px solid primary，加阴影</td><td>ContinueLastCard.tsx</td><td>样式</td></tr>
+<tr><td>13</td><td>ContinueLastCard：主CTA尺寸升级到 160px x 48px</td><td>ContinueLastCard.tsx</td><td>样式</td></tr>
+<tr><td>14</td><td>底部三入口：删除底部section，折叠到Header右上角下拉</td><td>page.tsx</td><td>结构</td></tr>
+<tr><td>15</td><td>模块间距：mb-5 -> mb-4，Header mb-6 -> mb-4</td><td>page.tsx</td><td>样式</td></tr>
+</table>
+
+<h3>P2 / 两周内（增量功能，2-3 天）</h3>
+<table>
+<tr><th>#</th><th>改动</th><th>文件</th><th>类型</th></tr>
+<tr><td>16</td><td>ContinueLastCard：加朱砂红印章"续"符号</td><td>ContinueLastCard.tsx</td><td>视觉</td></tr>
+<tr><td>17</td><td>TodayReminderBar：加朱砂红印章"日"符号</td><td>TodayReminderCard.tsx</td><td>视觉</td></tr>
+<tr><td>18</td><td>RecentRecords：加状态标签（进行中/已完结）</td><td>RecentRecords.tsx</td><td>功能</td></tr>
+<tr><td>19</td><td>RecentRecords：加"第N轮对话"标识（需API返回message_count）</td><td>RecentRecords.tsx + API</td><td>功能</td></tr>
+<tr><td>20</td><td>Header：加轻量进度条（月度解读次数+免费配额）</td><td>page.tsx + API</td><td>功能</td></tr>
+</table>
+
+<h3>P3 / 下迭代（可探索）</h3>
+<table>
+<tr><th>#</th><th>改动</th><th>说明</th></tr>
+<tr><td>21</td><td>接入 CareerTaskCard / RelationshipTaskCard</td><td>已有组件但未渲染——接入后可作为L1补充</td></tr>
+<tr><td>22</td><td>移动端折叠方案验证</td><td>首屏只装2个核心模块</td></tr>
+<tr><td>23</td><td>ContinueLastCard 加"对话轮数"展示</td><td>需API返回message_count字段</td></tr>
+<tr><td>24</td><td>滚动进场动效（克制版）</td><td>仅fade-in + translateY(8px)，不弹跳</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>九、验收标准与埋点</h2>
+
+<h3>9.1 埋点清单</h3>
+<table>
+<tr><th>事件名</th><th>触发时机</th><th>参数</th></tr>
+<tr><td>dashboard_view</td><td>页面加载</td><td>已有</td></tr>
+<tr><td>conversation_continue_click</td><td>点击"接着聊"</td><td>已有（保持）</td></tr>
+<tr><td>new_analysis_click</td><td>点击新开分析入口</td><td>新增 type: 'bazi'|'liuyao'</td></tr>
+<tr><td>record_click</td><td>点击最近记录中某条</td><td>新增 type, status, conversation_id</td></tr>
+<tr><td>today_reminder_expand</td><td>展开今日提示</td><td>新增</td></tr>
+<tr><td>profile_edit_click</td><td>点击"修改档案"</td><td>新增</td></tr>
+<tr><td>more_menu_click</td><td>点击右上角"更多"</td><td>新增 target</td></tr>
+</table>
+
+<h3>9.2 验收标准</h3>
+<table>
+<tr><th>维度</th><th>验收标准</th></tr>
+<tr><td>续作率</td><td>ContinueLastCard CTA点击率提升 >=15%</td></tr>
+<tr><td>首屏效率</td><td>用户在首屏（不滚动）能看到"上次的事+继续按钮+新开分析入口"</td></tr>
+<tr><td>记录回访</td><td>RecentRecords点击率提升 >=10%</td></tr>
+<tr><td>视觉层级</td><td>5人测试中>=4人能3秒内指出"最重要的按钮"</td></tr>
+<tr><td>文案理解</td><td>5人测试中>=4人能5秒内说出"这个页面能帮你做什么"</td></tr>
+<tr><td>品牌一致性</td><td>朱砂红印章出现至少1处，东方调性不打断</td></tr>
+</table>
+
+<h3>9.3 5 人测试任务设计</h3>
+<ol>
+<li><strong>任务1（续作）：</strong>"你上次在这个网站上问了一个问题但没聊完，现在你想接着聊——你会怎么操作？" 预期：3秒内点击"接着聊"</li>
+<li><strong>任务2（新开）：</strong>"你现在想问一件新的事——你会怎么操作？" 预期：5秒内找到新开分析入口</li>
+<li><strong>任务3（回看）：</strong>"你之前问过的记录在哪里看？" 预期：5秒内滚动到最近记录</li>
+<li><strong>任务4（理解）：</strong>"这个页面能帮你做什么？" 预期：>=4/5人提到"接着上次的聊"或"看记录"</li>
+<li><strong>任务5（修改）：</strong>"你想修改你的出生信息——你会怎么操作？" 预期：5秒内找到"修改档案 ->"</li>
+</ol>
+</section>
+
+<section>
+<h2>改版后 Dashboard 布局模拟</h2>
+<div class="mockup">
+<div class="mockup-header">改版后 Dashboard 布局（模拟）</div>
+<div class="mockup-body">
+<div class="dash-sim">
+
+<div class="dash-header">
+  <div>
+    <h5>回到你的问题，而不是重新开始。</h5>
+    <div style="font-size:12px;color:var(--c-text-muted);margin-top:4px;">
+      男 / 1993 己巳年 / 广东阳春 / <a href="#" style="color:var(--c-primary);">修改档案 -&gt;</a>
+    </div>
+  </div>
+  <div style="font-size:12px;color:var(--c-text-muted);text-align:right;">
+    <div style="font-size:11px;">本月已解读 7 次</div>
+    <div style="width:96px;height:4px;background:var(--c-border);border-radius:2px;margin-top:4px;overflow:hidden;">
+      <div style="width:35%;height:100%;background:var(--c-primary);"></div>
+    </div>
+    <div style="font-size:11px;margin-top:2px;">还有 13 次免费额度</div>
+  </div>
+</div>
+
+<div class="sim-module primary">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--c-primary);color:#fff;font-size:10px;font-weight:700;">续</span>
+      <span class="sim-label" style="margin:0;">接着上次 -&gt;</span>
+    </div>
+    <span class="sim-label" style="margin:0;">八字 / 长期方向</span>
+  </div>
+  <div class="sim-title">八字 / 1993 己巳年命盘解读</div>
+  <div class="sim-desc">你上次问的是：食伤、印星和正财三块的关系。上次聊到了从印星到食伤的转化路径。这次可以接着往下看。</div>
+  <div style="display:flex;gap:8px;margin-top:10px;align-items:center;">
+    <span class="sim-btn primary">接着聊 -&gt;</span>
+    <span class="sim-btn secondary">看上次完整结论 -&gt;</span>
+    <span style="font-size:11px;color:var(--c-text-muted);margin-left:8px;">3 天前 / 第 4 轮对话</span>
+  </div>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;border:1px solid var(--c-border);padding:10px 16px;margin-bottom:12px;background:var(--c-surface);">
+  <span style="font-size:12px;color:var(--c-text-muted);">想看另一件事？</span>
+  <a style="font-size:13px;font-weight:600;color:var(--c-primary);text-decoration:none;">八字 / 看大方向 -&gt;</a>
+  <span style="color:var(--c-border-strong);">|</span>
+  <a style="font-size:13px;font-weight:600;color:var(--c-primary);text-decoration:none;">六爻 / 问一件事 -&gt;</a>
+</div>
+
+<div class="sim-module" style="border-color:var(--c-border);">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+    <div>
+      <div class="sim-title" style="margin:0;">最近记录</div>
+      <div class="sim-desc" style="font-size:12px;">点任意一条可以接着聊。</div>
+    </div>
+    <a style="font-size:12px;color:var(--c-primary);text-decoration:none;">查看全部 -&gt;</a>
+  </div>
+  <div>
+    <div class="sim-record">
+      <div>
+        <span class="rec-title">八字 / 1993 己巳年命盘解读</span>
+        <span class="sim-tag ongoing">进行中</span>
+        <div class="rec-meta">食伤、印星和正财三块的关系</div>
+      </div>
+      <span class="rec-meta">3 天前 / 第 4 轮</span>
+    </div>
+    <div class="sim-record">
+      <div>
+        <span class="rec-title">六爻 / 天雷无妄</span>
+        <span class="sim-tag done">已完结</span>
+        <div class="rec-meta">要不要合作</div>
+      </div>
+      <span class="rec-meta">7 天前 / 第 6 轮</span>
+    </div>
+    <div class="sim-record">
+      <div>
+        <span class="rec-title">六爻 / 雷水解</span>
+        <span class="sim-tag ongoing">进行中</span>
+        <div class="rec-meta">是否继续推进</div>
+      </div>
+      <span class="rec-meta">12 天前 / 第 2 轮</span>
+    </div>
+  </div>
+</div>
+
+<div class="sim-reminder-bar">
+  <span class="stamp">日</span>
+  <span style="color:var(--c-text-muted);">农历六月十五</span>
+  <span style="color:var(--c-text-secondary);">先整理，再行动 / 先把乱的部分理顺，再决定下一步。</span>
+  <span style="margin-left:auto;color:var(--c-primary);font-weight:600;cursor:pointer;">展开详情 -&gt;</span>
+</div>
+
+</div>
+</div>
+</div>
+
+<p style="text-align:center;font-size:13px;color:var(--c-text-muted);margin-top:8px;">模拟布局展示改版后的四层金字塔结构：续作卡（主位）-> 新开分析（单行）-> 最近记录（带标签）-> 今日提示（单行条）</p>
+
+</section>
+
+<div class="footer-note">
+  易凡文化 / Dashboard 改版方案 v2.0 / 2026-08-18<br>
+  基于源码逐行分析 + 10 位顶级 UI 专家评审
+</div>
+
+</div>
+</body>
+</html>

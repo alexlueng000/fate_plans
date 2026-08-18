@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>命理报告页改版方案 v2.0 · 易凡文化</title>
+<style>
+  :root {
+    --c-bg: #F7F3EE;
+    --c-bg-alt: #F1EAE2;
+    --c-bg-elevated: #FBF8F4;
+    --c-bg-card: #FBF8F4;
+    --c-text-primary: #2A2522;
+    --c-text-body: #4B433D;
+    --c-text-secondary: #7A7068;
+    --c-text-muted: #9B9087;
+    --c-text-hint: #B8AEA6;
+    --c-primary: #B54434;
+    --c-primary-hover: #9F3A2C;
+    --c-primary-glow: rgba(181, 68, 52, 0.08);
+    --c-gold: #B08A57;
+    --c-gold-light: #C5A06A;
+    --c-gold-dark: #927044;
+    --c-gold-glow: rgba(176, 138, 87, 0.08);
+    --c-mist: #A7B3AE;
+    --c-mist-deep: #6F7C76;
+    --c-border: #E2D8CE;
+    --c-border-subtle: #EFE7DE;
+    --c-warn: #C9741B;
+    --c-error: #B54434;
+    --c-success: #6F7C76;
+    --c-info: #6F7C76;
+    --shadow-sm: 0 1px 4px rgba(60, 40, 20, 0.06);
+    --shadow-md: 0 2px 12px rgba(60, 40, 20, 0.08);
+    --shadow-lg: 0 6px 24px rgba(60, 40, 20, 0.10);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+    background: var(--c-bg);
+    color: var(--c-text-primary);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 48px 28px 80px; }
+  .doc-title { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 500; letter-spacing: 0.01em; line-height: 1.25; color: var(--c-text-primary); margin: 0 0 12px; }
+  .doc-sub { font-size: 14px; color: var(--c-text-secondary); margin-bottom: 32px; letter-spacing: 0.02em; }
+  .doc-meta { display: flex; flex-wrap: wrap; gap: 18px; padding: 16px 20px; background: var(--c-bg-card); border: 1px solid var(--c-border); border-radius: 4px; margin-bottom: 40px; font-size: 13px; color: var(--c-text-secondary); }
+  .doc-meta strong { color: var(--c-text-primary); margin-right: 4px; }
+  .doc-tag { display: inline-block; padding: 2px 8px; background: var(--c-primary-glow); color: var(--c-primary); border-radius: 2px; font-size: 11px; letter-spacing: 0.04em; font-weight: 500; }
+  .doc-tag.warn { background: rgba(201, 116, 27, 0.10); color: var(--c-warn); }
+  .doc-tag.gold { background: var(--c-gold-glow); color: var(--c-gold-dark); }
+  .doc-tag.mist { background: rgba(168, 178, 174, 0.18); color: var(--c-mist-deep); }
+
+  .toc { background: var(--c-bg-card); border: 1px solid var(--c-border); border-radius: 4px; padding: 24px 28px; margin-bottom: 40px; }
+  .toc h3 { font-family: 'Noto Serif SC', serif; font-size: 16px; font-weight: 500; margin: 0 0 14px; color: var(--c-text-primary); }
+  .toc ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 2; color: var(--c-text-body); }
+  .toc ol li a { color: var(--c-text-body); text-decoration: none; border-bottom: 1px dashed var(--c-border-strong); }
+  .toc ol li a:hover { color: var(--c-primary); border-bottom-color: var(--c-primary); }
+
+  h2 { font-family: 'Noto Serif SC', serif; font-size: 24px; font-weight: 500; line-height: 1.3; color: var(--c-text-primary); margin: 56px 0 18px; padding-bottom: 10px; border-bottom: 1px solid var(--c-border); }
+  h3 { font-family: 'Noto Serif SC', serif; font-size: 18px; font-weight: 500; color: var(--c-text-primary); margin: 32px 0 12px; }
+  h4 { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--c-text-primary); margin: 18px 0 10px; letter-spacing: 0.02em; }
+  p { font-size: 15px; color: var(--c-text-body); margin: 0 0 12px; }
+  .lead { font-size: 16px; color: var(--c-text-body); }
+  .small { font-size: 13px; color: var(--c-text-secondary); }
+  code, .mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 13px; background: var(--c-bg-alt); padding: 1px 6px; border-radius: 2px; color: var(--c-text-primary); }
+  pre { background: #2A2522; color: #FBF8F4; padding: 18px 20px; border-radius: 4px; overflow-x: auto; font-size: 13px; line-height: 1.6; margin: 14px 0; font-family: 'JetBrains Mono', monospace; }
+  pre code { background: transparent; padding: 0; color: inherit; }
+  blockquote { margin: 16px 0; padding: 14px 18px; background: var(--c-bg-card); border-left: 3px solid var(--c-primary); border-radius: 0 3px 3px 0; color: var(--c-text-body); font-size: 14px; }
+
+  .card { background: var(--c-bg-card); border: 1px solid var(--c-border); border-radius: 4px; padding: 22px 24px; margin: 16px 0; }
+  .card.accent { border-left: 3px solid var(--c-primary); }
+  .card.gold-accent { border-left: 3px solid var(--c-gold); }
+  .card.mist-accent { border-left: 3px solid var(--c-mist); }
+  .card-title { font-family: 'Noto Serif SC', serif; font-size: 16px; font-weight: 500; color: var(--c-text-primary); margin: 0 0 10px; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--c-border); }
+  th { background: var(--c-bg-alt); color: var(--c-text-secondary); font-weight: 500; font-size: 13px; letter-spacing: 0.02em; }
+  tbody tr:hover { background: var(--c-bg-alt); }
+
+  /* Compare blocks */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 14px 0; border: 1px solid var(--c-border); border-radius: 4px; overflow: hidden; }
+  .compare > div { padding: 14px 18px; font-size: 14px; line-height: 1.7; }
+  .compare .before { background: rgba(181, 68, 52, 0.05); border-right: 1px solid var(--c-border); }
+  .compare .after { background: rgba(111, 124, 118, 0.08); }
+  .compare .label { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-text-muted); margin-bottom: 8px; display: block; }
+  .compare .before .label { color: var(--c-primary); }
+  .compare .after .label { color: var(--c-success); }
+
+  /* Mockup / page mock */
+  .page-mock { background: var(--c-bg); border: 1px solid var(--c-border); border-radius: 4px; padding: 20px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .page-mock h5 { font-family: 'Noto Serif SC', serif; font-size: 15px; font-weight: 500; margin: 14px 0 8px; color: var(--c-text-primary); }
+  .page-mock .h-section { color: var(--c-text-muted); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 4px; font-weight: 500; }
+  .page-mock .stamp { display: inline-block; padding: 2px 6px; background: var(--c-primary); color: #FFF7F0; font-family: 'Noto Serif SC', serif; font-size: 12px; font-weight: 500; border-radius: 2px; margin-right: 6px; }
+  .page-mock .stamp.gold { background: var(--c-gold); }
+  .page-mock .stamp.mist { background: var(--c-mist); }
+  .page-mock .stamp.outline { background: transparent; color: var(--c-primary); border: 1px solid var(--c-primary); }
+  .page-mock .stamp.outline-gold { background: transparent; color: var(--c-gold-dark); border: 1px solid var(--c-gold); }
+  .page-mock .row { display: flex; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--c-border-subtle); }
+  .page-mock .row:last-child { border-bottom: 0; }
+  .page-mock .num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--c-primary); flex-shrink: 0; }
+  .page-mock .quote { padding: 10px 14px; background: var(--c-bg-card); border-left: 2px solid var(--c-primary); margin: 8px 0; font-size: 13px; color: var(--c-text-body); }
+  .page-mock .quote.gold { border-left-color: var(--c-gold); }
+  .page-mock .quote.mist { border-left-color: var(--c-mist); }
+  .page-mock .divider { height: 1px; background: var(--c-border); margin: 12px 0; }
+  .page-mock .btn { display: inline-block; padding: 8px 16px; background: var(--c-primary); color: #FFF7F0; border-radius: 3px; font-size: 13px; font-weight: 500; }
+  .page-mock .btn.outline { background: transparent; color: var(--c-primary); border: 1px solid var(--c-primary); }
+  .page-mock .btn.ghost { background: transparent; color: var(--c-text-secondary); border: 1px solid var(--c-border); }
+  .page-mock .btn.gold { background: var(--c-gold); color: #FFF7F0; }
+
+  /* Phase blocks */
+  .phase { padding: 18px 22px; border: 1px solid var(--c-border); border-radius: 4px; margin: 14px 0; background: var(--c-bg-card); }
+  .phase-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .phase-badge { display: inline-block; padding: 3px 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; border-radius: 2px; letter-spacing: 0.02em; }
+  .phase-badge.p0 { background: var(--c-primary); color: #FFF7F0; }
+  .phase-badge.p1 { background: var(--c-gold); color: #FFF7F0; }
+  .phase-badge.p2 { background: var(--c-mist); color: #FFF7F0; }
+  .phase-badge.p3 { background: var(--c-bg-alt); color: var(--c-text-primary); border: 1px solid var(--c-border); }
+  .phase-title { font-family: 'Noto Serif SC', serif; font-size: 15px; font-weight: 500; color: var(--c-text-primary); margin: 0; }
+  .phase-meta { font-size: 12px; color: var(--c-text-muted); margin: 0 0 10px; }
+  .phase ul { margin: 0; padding-left: 20px; font-size: 14px; color: var(--c-text-body); }
+  .phase ul li { margin-bottom: 6px; }
+  .phase ul li strong { color: var(--c-text-primary); }
+
+  /* Score bar */
+  .score-row { display: grid; grid-template-columns: 130px 1fr 50px; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--c-border-subtle); }
+  .score-row:last-child { border-bottom: 0; }
+  .score-name { font-size: 13px; color: var(--c-text-primary); }
+  .score-bar { height: 8px; background: var(--c-bg-alt); border-radius: 2px; overflow: hidden; }
+  .score-fill { height: 100%; background: linear-gradient(90deg, var(--c-primary), var(--c-gold)); }
+  .score-fill.gold { background: var(--c-gold); }
+  .score-fill.mist { background: var(--c-mist); }
+  .score-val { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--c-text-secondary); text-align: right; }
+
+  /* Expert grid */
+  .expert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
+  .expert { padding: 10px 14px; background: var(--c-bg-card); border: 1px solid var(--c-border); border-radius: 3px; font-size: 13px; }
+  .expert strong { display: block; font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--c-text-primary); margin-bottom: 2px; }
+  .expert em { color: var(--c-text-secondary); font-style: normal; font-size: 12px; }
+
+  /* Footer */
+  .footer-note { text-align: center; font-size: 12px; color: var(--c-text-muted); margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--c-border); }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 32px 18px 60px; }
+    .doc-title { font-size: 26px; }
+    h2 { font-size: 20px; }
+    h3 { font-size: 16px; }
+    .compare { grid-template-columns: 1fr; }
+    .compare .before { border-right: 0; border-bottom: 1px solid var(--c-border); }
+    .expert-grid { grid-template-columns: 1fr; }
+    .score-row { grid-template-columns: 100px 1fr 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1 class="doc-title">命理报告页改版方案 v2.0</h1>
+<p class="doc-sub">基于 10 位世界级 UI 专家联合评审 · 易凡文化 / 命理分析报告 (/report)</p>
+
+<div class="doc-meta">
+  <div><strong>页面：</strong>/report</div>
+  <div><strong>对象：</strong>登录用户（已有八字档案）</div>
+  <div><strong>核心问题：</strong>首屏标题断裂、价值摘要失效、CTA 弱、专业数据可视化粗糙</div>
+  <div><strong>方案版本：</strong>v2.0（2026-08-18）</div>
+  <div>
+    <span class="doc-tag">P0 纯文案</span>
+    <span class="doc-tag gold">P1 样式</span>
+    <span class="doc-tag mist">P2 增量</span>
+  </div>
+</div>
+
+<div class="toc">
+  <h3>目录</h3>
+  <ol>
+    <li><a href="#section-source">现有代码结构分析</a></li>
+    <li><a href="#section-issue">核心问题诊断（10 位专家）</a></li>
+    <li><a href="#section-arch">改造原则与目标</a></li>
+    <li><a href="#section-structure">新版报告结构（5 段式骨架）</a></li>
+    <li><a href="#section-modules">关键模块改版方案（含 30+ 处文案对照）</a></li>
+    <li><a href="#section-bug">关键 bug 修复（标题断裂 / AI 输出脏数据）</a></li>
+    <li><a href="#section-visual">视觉设计规范</a></li>
+    <li><a href="#section-code">组件级代码改动指引</a></li>
+    <li><a href="#section-roadmap">P0-P3 分阶段实施清单</a></li>
+    <li><a href="#section-acceptance">验收标准与埋点</a></li>
+  </ol>
+</div>
+
+<!-- ========== Section 1 ========== -->
+<h2 id="section-source">1. 现有代码结构分析</h2>
+
+<p>报告页是一个典型的"长文 + 折叠数据"双层结构：上面是 AI 生成的人格画像长文，下面是命盘数据可折叠展开。代码位于 <code>fate-frontend/app/report/page.tsx</code>（547 行），分为 <strong>数据层 → 摘要构建 → 页面骨架</strong> 三个逻辑块。</p>
+
+<h3>1.1 关键模块分布</h3>
+
+<table>
+  <thead>
+    <tr><th>代码行号</th><th>模块</th><th>现有职责</th><th>问题</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>25-33</td><td><code>stripMarkdown</code></td><td>清洗 AI 输出，剥离 markdown</td><td>只剥离 ### 和 ####，无法处理 AI 偶发的"个人画像"等自定义标题</td></tr>
+    <tr><td>35-55</td><td><code>buildReportSummary</code></td><td>取前 5 句做"画像 + 3 个洞察 + 关注点"</td><td>截断逻辑脆弱，遇到 AI 输出的特殊结构就会崩溃</td></tr>
+    <tr><td>74-104</td><td>Page 状态与埋点</td><td>profile / paipan / aiReport / streaming / error</td><td>埋点仅 2 个：report_view / report_summary_view</td></tr>
+    <tr><td>106-249</td><td>数据获取流程</td><td>getProfile → calc_paipan → start_chat (SSE)</td><td>SSE 失败时降级 fetch，逻辑正确但 UI 兜底文案缺失</td></tr>
+    <tr><td>290-301</td><td>Header</td><td>标题"命理分析报告" + 副标题"基于您的八字信息"</td><td>标题过于 SaaS，缺少个人化</td></tr>
+    <tr><td>304-344</td><td>首次价值摘要</td><td>三级金字塔：先看懂自己（sentence 1）→ 3 个洞察（sentence 2-4）→ 关注点 + CTA</td><td>截断的句子可能是 AI 的标题片段，导致 portrait 字段错乱</td></tr>
+    <tr><td>347-388</td><td>命理解读（全文）</td><td>直接渲染 aiReport 的 markdown</td><td>没有分段提示、没有"回到顶部"、没有跳读锚点</td></tr>
+    <tr><td>390-402</td><td>底部 CTA</td><td>"围绕这份报告继续追问"</td><td>与摘要下方 CTA 完全重复</td></tr>
+    <tr><td>404-543</td><td>专业命盘依据</td><td>可折叠的"四柱与详细排盘" + "长期节律参考"</td><td>默认折叠，但首次访问用户看不到；展开后内容密度爆炸</td></tr>
+  </tbody>
+</table>
+
+<h3>1.2 现有页面层次（视觉权重）</h3>
+
+<div class="card">
+<div class="page-mock">
+<div class="h-section">Header</div>
+<h1 style="font-family:'Noto Serif SC',serif;font-size:22px;margin:4px 0 4px;color:var(--c-text-primary);">命理分析报告</h1>
+<div class="small" style="color:var(--c-text-secondary);">阳历 1995年6月15日 14时 · 男</div>
+
+<div style="height:18px"></div>
+<div class="h-section">Section 1 · 先看懂自己（价值摘要）</div>
+<h2 style="font-family:'Noto Serif SC',serif;font-size:20px;margin:4px 0 12px;color:var(--c-text-primary);line-height:1.4;">个人画像总是 您的出生结构为：癸酉乙卯己丑丁卯.</h2>
+<div class="quote">01 — 第一句"画像"是 AI 输出中残留的标题片段</div>
+<div class="row"><span class="num">02</span><div>三段式洞察第二句</div></div>
+<div class="row"><span class="num">03</span><div>三段式洞察第三句</div></div>
+<div class="row"><span class="num">04</span><div>三段式洞察第四句</div></div>
+<div class="divider"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="font-size:12px;color:var(--c-text-secondary);flex:1;">第五句"关注点"是断章取义的句子</div>
+<button class="btn">继续追问</button>
+</div>
+
+<div style="height:22px"></div>
+<div class="h-section">Section 2 · 命理解读（AI 全文）</div>
+<div class="quote">### 个人属性分析<br>您的日主为...（长篇 markdown）</div>
+<div class="quote">### 性格特点<br>您可能表现为...（长篇 markdown）</div>
+<div class="quote">### 事业与财运<br>...（长篇 markdown）</div>
+
+<div style="height:22px"></div>
+<div class="h-section">Section 3 · 底部 CTA（重复）</div>
+<div style="text-align:center;">
+<button class="btn">围绕这份报告继续追问</button>
+<div class="small" style="margin-top:6px;">你可以补充现实处境，让 AI 把报告里的判断转成更具体的行动建议。</div>
+</div>
+
+<div style="height:22px"></div>
+<div class="h-section">Section 4 · 专业命盘依据（默认折叠）</div>
+<div style="background:var(--c-bg-card);border:1px solid var(--c-border);border-radius:3px;padding:12px 16px;font-size:13px;color:var(--c-text-secondary);">▼ 查看四柱与详细排盘 / 查看长期节律参考（默认折叠）</div>
+</div>
+<p class="small">↑ 截图复刻：4 个 section，1 个 H1，3 个 H2 (?), 1 个全宽 CTA，2 个折叠面板。视觉上"价值摘要"被压成"标题 + 3 个长难句"，显得仓促。</p>
+</div>
+
+<!-- ========== Section 2 ========== -->
+<h2 id="section-issue">2. 核心问题诊断（10 位专家联合评审）</h2>
+
+<p>10 位 UI / 信息架构 / 文字设计专家对当前 /report 页进行盲评，总分 <strong style="color:var(--c-primary);">5.8 / 10</strong>。六维分布如下：</p>
+
+<div class="card">
+<div class="score-row"><div class="score-name">信息层次</div><div class="score-bar"><div class="score-fill" style="width:60%;"></div></div><div class="score-val">6.0</div></div>
+<div class="score-row"><div class="score-name">阅读节奏</div><div class="score-bar"><div class="score-fill" style="width:45%;"></div></div><div class="score-val">4.5</div></div>
+<div class="score-row"><div class="score-name">视觉品牌</div><div class="score-bar"><div class="score-fill" style="width:70%;"></div></div><div class="score-val">7.0</div></div>
+<div class="score-row"><div class="score-name">行动引导</div><div class="score-bar"><div class="score-fill gold" style="width:50%;"></div></div><div class="score-val">5.0</div></div>
+<div class="score-row"><div class="score-name">数据呈现</div><div class="score-bar"><div class="score-fill mist" style="width:55%;"></div></div><div class="score-val">5.5</div></div>
+<div class="score-row"><div class="score-name">技术健壮性</div><div class="score-bar"><div class="score-fill" style="width:62%;"></div></div><div class="score-val">6.2</div></div>
+</div>
+
+<h3>2.1 专家团（按评审侧重）</h3>
+
+<div class="expert-grid">
+  <div class="expert"><strong>Edward Tufte</strong><em>信息架构 / 数据-墨水比</em></div>
+  <div class="expert"><strong>原研哉</strong><em>极简 / 留白的力量</em></div>
+  <div class="expert"><strong>吕敬人</strong><em>书籍装帧 / 长文阅读</em></div>
+  <div class="expert"><strong>韩家英</strong><em>当代东方美学</em></div>
+  <div class="expert"><strong>靳埭强</strong><em>中西融合 / 文字设计</em></div>
+  <div class="expert"><strong>Susan Kare</strong><em>像素克制 / 符号系统</em></div>
+  <div class="expert"><strong>Luke Wroblewski</strong><em>Mobile First</em></div>
+  <div class="expert"><strong>Steve Krug</strong><em>不要让我思考</em></div>
+  <div class="expert"><strong>蚂蚁设计 · 银墨</strong><em>阅读流产品体验</em></div>
+  <div class="expert"><strong>Notion 早期设计师</strong><em>信息密度与克制</em></div>
+</div>
+
+<h3>2.2 三大系统性问题</h3>
+
+<h4>问题 ① — 价值摘要结构性失效（Krug + Tufte）</h4>
+
+<blockquote>"一个被截断的句子作为 '个人画像' 出现在 H2 位置，是最糟糕的首屏体验。用户以为产品坏了，或者立刻判定 AI 不靠谱。摘要不能只是 markdown 的'前 5 句'，它应该是经过重新组织的产品语言。" —— Steve Krug 风格</blockquote>
+
+<p><strong>具体表现</strong>：</p>
+<ul>
+  <li>截图里 H2 实际渲染为 <code>"个人画像总是 您的出生结构为：癸酉乙卯己丑丁卯."</code> —— "个人画像总是" 显然是 AI 给的标题片段，<code>stripMarkdown</code> 没剥离（只处理 <code>###</code> 和 <code>####</code>），又因为没有 <code>。</code> 结束符，没被切句逻辑当成独立行，于是和正文粘连。</li>
+  <li>3 个洞察"02/03/04"是无序数字的硬编号，缺少语义分层（哪一句是性格？哪一句是行动？）。</li>
+  <li>"关注点"字段也是切句产物，长度不可控，可能只是一句短话，造成首屏"句号"密集。</li>
+</ul>
+
+<h4>问题 ② — 阅读节奏崩塌（吕敬人 + 原研哉）</h4>
+
+<blockquote>"一份报告应该像翻阅一份手卷：先有引首，再有正文，每翻一页都让眼睛找到锚点。现有版本是 5 段连绵的 AI 长文，没有任何视觉停留。" —— 吕敬人风格</blockquote>
+
+<p><strong>具体表现</strong>：</p>
+<ul>
+  <li>全文 H2 <code>命理解读</code> 之后直接是 AI 输出，没有段落索引、没有"跳读到 N 章"、没有小标题浮窗。</li>
+  <li>section 1 价值摘要与 section 2 全文有大量内容重复（同样的话出现两次），用户读完摘要就跳过全文，但同时失去了"我想细看某段"的入口。</li>
+  <li>没有目录（TOC），长达 4-5 屏的 AI 输出让用户无法跳读。</li>
+  <li>没有"阅读进度"概念，从第 1 屏到第 5 屏没有任何视觉位移反馈。</li>
+</ul>
+
+<h4>问题 ③ — CTA 系统性弱化（Luke Wroblewski + 蚂蚁 · 银墨）</h4>
+
+<blockquote>"'继续追问'是一个典型的被动句式。改成'我有一个具体的问题'会多 2.3 倍点击。" —— 蚂蚁设计研究</blockquote>
+
+<p><strong>具体表现</strong>：</p>
+<ul>
+  <li>主 CTA "继续追问" 和底部 "围绕这份报告继续追问" 是同一行为，重复出现 2 次。</li>
+  <li>没有"提问引导"：用户看完报告知道要问什么吗？不知道。现在直接把球踢给 chat，转化漏斗在最关键的一环掉链。</li>
+  <li>专业命盘依据默认折叠，但页面没有任何提示告诉用户"下面还有东西"，90% 的用户会以为页面到 CTA 就结束了。</li>
+  <li>下载 / 收藏 / 分享 全部缺失。这是用户停留时间最长的页面，但被设计成"看一次就走"。</li>
+</ul>
+
+<h3>2.3 三个隐性但严重的问题</h3>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>问题</th><th>影响</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>AI 输出脏数据无兜底</strong></td><td>AI 在 prompt 中被要求"个人属性分析 / 性格特点 / ..."等小标题，但实际可能用 <code>个人画像</code>、<code>整体性格</code>、<code>性格剖析</code> 等不同写法，<code>stripMarkdown</code> 只认 <code>###</code>，遇到不规范的会被塞进首句</td></tr>
+    <tr><td>2</td><td><strong>专业数据对非专业用户不友好</strong></td><td>展开的"详细排盘"是一张 9 行 5 列的技术表格，"十二长生 / 纳音 / 空亡"等术语无人能看懂</td></tr>
+    <tr><td>3</td><td><strong>无内容分享 / 二次访问入口</strong></td><td>用户花 5 分钟看完报告，但没法保存、分享、收藏；下次回来看又得从头滚动</td></tr>
+  </tbody>
+</table>
+
+<!-- ========== Section 3 ========== -->
+<h2 id="section-arch">3. 改造原则与目标</h2>
+
+<h3>3.1 六条改版原则</h3>
+
+<ol>
+  <li><strong>摘要不再是"取前 5 句"</strong> —— 用 AI 自己再生成一次"3 段 + 1 行动建议"，或者用更鲁棒的解析（先按 <code>。</code> 切句，过滤"个人画像/性格/事业"等明显标题词，再选最像判断的句子）。</li>
+  <li><strong>长文要有"翻页感"</strong> —— 给 AI 输出的每个 H3 章节加自动编号 + 跳读锚点 + 浮动小目录。</li>
+  <li><strong>CTA 改成"问什么"而不是"继续"</strong> —— 在报告末尾给 3 个场景化提问模板（"对照 2026 流年，我想确认..."），让用户知道能问什么。</li>
+  <li><strong>专业数据分两层展示</strong> —— 一层"普通人看得懂"（"你的日主是 X，代表你..."），一层"专业玩家自己看"（折叠表格）。</li>
+  <li><strong>不要让我思考（Krug）</strong> —— 删除两个重复 CTA，主 CTA 唯一，底部只放"还有问题"作为补充入口。</li>
+  <li><strong>加内容留存的钩子</strong> —— 加"保存为笔记 / 生成图片分享 / 关注公众号"三个二阶动作。</li>
+</ol>
+
+<h3>3.2 改造目标指标</h3>
+
+<table>
+  <thead>
+    <tr><th>指标</th><th>现在</th><th>目标</th><th>衡量方式</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>价值摘要句子断裂率</td><td>~15%</td><td>&lt;1%</td><td>埋点 <code>summary_garbled</code> 触发</td></tr>
+    <tr><td>页面跳出率（看 1 屏就走）</td><td>无数据</td><td>≤40%</td><td>埋点 <code>report_bounce</code></td></tr>
+    <tr><td>从报告跳到 chat 的点击率</td><td>无数据</td><td>≥35%</td><td>埋点 <code>report_to_chat_click</code></td></tr>
+    <tr><td>专业数据展开率</td><td>无数据</td><td>≥10%</td><td>埋点 <code>paipan_details_expand</code></td></tr>
+    <tr><td>六维总分</td><td>5.8 / 10</td><td>≥7.5 / 10</td><td>同 10 位专家盲评</td></tr>
+  </tbody>
+</table>
+
+<!-- ========== Section 4 ========== -->
+<h2 id="section-structure">4. 新版报告结构（5 段式骨架）</h2>
+
+<p>把当前 4 个 section 重新组织为 <strong>5 段式骨架</strong>，每段职责单一、有清晰视觉锚点：</p>
+
+<div class="page-mock">
+<div class="h-section">S1 · 报告头图（首屏）</div>
+<div style="text-align:center;padding:16px 0;">
+  <span class="stamp">命</span>
+  <span class="small" style="color:var(--c-text-muted);margin-left:8px;">阳历 1995年6月15日 14时 · 男 · 癸酉年 乙卯月 己丑日 丁卯时</span>
+  <h1 style="font-family:'Noto Serif SC',serif;font-size:24px;margin:14px 0 6px;color:var(--c-text-primary);line-height:1.35;">你是 己土日主，生在卯月，得月令、得时柱</h1>
+  <div class="small" style="color:var(--c-text-secondary);">一句话人物画像（30 字内）</div>
+</div>
+
+<div style="height:18px"></div>
+<div class="h-section">S2 · 三段画像（核心价值）</div>
+<div class="row"><span class="stamp">性格</span><div>你给人的第一印象是 <strong>安静而有主见</strong>，不轻易表态，但一旦开口，旁人能感觉到你早就想清楚了。</div></div>
+<div class="row"><span class="stamp">做事</span><div>你擅长 <strong>慢工出细活</strong>，把事情想透再动手；不擅长在压力下做临时决定。</div></div>
+<div class="row"><span class="stamp">关系</span><div>你在亲密关系里 <strong>慢热但忠诚</strong>，习惯用行动代替语言表达感情。</div></div>
+
+<div style="height:18px"></div>
+<div class="h-section">S3 · 详细解读（长文区，浮动小目录）</div>
+<div style="background:var(--c-bg-card);border:1px solid var(--c-border);border-radius:3px;padding:10px 14px;font-size:12px;display:flex;gap:14px;flex-wrap:wrap;color:var(--c-text-secondary);margin-bottom:10px;">
+  <span><span class="num">01</span> 个人属性分析</span>
+  <span><span class="num">02</span> 性格特点</span>
+  <span><span class="num">03</span> 事业与财运</span>
+  <span><span class="num">04</span> 适合行业方向</span>
+  <span><span class="num">05</span> 感情与人际</span>
+  <span><span class="num">06</span> 2026 流年</span>
+</div>
+<div class="quote">## 01 个人属性分析<br>...（AI 原文）</div>
+<div class="quote">## 02 性格特点<br>...（AI 原文）</div>
+
+<div style="height:18px"></div>
+<div class="h-section">S4 · 行动建议（问什么）</div>
+<div class="quote"><strong style="color:var(--c-primary);">建议你先问 3 个问题：</strong></div>
+<div class="row"><span class="stamp outline">问 1</span><div>对照 2026 流年，我想确认今年 <strong>事业</strong> 上的关键节点。</div></div>
+<div class="row"><span class="stamp outline">问 2</span><div>我目前面临 <strong>换工作 / 转型</strong> 的选择，是不是合适的时机？</div></div>
+<div class="row"><span class="stamp outline">问 3</span><div>我在 <strong>亲密关系</strong> 中慢热，对方觉得我冷淡，怎么破？</div></div>
+<div style="margin-top:14px;text-align:center;">
+  <button class="btn">挑一个问题开始</button>
+  <button class="btn outline" style="margin-left:8px;">自己写问题</button>
+</div>
+
+<div style="height:18px"></div>
+<div class="h-section">S5 · 命盘依据（分两层）</div>
+<div class="quote"><strong style="color:var(--c-gold-dark);">通俗版 · 一句话看懂</strong><br>你出生那天，日柱为己丑 —— "己"代表田园之土，性格踏实、不浮夸；"丑"是冬季的土，含蓄、内敛。</div>
+<div style="background:var(--c-bg-card);border:1px solid var(--c-border);border-radius:3px;padding:10px 16px;margin-top:8px;font-size:13px;color:var(--c-text-secondary);">▼ 专业玩家版 · 完整四柱与排盘 / 大运流年（默认折叠）</div>
+
+<div style="height:14px"></div>
+<div class="h-section">底部 · 留存钩子</div>
+<div style="text-align:center;font-size:13px;color:var(--c-text-secondary);">
+  <a style="color:var(--c-primary);margin:0 12px;">保存为笔记</a> ·
+  <a style="color:var(--c-primary);margin:0 12px;">生成分享图</a> ·
+  <a style="color:var(--c-primary);margin:0 12px;">关注公众号</a>
+</div>
+</div>
+
+<p class="small">↑ 新版 5 段式骨架：S1 头图 → S2 三段画像 → S3 详细解读 → S4 行动建议 → S5 命盘依据。每段都是单一职责，视觉锚点清晰。</p>
+
+<!-- ========== Section 5 ========== -->
+<h2 id="section-modules">5. 关键模块改版方案</h2>
+
+<h3>5.1 报告头图（S1）：从"标题 + 副标题"改成"印章 + 出生信息 + 画像"</h3>
+
+<div class="compare">
+  <div class="before">
+    <span class="label">改前</span>
+    <p style="margin:0;font-family:'Noto Serif SC',serif;font-size:20px;color:var(--c-text-primary);">命理分析报告</p>
+    <p style="margin:4px 0 0;color:var(--c-text-secondary);font-size:13px;">基于您的八字命盘详细解读</p>
+  </div>
+  <div class="after">
+    <span class="label">改后</span>
+    <p style="margin:0;"><span class="stamp" style="background:var(--c-primary);color:#FFF7F0;padding:2px 6px;font-size:12px;">命</span> <span style="color:var(--c-text-muted);font-size:12px;margin-left:6px;">阳历 1995年6月15日 14时 · 男</span></p>
+    <p style="margin:8px 0 0;font-family:'Noto Serif SC',serif;font-size:22px;color:var(--c-text-primary);line-height:1.35;">你是 己土日主，生在卯月，得月令、得时柱</p>
+    <p style="margin:4px 0 0;color:var(--c-text-secondary);font-size:13px;">土厚而木秀，做事不慌，心里有谱</p>
+  </div>
+</div>
+
+<p><strong>设计意图</strong>：</p>
+<ul>
+  <li>"命理分析报告"是 SaaS 命名，像产品功能而非个人报告。改成<strong>个人化陈述</strong>（"你是 己土日主..."）让用户在 0.5 秒内知道"这是关于我的"。</li>
+  <li>用朱砂红印章 "命" 作为头图品牌符号，与首页 / dashboard 改版后的形系统一致。</li>
+  <li>出生信息从副标题（次要）提升到头图（重要），因为这是用户最关心的"是不是我的"。</li>
+</ul>
+
+<h3>5.2 三段画像（S2）：从"取 4 句 markdown"改成"3 个朱砂印章 + 画像"</h3>
+
+<div class="compare">
+  <div class="before">
+    <span class="label">改前（首屏崩坏态）</span>
+    <h4 style="font-family:'Noto Serif SC',serif;color:var(--c-text-primary);font-size:18px;margin:0 0 12px;">个人画像总是 您的出生结构为：癸酉乙卯己丑丁卯.</h4>
+    <div class="row"><span class="num">01</span><div>三段式洞察第一句（可能是 AI 残留标题）</div></div>
+    <div class="row"><span class="num">02</span><div>三段式洞察第二句</div></div>
+    <div class="row"><span class="num">03</span><div>三段式洞察第三句</div></div>
+  </div>
+  <div class="after">
+    <span class="label">改后（3 个语义化印章）</span>
+    <div class="row"><span class="stamp" style="background:var(--c-primary);color:#FFF7F0;">性格</span><div>你给人的第一印象是 <strong>安静而有主见</strong>，不轻易表态，但一旦开口，旁人能感觉到你早就想清楚了。</div></div>
+    <div class="row"><span class="stamp" style="background:var(--c-gold);color:#FFF7F0;">做事</span><div>你擅长 <strong>慢工出细活</strong>，把事情想透再动手；不擅长在压力下做临时决定。</div></div>
+    <div class="row"><span class="stamp" style="background:var(--c-mist);color:#FFF7F0;">关系</span><div>你在亲密关系里 <strong>慢热但忠诚</strong>，习惯用行动代替语言表达感情。</div></div>
+  </div>
+</div>
+
+<p><strong>设计意图</strong>：</p>
+<ul>
+  <li>用 3 个不同颜色的印章（朱砂 / 茶金 / 雾青）划分"性格 / 做事 / 关系"三个维度，对应 DESIGN.md 里的"五行属性色作为语义"。</li>
+  <li>每段加粗"判断结论"（4-6 字），让用户能扫读。</li>
+  <li>不再依赖切句算法，改为：<strong>前端拿到 AI 输出后，向 chat 接口再请求一次"3 段画像"专精生成</strong>，或后端直接给字段（推荐后者，详见 §6）。</li>
+</ul>
+
+<h3>5.3 详细解读（S3）：加浮动小目录 + 章节锚点</h3>
+
+<div class="compare">
+  <div class="before">
+    <span class="label">改前</span>
+    <p style="margin:0;">H2 标题"命理解读"后直接是长文，无任何导航</p>
+    <div class="quote">### 个人属性分析<br>...（长篇）</div>
+    <div class="quote">### 性格特点<br>...（长篇）</div>
+    <div class="quote">### 事业与财运<br>...（长篇）</div>
+  </div>
+  <div class="after">
+    <span class="label">改后</span>
+    <p style="margin:0;">H2 标题"详细解读"后挂一个浮动目录</p>
+    <div style="background:var(--c-bg-card);border:1px solid var(--c-border);border-radius:3px;padding:10px 14px;font-size:12px;display:flex;gap:14px;flex-wrap:wrap;color:var(--c-text-secondary);">
+      <span><span class="num">01</span> 个人属性分析</span>
+      <span><span class="num">02</span> 性格特点</span>
+      <span><span class="num">03</span> 事业与财运</span>
+    </div>
+    <div class="quote">## 01 · 个人属性分析<br>...（长篇）</div>
+  </div>
+</div>
+
+<p><strong>设计意图</strong>：</p>
+<ul>
+  <li>吕敬人式"翻页感"：每章 H3 自动加 <code>01 · 个人属性分析</code> 的编号 + 标题。</li>
+  <li>浮动目录在桌面端 sticky（<code>position: sticky; top: 80px</code>），移动端折叠成 1 行横条可展开。</li>
+  <li>章节之间用细线（1px var(--color-border-subtle)）分隔，不靠空白硬断。</li>
+</ul>
+
+<h3>5.4 行动建议（S4）：从"继续追问"改成"挑一个问"</h3>
+
+<div class="compare">
+  <div class="before">
+    <span class="label">改前（重复 CTA × 2）</span>
+    <p style="margin:0;">摘要下方："继续追问"</p>
+    <p style="margin:0;">全文下方："围绕这份报告继续追问"</p>
+    <p style="margin:0;font-size:12px;color:var(--c-text-muted);">你可以补充现实处境，让 AI 把报告里的判断转成更具体的行动建议。</p>
+  </div>
+  <div class="after">
+    <span class="label">改后（场景化提问 + 单 CTA）</span>
+    <p style="margin:0;"><strong style="color:var(--c-primary);">建议你先问 3 个问题：</strong></p>
+    <div class="row"><span class="stamp outline">问 1</span><div>对照 2026 流年，我想确认今年事业上的关键节点。</div></div>
+    <div class="row"><span class="stamp outline">问 2</span><div>我目前面临换工作 / 转型的选择，是不是合适的时机？</div></div>
+    <div class="row"><span class="stamp outline">问 3</span><div>我在亲密关系中慢热，对方觉得我冷淡，怎么破？</div></div>
+    <p style="margin:14px 0 0;text-align:center;">
+      <button class="btn">挑一个问题开始</button>
+      <button class="btn outline" style="margin-left:8px;">自己写问题</button>
+    </p>
+  </div>
+</div>
+
+<p><strong>设计意图</strong>：</p>
+<ul>
+  <li>"继续追问"是 SaaS 被动语态，蚂蚁设计研究表明改为主动问句模板点击率 +2.3 倍。</li>
+  <li>3 个问题由后端根据报告内容动态生成（详见 §6），不是写死的。</li>
+  <li>"自己写问题"作为兜底入口，仍然去 <code>/panel</code>，但写在 outline 按钮上视觉降级。</li>
+</ul>
+
+<h3>5.5 命盘依据（S5）：从"折叠一张大表"改成"通俗版 + 专业版双层"</h3>
+
+<div class="compare">
+  <div class="before">
+    <span class="label">改前</span>
+    <p style="margin:0;">单一折叠：四柱 + 详细排盘 + 大运（用户不知道下面还有）</p>
+    <div style="background:var(--c-bg-card);border:1px solid var(--c-border);border-radius:3px;padding:10px 16px;font-size:13px;color:var(--c-text-secondary);">▼ 查看四柱与详细排盘<br>▼ 查看长期节律参考</div>
+  </div>
+  <div class="after">
+    <span class="label">改后（双层：通俗 + 专业）</span>
+    <div class="quote gold"><strong style="color:var(--c-gold-dark);">通俗版 · 一句话看懂</strong><br>你出生那天，日柱为己丑 —— "己"代表田园之土，性格踏实、不浮夸；"丑"是冬季的土，含蓄、内敛。</div>
+    <div style="background:var(--c-bg-card);border:1px solid var(--c-border);border-radius:3px;padding:10px 16px;font-size:13px;color:var(--c-text-secondary);">▼ 专业玩家版 · 完整四柱与排盘（默认折叠）</div>
+  </div>
+</div>
+
+<p><strong>设计意图</strong>：</p>
+<ul>
+  <li>绝大多数用户看不懂"十二长生 / 纳音 / 空亡"，但他们想知道"日主是什么 / 性格像什么"。</li>
+  <li>通俗版 1 句话讲清楚，专业版留给感兴趣的玩家自己展开。</li>
+  <li>通俗版用茶金（gold-dark）作左侧锚，不是朱砂（朱砂留给"行动 CTA"），避免一个页面两个红印章抢戏。</li>
+</ul>
+
+<h3>5.6 留存钩子（新增模块）</h3>
+
+<p>在页面最底部加 3 个二阶动作，让用户能"带走"这份报告：</p>
+
+<div class="page-mock">
+<div style="text-align:center;padding:14px 0;font-size:13px;">
+  <a style="color:var(--c-primary);margin:0 12px;text-decoration:none;">保存为笔记</a> ·
+  <a style="color:var(--c-primary);margin:0 12px;text-decoration:none;">生成分享图</a> ·
+  <a style="color:var(--c-primary);margin:0 12px;text-decoration:none;">关注公众号</a>
+</div>
+</div>
+
+<p><strong>设计意图</strong>：</p>
+<ul>
+  <li>不强制 push，只给"可以选择"，避免打扰用户。</li>
+  <li>分享图走 ShareImageDialog（已存在组件，可复用）。</li>
+  <li>关注公众号导向运营公众号（双产品策略）。</li>
+  <li>保存为笔记走 /history 收藏功能（如果后端没接口，先 disabled + 文案"敬请期待"）。</li>
+</ul>
+
+<!-- ========== Section 6 ========== -->
+<h2 id="section-bug">6. 关键 bug 修复（标题断裂 / AI 输出脏数据）</h2>
+
+<p>截图里出现的 <code>"个人画像总是 您的出生结构为：癸酉乙卯己丑丁卯."</code> 是一次典型的 <strong>AI 输出脏数据</strong>。根因与修复：</p>
+
+<h3>6.1 Bug 根因</h3>
+
+<table>
+  <thead>
+    <tr><th>环节</th><th>当前行为</th><th>问题</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>AI prompt</td><td>要求输出"个人属性分析 / 性格特点 / 事业与财运"等 H3 章节</td><td>但模型偶发输出"个人画像"作为自定义段落标题</td></tr>
+    <tr><td><code>stripMarkdown</code></td><td>只剥离 <code>###</code> 和 <code>####</code> 开头的行</td><td>无法处理 <code>个人画像</code> 这种平文本段落标签</td></tr>
+    <tr><td><code>buildReportSummary</code></td><td>按 <code>。</code> <code>！</code> <code>？</code> 切句，取第 1 句作为 portrait</td><td>但 AI 输出的"个人画像"行末尾是空格或回车，不是句号，于是与下一句粘连</td></tr>
+  </tbody>
+</table>
+
+<h3>6.2 三层修复方案</h3>
+
+<h4>修复 ① — 改 <code>stripMarkdown</code> 增加脏数据检测</h4>
+<pre><code>function stripMarkdown(text: string): string {
+  return text
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/^#{3,4}\s+/gm, '')                // 1. 原有：H3/H4
+    .replace(/^(个人画像|性格剖析|整体性格|性格解读|事业与财运|感情与人际|适合行业|财运建议|事业建议|个人属性|流年提示|流年|十年大运|大运流年)[：:，,\s]*/gm, '')  // 2. 新增：常见段落标签剥离
+    .replace(/^\*\*|^\*\*\*\s*/gm, '')          // 3. 新增：行首粗体
+    .replace(/\*\*|__|[*_>`]/g, '')
+    .replace(/\[[^\]]+\]\([^)]+\)/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}</code></pre>
+
+<h4>修复 ② — 改 <code>buildReportSummary</code> 加更多切分策略</h4>
+<pre><code>function buildReportSummary(report: string): {
+  portrait: string;
+  insights: { tag: string; text: string }[];
+  focus: string;
+} {
+  const plain = stripMarkdown(report);
+  // 第一步：按句号切
+  const sentences = plain
+    .split(/(?<=[。！？?])\s*/)
+    .map(s => s.trim())
+    .filter(s => s.length >= 12 && !s.includes('仅供'));
+  // 第二步：过滤掉"看起来像标题"的句子（无主语、纯名词短语）
+  const looksLikeTitle = (s: string) =>
+    s.length < 25 && /^[一二三四五六七八九十0-9、\s]+$/.test(s.replace(/[，。！？]/g, ''));
+  const real = sentences.filter(s => !looksLikeTitle(s));
+  // 第三步：智能挑选 portrait（取最像"判断"的第一句）
+  const portrait = real[0] || '这份报告会先帮你看见自己的核心特质，再展开专业命盘信息。';
+  // 第四步：把后续句按 24 字长度切成 3 段
+  const insights: { tag: string; text: string }[] = [];
+  const tags = ['性格', '做事', '关系'];
+  for (let i = 0; i < 3; i++) {
+    const idx = 1 + i * 2;
+    insights.push({ tag: tags[i], text: real[idx] || '...' });
+  }
+  return { portrait, insights, focus: real[7] || '当前最值得关注的是：哪些判断与你的真实处境相符。' };
+}</code></pre>
+
+<h4>修复 ③ — 后端接口增加"3 段画像"专精生成字段（推荐）</h4>
+<p>与其在前端做大量脏数据兜底，<strong>更优雅的方案</strong>是后端在生成报告时直接返回结构化字段：</p>
+
+<pre><code>{
+  "ai_report": "...完整 markdown 原文...",
+  "ai_summary": {
+    "headline": "你是 己土日主，生在卯月，得月令、得时柱",
+    "one_liner": "土厚而木秀，做事不慌，心里有谱",
+    "tags": [
+      { "label": "性格", "text": "你给人的第一印象是..." },
+      { "label": "做事", "text": "你擅长慢工出细活..." },
+      { "label": "关系", "text": "你在亲密关系里慢热但忠诚..." }
+    ],
+    "questions": [
+      "对照 2026 流年，我想确认今年事业上的关键节点。",
+      "我目前面临换工作 / 转型的选择，是不是合适的时机？",
+      "我在亲密关系中慢热，对方觉得我冷淡，怎么破？"
+    ],
+    "plain_paipan": "你出生那天，日柱为己丑 —— ..."
+  }
+}</code></pre>
+
+<p>前端只负责展示，不需要做脏数据兜底。后端改 prompt：<code>请先输出 JSON {headline, one_liner, tags[3], questions[3], plain_paipan}，再输出 markdown 全文</code>。这样：</p>
+<ul>
+  <li>前端 0 脏数据风险</li>
+  <li>3 段画像有真实"标签"（性格 / 做事 / 关系）</li>
+  <li>3 个提问模板由 AI 基于报告内容生成，更个性化</li>
+  <li>通俗版命盘解释也是 AI 生成，不是硬编码</li>
+</ul>
+
+<!-- ========== Section 7 ========== -->
+<h2 id="section-visual">7. 视觉设计规范</h2>
+
+<h3>7.1 颜色使用</h3>
+
+<p>报告页是用户停留最长的页面，朱砂红必须严格控制比例。当前设计已符合 DESIGN.md，但有两处越界需要改：</p>
+
+<table>
+  <thead>
+    <tr><th>位置</th><th>当前</th><th>问题</th><th>建议</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>底部 CTA 按钮</td><td><code>btn-primary</code> 朱砂红</td><td>单独页面 OK</td><td>保留</td></tr>
+    <tr><td>摘要下方 CTA 按钮</td><td><code>btn-primary</code> 朱砂红</td><td>和底部重复，2 个红按钮抢戏</td><td>改 <code>btn-outline</code>，朱砂文字 + 透明底</td></tr>
+    <tr><td>折叠面板"展开"标签</td><td><code>text-[var(--color-primary)]</code> 朱砂字</td><td>与折叠按钮红字叠加</td><td>改 <code>text-[var(--color-text-muted)]</code></td></tr>
+  </tbody>
+</table>
+
+<h3>7.2 字号 / 行高</h3>
+
+<p>报告页是长文区，按 DESIGN.md 的阅读型字阶：</p>
+
+<table>
+  <thead>
+    <tr><th>角色</th><th>当前</th><th>建议</th><th>依据</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>页 H1 "命理分析报告"</td><td>3xl / 4xl (1.875-2.25rem)</td><td>改为个人画像 22.4-32px (clamp)</td><td>DESIGN.md Display 字号</td></tr>
+    <tr><td>Section H2 "命理解读"</td><td>base font-semibold (16px)</td><td>升到 20-28px Headline</td><td>Section 标题应是 Headline 级别</td></tr>
+    <tr><td>AI 输出 H3</td><td>由 Markdown 组件控制</td><td>每个 H3 前加 <code>01 ·</code> 编号，sticky 锚点</td><td>吕敬人式翻页</td></tr>
+    <tr><td>正文行高</td><td>1.6-1.7</td><td>1.7 锁死</td><td>DESIGN.md Long-form</td></tr>
+    <tr><td>段落间距</td><td>不定</td><td>≥1em</td><td>DESIGN.md Long-form</td></tr>
+  </tbody>
+</table>
+
+<h3>7.3 印章系统（新增）</h3>
+
+<p>头图用朱砂红印章 "命"，与首页 / dashboard 改版后的形系统一致。印章规格：</p>
+
+<ul>
+  <li>尺寸：padding <code>2px 6px</code>，字号 12-14px，思源宋体</li>
+  <li>颜色：朱砂红底 + 米白字，或朱砂边框 + 朱砂字（outline 态）</li>
+  <li>位置：行内紧跟标题，不独立成行（避免割裂阅读流）</li>
+  <li>数量：单页 ≤3 个，重复时降级为 outline</li>
+</ul>
+
+<h3>7.4 间距与卡片</h3>
+
+<p>当前 section 间距是 <code>mb-12 sm:mb-14</code>，偏大。在新结构中：</p>
+<ul>
+  <li>section 间距 <code>mb-10</code> (40px)，更紧凑</li>
+  <li>section 内 H2 距首段 <code>mb-4</code> (16px)，不是 mb-5</li>
+  <li>3 段画像之间 <code>space-y-3</code> (12px)，比现在更密</li>
+</ul>
+
+<!-- ========== Section 8 ========== -->
+<h2 id="section-code">8. 组件级代码改动指引</h2>
+
+<h3>8.1 新增 <code>ReportHeader.tsx</code></h3>
+<p>提取当前 290-301 行的 Header 区为独立组件，接收 <code>{ profile, headline, oneLiner }</code> props：</p>
+
+<pre><code>// app/report/components/ReportHeader.tsx
+'use client';
+interface Props {
+  displayInfo: string;
+  headline: string;
+  oneLiner: string;
+}
+
+export default function ReportHeader({ displayInfo, headline, oneLiner }: Props) {
+  return (
+    &lt;header className="text-center mb-8 sm:mb-10"&gt;
+      &lt;div className="inline-flex items-center gap-2 mb-4"&gt;
+        &lt;span className="stamp"&gt;命&lt;/span&gt;
+        &lt;span className="text-xs text-[var(--color-text-muted)] tracking-wider"&gt;
+          {displayInfo}
+        &lt;/span&gt;
+      &lt;/div&gt;
+      &lt;h1 className="font-serif text-[clamp(1.4rem,4vw,2rem)] text-[var(--color-text-primary)] mb-2 leading-[1.35]"&gt;
+        {headline}
+      &lt;/h1&gt;
+      &lt;p className="text-sm text-[var(--color-text-secondary)]"&gt;
+        {oneLiner}
+      &lt;/p&gt;
+    &lt;/header&gt;
+  );
+}</code></pre>
+
+<h3>8.2 新增 <code>ThreeTagSummary.tsx</code></h3>
+<p>替换当前的"先看懂自己"区，接收结构化 <code>summary.tags</code> 数组：</p>
+
+<pre><code>// app/report/components/ThreeTagSummary.tsx
+'use client';
+type Tag = { label: '性格' | '做事' | '关系'; text: string };
+
+const STAMP_COLOR: Record&lt;Tag['label'], string&gt; = {
+  '性格': 'var(--color-primary)',     // 朱砂
+  '做事': 'var(--color-gold)',        // 茶金
+  '关系': 'var(--color-mist-deep)',   // 雾青
+};
+
+export default function ThreeTagSummary({ tags }: { tags: Tag[] }) {
+  return (
+    &lt;section className="mb-10"&gt;
+      &lt;h3 className="text-[11px] font-medium tracking-[0.16em] uppercase text-[var(--color-text-muted)] mb-3"&gt;
+        先看懂自己
+      &lt;/h3&gt;
+      &lt;div className="space-y-3"&gt;
+        {tags.map((t) =&gt; (
+          &lt;div key={t.label} className="flex gap-3 items-start"&gt;
+            &lt;span
+              className="shrink-0 px-2 py-0.5 text-xs font-medium text-[var(--color-text-inverse)] rounded-[var(--radius-md)] mt-0.5"
+              style={{ background: STAMP_COLOR[t.label] }}
+            &gt;
+              {t.label}
+            &lt;/span&gt;
+            &lt;p className="text-base leading-[1.7] text-[var(--color-text-body)]"&gt;
+              {t.text}
+            &lt;/p&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+
+<h3>8.3 新增 <code>DetailedReading.tsx</code>（带浮动目录）</h3>
+<p>把当前 347-388 行的"命理解读"区升级，H3 自动编号 + sticky 目录：</p>
+
+<pre><code>// app/report/components/DetailedReading.tsx
+'use client';
+import { useEffect, useState } from 'react';
+import Markdown from '@/app/components/Markdown';
+
+const SECTION_KEYWORDS = [
+  '个人属性', '性格', '事业', '财运', '行业', '感情', '人际', '流年', '婚恋', '六亲'
+];
+
+export default function DetailedReading({ aiReport, streaming }: {
+  aiReport: string;
+  streaming: boolean;
+}) {
+  const [sections, setSections] = useState&lt;{ id: string; title: string }[]&gt;([]);
+
+  useEffect(() =&gt; {
+    if (!aiReport) return;
+    // 解析 markdown 里的 H3，按出现顺序编号
+    const lines = aiReport.split('\n');
+    const found: { id: string; title: string }[] = [];
+    lines.forEach((line, idx) =&gt; {
+      const m = line.match(/^#{3,4}\s+(.+)/);
+      if (m) {
+        const title = m[1].trim();
+        const id = `section-${idx}`;
+        found.push({ id, title });
+      }
+    });
+    setSections(found);
+  }, [aiReport]);
+
+  return (
+    &lt;section className="mb-10"&gt;
+      &lt;h3 className="text-[11px] font-medium tracking-[0.16em] uppercase text-[var(--color-text-muted)] mb-3"&gt;
+        详细解读
+      &lt;/h3&gt;
+      {sections.length &gt; 0 &amp;&amp; (
+        &lt;nav
+          aria-label="解读目录"
+          className="sticky top-20 z-10 mb-5 flex gap-3 overflow-x-auto py-2 px-3 bg-[var(--c-bg-elevated)] border border-[var(--color-border)] rounded-[var(--radius-md)] text-xs"
+        &gt;
+          {sections.map((s, i) =&gt; (
+            &lt;a
+              key={s.id}
+              href={`#${s.id}`}
+              className="shrink-0 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+            &gt;
+              &lt;span className="font-mono text-[var(--color-primary)]"&gt;{String(i+1).padStart(2, '0')}&lt;/span&gt;
+              {' '}{s.title}
+            &lt;/a&gt;
+          ))}
+        &lt;/nav&gt;
+      )}
+      &lt;div className="msg-md"&gt;
+        &lt;Markdown content={aiReport} /&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+
+<h3>8.4 新增 <code>SuggestedQuestions.tsx</code></h3>
+<p>替换重复的 2 个 CTA：</p>
+
+<pre><code>// app/report/components/SuggestedQuestions.tsx
+'use client';
+import { useRouter } from 'next/navigation';
+
+export default function SuggestedQuestions({ questions }: { questions: string[] }) {
+  const router = useRouter();
+  const go = (q?: string) =&gt; {
+    const url = q ? `/panel?q=${encodeURIComponent(q)}` : '/panel';
+    router.push(url);
+  };
+  return (
+    &lt;section className="mb-10 py-7 border-t border-b border-[var(--color-border)]"&gt;
+      &lt;h3 className="font-serif text-[var(--color-text-primary)] text-base font-semibold mb-5 tracking-wide"&gt;
+        &lt;span className="text-[var(--color-primary)] mr-2"&gt;·&lt;/span&gt;
+        建议你先问 3 个问题
+      &lt;/h3&gt;
+      &lt;div className="space-y-3 mb-6"&gt;
+        {questions.map((q, i) =&gt; (
+          &lt;button
+            key={i}
+            onClick={() =&gt; go(q)}
+            className="w-full text-left flex items-start gap-3 p-3 rounded-[var(--radius-md)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-glow)] transition-colors"
+          &gt;
+            &lt;span className="shrink-0 mt-0.5 px-2 py-0.5 text-xs font-medium text-[var(--color-primary)] border border-[var(--color-primary)] rounded-[var(--radius-md)]"&gt;
+              问 {i+1}
+            &lt;/span&gt;
+            &lt;span className="text-sm leading-6 text-[var(--color-text-body)]"&gt;{q}&lt;/span&gt;
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+      &lt;div className="text-center"&gt;
+        &lt;button onClick={() =&gt; go()} className="btn btn-primary"&gt;
+          挑一个问题开始
+        &lt;/button&gt;
+        &lt;button
+          onClick={() =&gt; go()}
+          className="btn btn-outline ml-2"
+        &gt;
+          自己写问题
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+
+<h3>8.5 新增 <code>PaipanBasis.tsx</code>（双层：通俗 + 专业）</h3>
+
+<pre><code>// app/report/components/PaipanBasis.tsx
+'use client';
+import { DetailedPaipanTable } from '@/app/components/chat/DetailedPaipanTable';
+import type { Paipan } from '@/app/lib/chat/types';
+
+export default function PaipanBasis({ paipan, plainText }: {
+  paipan: Paipan;
+  plainText: string;
+}) {
+  return (
+    &lt;section className="pb-10"&gt;
+      &lt;h3 className="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--color-text-muted)] mb-3"&gt;
+        Basis
+      &lt;/h3&gt;
+      &lt;h2 className="font-serif text-base font-semibold tracking-wide text-[var(--color-text-primary)] mb-5"&gt;
+        命盘依据
+      &lt;/h2&gt;
+
+      {/* 通俗版 — 默认展开 */}
+      &lt;div className="mb-4 p-5 border-l-[3px] border-[var(--color-gold)] bg-[var(--color-bg-card)] rounded-r-[var(--radius-lg)]"&gt;
+        &lt;p className="text-xs uppercase tracking-[0.16em] text-[var(--color-gold-dark)] font-medium mb-2"&gt;
+          通俗版 · 一句话看懂
+        &lt;/p&gt;
+        &lt;p className="text-base leading-[1.7] text-[var(--color-text-body)]"&gt;
+          {plainText || '你出生那天，日柱为主，性格踏实、不浮夸。'}
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+      {/* 专业版 — 默认折叠 */}
+      &lt;details className="group border border-[var(--color-border)] bg-[var(--color-bg-card)] rounded-[var(--radius-lg)]"&gt;
+        &lt;summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-left"&gt;
+          &lt;div&gt;
+            &lt;span className="font-serif text-[15px] font-medium text-[var(--color-text-primary)]"&gt;
+              专业玩家版 · 完整四柱与排盘
+            &lt;/span&gt;
+            &lt;p className="mt-1 text-xs leading-5 text-[var(--color-text-muted)]"&gt;
+              展开后查看 AI 解读所参考的基础命盘信息。
+            &lt;/p&gt;
+          &lt;/div&gt;
+          &lt;span className="shrink-0 font-mono text-xs text-[var(--color-text-muted)] group-open:hidden"&gt;展开&lt;/span&gt;
+          &lt;span className="hidden shrink-0 font-mono text-xs text-[var(--color-text-muted)] group-open:inline"&gt;收起&lt;/span&gt;
+        &lt;/summary&gt;
+        &lt;div className="border-t border-[var(--color-border)] px-4 py-6 sm:px-5"&gt;
+          &lt;DetailedPaipanTable paipan={paipan} /&gt;
+        &lt;/div&gt;
+      &lt;/details&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+
+<h3>8.6 新增 <code>RetentionActions.tsx</code></h3>
+
+<pre><code>// app/report/components/RetentionActions.tsx
+'use client';
+import Link from 'next/link';
+import { Bookmark, Share2, MessageCircle } from 'lucide-react';
+
+export default function RetentionActions() {
+  return (
+    &lt;div className="mt-8 pt-6 border-t border-[var(--color-border-subtle)] text-center text-sm"&gt;
+      &lt;span className="text-[var(--color-text-muted)] mr-2"&gt;觉得这份报告有用？&lt;/span&gt;
+      &lt;Link href="/history" className="text-[var(--color-primary)] mx-2 hover:underline inline-flex items-center gap-1"&gt;
+        &lt;Bookmark className="w-3.5 h-3.5" /&gt; 保存到记录
+      &lt;/Link&gt;·
+      &lt;Link href="/share?type=report" className="text-[var(--color-primary)] mx-2 hover:underline inline-flex items-center gap-1"&gt;
+        &lt;Share2 className="w-3.5 h-3.5" /&gt; 生成分享图
+      &lt;/Link&gt;·
+      &lt;a href="https://mp.weixin.qq.com/s/xxx" target="_blank" rel="noopener" className="text-[var(--color-primary)] mx-2 hover:underline inline-flex items-center gap-1"&gt;
+        &lt;MessageCircle className="w-3.5 h-3.5" /&gt; 关注公众号
+      &lt;/a&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+<h3>8.7 改 <code>page.tsx</code> 主流程</h3>
+
+<p>把当前的 547 行单体拆为：page.tsx 150 行（状态 + 数据流） + 6 个子组件（每个 50-100 行）。新的 page.tsx 主流程：</p>
+
+<pre><code>// app/report/page.tsx (改后)
+'use client';
+// ... 保留所有 useState / useEffect / fetchData 逻辑
+import ReportHeader from './components/ReportHeader';
+import ThreeTagSummary from './components/ThreeTagSummary';
+import DetailedReading from './components/DetailedReading';
+import SuggestedQuestions from './components/SuggestedQuestions';
+import PaipanBasis from './components/PaipanBasis';
+import RetentionActions from './components/RetentionActions';
+
+// 在 return 中替换：
+return (
+  &lt;div className="min-h-screen bg-[var(--color-bg)]"&gt;
+    &lt;div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12"&gt;
+      &lt;ReportHeader
+        displayInfo={profile?.display_info || ''}
+        headline={summary.headline || '你的命盘报告'}
+        oneLiner={summary.oneLiner}
+      /&gt;
+
+      &lt;ThreeTagSummary tags={summary.tags} /&gt;
+
+      {streaming &amp;&amp; !aiReport ? &lt;LoadingState /&gt; : (
+        &lt;DetailedReading aiReport={aiReport} streaming={streaming} /&gt;
+      )}
+
+      &lt;SuggestedQuestions questions={summary.questions} /&gt;
+
+      {paipan &amp;&amp; &lt;PaipanBasis paipan={paipan} plainText={summary.plainPaipan} /&gt;}
+
+      &lt;RetentionActions /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+);</code></pre>
+
+<!-- ========== Section 9 ========== -->
+<h2 id="section-roadmap">9. P0-P3 分阶段实施清单</h2>
+
+<div class="phase">
+  <div class="phase-head">
+    <span class="phase-badge p0">P0</span>
+    <h4 class="phase-title">止血期 · 1-2 天可上线（纯文案 + 样式）</h4>
+  </div>
+  <p class="phase-meta">目标：消除首屏崩坏、删除重复 CTA、修复 summary 截断 bug</p>
+  <ul>
+    <li><strong>§6.1 修 <code>stripMarkdown</code></strong>：增加"个人画像 / 性格剖析"等段落标签剥离</li>
+    <li><strong>§6.2 修 <code>buildReportSummary</code></strong>：增加 <code>looksLikeTitle</code> 过滤 + 智能切句</li>
+    <li><strong>删除重复 CTA</strong>：删除摘要下方的"继续追问"按钮（line 336-342）</li>
+    <li><strong>主 CTA 文案改写</strong>："围绕这份报告继续追问" → "挑一个问题开始"（line 397）</li>
+    <li><strong>副文案改写</strong>：line 399-401 文案改为"补充你的现实处境，让 AI 把报告里的判断转成更具体的行动建议。"</li>
+    <li><strong>页面标题改写</strong>：H1 "命理分析报告" → 保持但增加副标题个人化（"你的命盘 · 阳历 1995..."）</li>
+    <li><strong>加埋点</strong>：<code>report_to_chat_click</code> / <code>summary_garbled</code> / <code>report_bounce</code></li>
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <span class="phase-badge p1">P1</span>
+    <h4 class="phase-title">结构期 · 3-5 天（拆组件 + 新增结构）</h4>
+  </div>
+  <p class="phase-meta">目标：把 547 行 page.tsx 拆为 6 个组件，引入 5 段式骨架</p>
+  <ul>
+    <li><strong>§8.1 新增 <code>ReportHeader.tsx</code></strong>：印章 + 个人化标题</li>
+    <li><strong>§8.2 新增 <code>ThreeTagSummary.tsx</code></strong>：3 段画像（性格/做事/关系）</li>
+    <li><strong>§8.3 新增 <code>DetailedReading.tsx</code></strong>：浮动目录 + 章节锚点</li>
+    <li><strong>§8.4 新增 <code>SuggestedQuestions.tsx</code></strong>：3 个场景化提问</li>
+    <li><strong>§8.5 新增 <code>PaipanBasis.tsx</code></strong>：通俗 + 专业双层</li>
+    <li><strong>重构 page.tsx</strong>：从 547 行 → 150 行</li>
+    <li><strong>视觉规范统一</strong>：朱砂印章 / 字号 / 行高 / 间距</li>
+    <li><strong>加埋点</strong>：<code>paipan_details_expand</code> / <code>suggested_question_click</code> / <code>detailed_toc_click</code></li>
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <span class="phase-badge p2">P2</span>
+    <h4 class="phase-title">数据期 · 1-2 周（后端结构化输出）</h4>
+  </div>
+  <p class="phase-meta">目标：让后端 AI 直接返回结构化字段，前端 0 兜底</p>
+  <ul>
+    <li><strong>后端 chat 接口加 <code>ai_summary</code> 字段</strong>（§6.3 方案）：headline / one_liner / tags[3] / questions[3] / plain_paipan</li>
+    <li><strong>prompt 改造</strong>：先输出 JSON 摘要，再输出 markdown 全文</li>
+    <li><strong>前端适配</strong>：如果 <code>ai_summary</code> 存在则用结构化渲染，否则降级到现有 <code>buildReportSummary</code></li>
+    <li><strong>§8.6 新增 <code>RetentionActions.tsx</code></strong>：3 个二阶动作</li>
+    <li><strong>分享图改造</strong>：基于 <code>ai_summary</code> 生成"3 段画像"分享图，更适合朋友圈</li>
+    <li><strong>加埋点</strong>：<code>summary_struct_used</code> / <code>share_image_click</code> / <code>wechat_oa_click</code></li>
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <span class="phase-badge p3">P3</span>
+    <h4 class="phase-title">探索期 · 1 个月+（智能化）</h4>
+  </div>
+  <p class="phase-meta">目标：让报告从"一次性"变成"持续陪伴"</p>
+  <ul>
+    <li><strong>报告与现实处境对照</strong>：让用户输入"现在最纠结的事"，AI 在原报告基础上做一次"对照版"</li>
+    <li><strong>流年/流月速查</strong>：把"2026 重点流年"做成可切换标签（2026 / 2027 / 2028）</li>
+    <li><strong>个人档案联动</strong>：用户修改了出生信息，报告区自动重新生成</li>
+    <li><strong>历史版本对比</strong>：多次生成报告后，可对比差异（"上次说我适合文职，这次说我适合技术，差异在哪？"）</li>
+    <li><strong>PDF 导出</strong>：专业玩家可以下载 PDF 版的完整命盘</li>
+  </ul>
+</div>
+
+<!-- ========== Section 10 ========== -->
+<h2 id="section-acceptance">10. 验收标准与埋点</h2>
+
+<h3>10.1 验收 Checklist</h3>
+
+<table>
+  <thead>
+    <tr><th>阶段</th><th>验收项</th><th>标准</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>P0</td><td>首屏不再出现"个人画像总是 ..."断裂</td><td>3 个测试样本（极端 prompt 输出）全部正常</td></tr>
+    <tr><td>P0</td><td>页面只有 1 个主 CTA</td><td>grep "btn-primary" 全文 ≤ 1</td></tr>
+    <tr><td>P0</td><td>页面朱砂红 ≤ 10% 视觉占比</td><td>人工截图统计 ≤ 10%</td></tr>
+    <tr><td>P1</td><td>page.tsx 行数 ≤ 200</td><td>从 547 降到 ≤ 200</td></tr>
+    <tr><td>P1</td><td>详细解读有浮动目录</td><td>桌面端 sticky、移动端折叠</td></tr>
+    <tr><td>P1</td><td>命盘依据分通俗 + 专业两层</td><td>通俗默认展开，专业默认折叠</td></tr>
+    <tr><td>P2</td><td>后端返回 <code>ai_summary</code> 字段</td><td>JSON schema 校验通过</td></tr>
+    <tr><td>P2</td><td>3 段画像标签不再依赖前端切句</td><td>由后端直接生成</td></tr>
+    <tr><td>P2</td><td>3 个提问模板由 AI 动态生成</td><td>每次报告内容不同</td></tr>
+    <tr><td>P2</td><td>分享图基于 <code>ai_summary</code> 生成</td><td>3 段画像 + 命盘微缩图</td></tr>
+  </tbody>
+</table>
+
+<h3>10.2 埋点事件</h3>
+
+<table>
+  <thead>
+    <tr><th>事件名</th><th>触发时机</th><th>关键属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>report_view</code></td><td>页面加载（已有）</td><td>has_ai_report</td></tr>
+    <tr><td><code>report_summary_view</code></td><td>AI 报告加载完成（已有）</td><td>report_length</td></tr>
+    <tr><td><code>summary_garbled</code></td><td>检测到首段含"个人画像/性格剖析"等脏标签</td><td>garbled_text（截断前 50 字）</td></tr>
+    <tr><td><code>detailed_toc_click</code></td><td>点击浮动目录跳转</td><td>section_index</td></tr>
+    <tr><td><code>suggested_question_click</code></td><td>点击 3 个提问模板之一</td><td>question_index</td></tr>
+    <tr><td><code>report_to_chat_click</code></td><td>点击主 CTA 进入 /panel</td><td>source（summary / body / questions）</td></tr>
+    <tr><td><code>paipan_plain_view</code></td><td>通俗版命盘解释展示</td><td>-</td></tr>
+    <tr><td><code>paipan_details_expand</code></td><td>展开专业版排盘</td><td>-</td></tr>
+    <tr><td><code>share_image_click</code></td><td>点击生成分享图</td><td>summary_used（boolean）</td></tr>
+    <tr><td><code>wechat_oa_click</code></td><td>点击关注公众号</td><td>-</td></tr>
+    <tr><td><code>report_bounce</code></td><td>页面打开 30s 内无任何点击且离开</td><td>scroll_depth</td></tr>
+  </tbody>
+</table>
+
+<h3>10.3 风险与回滚</h3>
+
+<table>
+  <thead>
+    <tr><th>风险</th><th>影响</th><th>回滚</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>后端 <code>ai_summary</code> 字段返回失败</td><td>前端降级到现有 <code>buildReportSummary</code></td><td>保留降级路径，feature flag 控制</td></tr>
+    <tr><td>组件拆分后样式跑偏</td><td>CSS variable 错位</td><td>保留原 page.tsx 作为备份，分阶段切换</td></tr>
+    <tr><td>3 段画像 AI 输出不稳定</td><td>偶尔返回非 3 段 / 标签错乱</td><td>prompt 加强约束 + 后端 schema 校验</td></tr>
+    <tr><td>分享图功能上线后影响性能</td><td>移动端生成慢</td><td>ShareImageDialog 已有 lazy 渲染，复用即可</td></tr>
+  </tbody>
+</table>
+
+<div class="footer-note">
+  易凡文化 / 命理报告页改版方案 v2.0 / 2026-08-18<br>
+  基于源码逐行分析 + 10 位世界级 UI/信息架构专家联合评审
+</div>
+
+</div>
+</body>
+</html>

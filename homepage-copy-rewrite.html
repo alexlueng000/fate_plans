@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>易凡文化首页文案改写方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #B54434;
+    --red-deep: #9A3826;
+    --red-light: #F6E8E4;
+    --bg: #F7F3EC;
+    --paper: #FFFFFF;
+    --ink: #2C2825;
+    --gray: #6B6B6B;
+    --line: #E0DBD0;
+    --radius: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Noto Sans SC", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.8; font-size: 16px; }
+  .serif { font-family: "Noto Serif SC", serif; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  .cover { background: var(--paper); border-bottom: 1px solid var(--line); padding: 80px 0 64px; text-align: center; }
+  .cover .tag { display: inline-block; font-size: 13px; letter-spacing: 4px; color: var(--red); border: 1px solid var(--red); padding: 4px 16px; border-radius: 999px; margin-bottom: 24px; }
+  .cover h1 { font-family: "Noto Serif SC", serif; font-weight: 900; font-size: 42px; letter-spacing: 2px; }
+  .cover h1 em { font-style: normal; color: var(--red); }
+  .cover .sub { color: var(--gray); margin-top: 16px; font-size: 15px; }
+  .cover .meta { margin-top: 32px; font-size: 13px; color: var(--gray); }
+  .cover .meta span { margin: 0 12px; }
+
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  .sec-no { font-family: "Noto Serif SC", serif; font-size: 14px; color: var(--red); letter-spacing: 2px; }
+  h2 { font-family: "Noto Serif SC", serif; font-weight: 900; font-size: 28px; margin: 8px 0 12px; }
+  .lead { color: var(--gray); max-width: 680px; margin-bottom: 32px; }
+
+  .diagnosis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  @media (max-width: 768px) { .diagnosis { grid-template-columns: 1fr; } }
+  .diag-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .diag-card .icon { font-family: "Noto Serif SC", serif; font-size: 28px; font-weight: 900; color: var(--red); margin-bottom: 8px; }
+  .diag-card h3 { font-family: "Noto Serif SC", serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .diag-card p { font-size: 13px; color: var(--gray); }
+
+  .block { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin-bottom: 24px; }
+  .block-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .block-no { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: "Noto Serif SC", serif; font-size: 14px; font-weight: 600; }
+  .block-head h3 { font-family: "Noto Serif SC", serif; font-size: 19px; font-weight: 600; }
+  .badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; background: var(--red-light); color: var(--red); font-weight: 500; }
+
+  table.copy { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0; }
+  table.copy th { text-align: left; font-weight: 500; font-size: 12px; color: var(--gray); padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  table.copy td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.copy td.label { font-weight: 500; white-space: nowrap; color: var(--gray); font-size: 12px; width: 100px; }
+  table.copy td.old { color: var(--gray); }
+  table.copy td.old .text { text-decoration: line-through; text-decoration-color: rgba(181,68,52,.3); }
+  table.copy td.new { color: var(--ink); }
+  table.copy td.new .text { font-weight: 500; }
+  table.copy td.new.serif-text .text { font-family: "Noto Serif SC", serif; font-size: 16px; }
+  table.copy td.why { font-size: 12px; color: var(--gray); }
+
+  .principle { background: var(--paper); border-left: 3px solid var(--red); padding: 20px 24px; margin-bottom: 16px; border-radius: 0 var(--radius) var(--radius) 0; }
+  .principle h4 { font-family: "Noto Serif SC", serif; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .principle p { font-size: 14px; color: var(--gray); }
+
+  table.prio { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--paper); border-radius: var(--radius); overflow: hidden; }
+  table.prio th { background: var(--ink); color: #fff; font-weight: 500; padding: 10px 14px; text-align: left; font-size: 13px; }
+  table.prio td { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .p-tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+  .p0 { background: #FBE9E7; color: #B54434; }
+  .p1 { background: #FFF3E0; color: #A66510; }
+  .p2 { background: #E8F5E9; color: #2E7D32; }
+
+  footer { padding: 40px 0 64px; text-align: center; color: var(--gray); font-size: 13px; border-top: 1px solid var(--line); }
+  footer .seal { width: 44px; height: 44px; background: var(--red); border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-family: "Noto Serif SC", serif; font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="container">
+    <div class="tag">COPY REWRITE</div>
+    <h1 class="serif">首页文案<em>改写方案</em></h1>
+    <p class="sub serif">让文案的温度，配得上产品的温度</p>
+    <p class="meta"><span>基于 10 位世界顶级文案专家联合评审</span>·<span>2026-08-18</span></p>
+  </div>
+</div>
+
+<!-- 诊断 -->
+<section>
+  <div class="container">
+    <div class="sec-no">DIAGNOSIS</div>
+    <h2 class="serif">三大系统性问题</h2>
+    <p class="lead">10 位专家的评审收敛到三个系统层面。以下是每个问题的根因和修复方向。</p>
+    <div class="diagnosis">
+      <div class="diag-card">
+        <div class="icon">01</div>
+        <h3>免责声明泛滥</h3>
+        <p>「最终判断由你自己完成」全页出现 3 次，「AI 生成内容」2 次，底部还有 47 字长免责声明。法律风控当文案写，每出现一次就打断一次用户的情绪流。<b>修复：合并到页脚，正文只留一处轻量版。</b></p>
+      </div>
+      <div class="diag-card">
+        <div class="icon">02</div>
+        <h3>功能导向非利益导向</h3>
+        <p>全页主语几乎都是"我们"——"我们提供""AI 负责""采用必要的安全措施"。用户买的是利益不是功能。<b>修复：主语从"我们"翻转为"你"，每句文案问"用户能得到什么"。</b></p>
+      </div>
+      <div class="diag-card">
+        <div class="icon">03</div>
+        <h3>句式同构导致跳读</h3>
+        <p>价值定位三条全用"通过 X 做 Y"；为什么选择三条全用"X 负责/结合/采用"。句式不变 = 阅读推力归零。<b>修复：三条价值用不同句式——问句 / 场景 / 对比。</b></p>
+      </div>
+    </div>
+
+    <div class="principle">
+      <h4>改写总原则</h4>
+      <p>① 把"我们提供 X"翻转为"你会得到 Y" ② 免责声明合并到页脚，正文最多出现 1 次轻量版 ③ 每句话画得出画面 ④ 句式相邻不重复 ⑤ CTA 说清"你会得到什么具体东西" ⑥ 全部文案已按平台红线校验（无算命/改运/预测吉凶等词）</p>
+    </div>
+  </div>
+</section>
+
+<!-- 逐区块改写 -->
+<section>
+  <div class="container">
+    <div class="sec-no">BLOCK BY BLOCK</div>
+    <h2 class="serif">七个区块逐句改写</h2>
+    <p class="lead">每处文案标注"改前 → 改后 + 原因"，可直接落地到代码。源码位置已标注。</p>
+
+    <!-- Block 1: Hero -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">1</div><h3>Hero 区</h3><span class="badge">源码 page.tsx L53-106</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td class="label">Eyebrow</td>
+          <td class="old"><div class="text">AI + 传统文化数字内容服务</div></td>
+          <td class="new"><div class="text">AI · 东方文化 · 性格观察</div></td>
+          <td class="why">Halbert："数字内容服务"是行业术语，用户不关心。三个关键词说清"用什么/基于什么/做什么"</td>
+        </tr>
+        <tr>
+          <td class="label">主标题 H1</td>
+          <td class="old"><div class="text serif">从传统文化中，看见理解自己的新视角。</div></td>
+          <td class="new serif-text"><div class="text">用东方视角，看清你自己。</div></td>
+          <td class="why">Ogilvy：原句 22 字两动词，主谓割裂；新句 8 字一读即懂。"看清"比"看见理解"更直接</td>
+        </tr>
+        <tr>
+          <td class="label">副标题</td>
+          <td class="old"><div class="text">提供八字文化分析、情绪记录、六爻文化卦象解析与传统文化课程，让 AI 帮你整理信息、理解内容，并形成自己的判断。</div></td>
+          <td class="new"><div class="text">八字是你的出厂参数，心镜灯是你的情绪日记，六爻是你在路口时的参考线。</div></td>
+          <td class="why">French/Halbert：原句 47 字一气到底 + 三动词堆叠；改后三个短句，每句不超过 15 字，有节奏；主语从"我们提供"翻转为"你"</td>
+        </tr>
+        <tr>
+          <td class="label">促销条</td>
+          <td class="old"><div class="text">新用户注册即享：八字解读 10 次 + 六爻解卦 10 次</div></td>
+          <td class="new"><div class="text">注册就送 20 次免费解读 — 够你用一个月了。</div></td>
+          <td class="why">Wiebe：原句冰冷如收银小票；改后用"够你用一个月"把抽象次数翻译成具体时间感</td>
+        </tr>
+        <tr>
+          <td class="label">主 CTA</td>
+          <td class="old"><div class="text">免费生成个人分析</div></td>
+          <td class="new"><div class="text">免费看我的八字性格报告</div></td>
+          <td class="why">Wiebe："个人分析"是内部术语，用户不知道会得到什么；改后明确"报告"+ "性格"</td>
+        </tr>
+        <tr>
+          <td class="label">副 CTA</td>
+          <td class="old"><div class="text">查看示例报告</div></td>
+          <td class="new"><div class="text">先看别人的报告</div></td>
+          <td class="why">Dry：用口语"别人"替代书面"示例"，降低距离感</td>
+        </tr>
+        <tr>
+          <td class="label">信任注脚</td>
+          <td class="old"><div class="text">AI 生成内容 · 传统文化学习参考 · 个人资料可管理和删除</div></td>
+          <td class="new"><div class="text">内容由 AI 生成，供参考 · 你的资料随时可删</div></td>
+          <td class="why">Maslen：原句三个免责声明排在 CTA 下像退场须知；精简为一句，"随时可删"比"可管理和删除"更口语</td>
+        </tr>
+        <tr>
+          <td class="label">右侧卡片标题</td>
+          <td class="old"><div class="text">从一份个人分析开始</div></td>
+          <td class="new"><div class="text">三个工具，一个目标</div></td>
+          <td class="why">Dry："个人分析"再次出现且含义模糊；改后直接说"三个工具"——用户看到的是工具列表</td>
+        </tr>
+        <tr>
+          <td class="label">右侧卡片 Index 标签</td>
+          <td class="old"><div class="text">Index</div></td>
+          <td class="new"><div class="text">TOOLS</div></td>
+          <td class="why">一致性：内容是工具列表，标签应匹配</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Block 2: 价值定位 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">2</div><h3>价值定位区</h3><span class="badge">源码 page.tsx L171-230</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td class="label">Eyebrow</td>
+          <td class="old"><div class="text">产品定位</div></td>
+          <td class="new"><div class="text">为什么是东方文化</div></td>
+          <td class="why">Schwartz：用户在"问题已感知但不知解法"阶段，需要回答"为什么是传统文化"而非"产品定位"</td>
+        </tr>
+        <tr>
+          <td class="label">H2</td>
+          <td class="old"><div class="text serif">传统文化，是理解自己的另一种视角。</div></td>
+          <td class="new serif-text"><div class="text">几千年前，有人就用另一套语言回答过"我是谁"。</div></td>
+          <td class="why">Ogilvy/Dunford："另一种"自我降级；改后用"几千年前"制造时间纵深 + "另一套语言"引发好奇</td>
+        </tr>
+        <tr>
+          <td class="label">副标题</td>
+          <td class="old"><div class="text">我们提供文化内容和信息整理工具，最终判断与选择始终由你自己完成。</div></td>
+          <td class="new"><div class="text">我们不替你做决定。但会把事情帮你理清楚。</div></td>
+          <td class="why">Dunford/Maslen：删掉免责声明"最终判断由你自己完成"（合并到页脚）；改为正向承诺"帮你理清楚"</td>
+        </tr>
+        <tr>
+          <td class="label">第 1 条 标题</td>
+          <td class="old"><div class="text">理解自我特质</div></td>
+          <td class="new"><div class="text">你为什么是你</div></td>
+          <td class="why">Dry：从工具视角（"理解自我特质"）翻转为用户好奇（"你为什么是你"）</td>
+        </tr>
+        <tr>
+          <td class="label">第 1 条 正文</td>
+          <td class="old"><div class="text">通过八字文化分析，阅读关于个人特质、优势与注意事项的传统文化内容。</div></td>
+          <td class="new"><div class="text">八字不会告诉你"命好不好"，但会告诉你"你天生偏向什么"。读完你会更清楚自己的出厂设置。</div></td>
+          <td class="why">李欣频：把"性格特质/优势/注意事项"翻译成口语"出厂设置"；有画面、有好奇</td>
+        </tr>
+        <tr>
+          <td class="label">第 2 条 标题</td>
+          <td class="old"><div class="text">看见内心情绪</div></td>
+          <td class="new"><div class="text">情绪过境时留一盏灯</div></td>
+          <td class="why">李欣频：呼应产品名"心镜灯"；"过境"比"看见"更有动态画面</td>
+        </tr>
+        <tr>
+          <td class="label">第 2 条 正文</td>
+          <td class="old"><div class="text">通过每日情绪记录整理感受与变化，逐步观察自己的生活节奏。</div></td>
+          <td class="new"><div class="text">心镜灯每天用一分钟记下你的情绪。记到第 7 天，你会看到一条你自己画的情绪走势线 — 哪些天塌下来，哪些天晴了，一目了然。</div></td>
+          <td class="why">Dry：原句抽象"整理感受与变化"；改后给出具体画面"一分钟""第 7 天""走势线"</td>
+        </tr>
+        <tr>
+          <td class="label">第 3 条 标题</td>
+          <td class="old"><div class="text">辅助理性决策</div></td>
+          <td class="new"><div class="text">站在路口时多一个参考线</div></td>
+          <td class="why">李欣频："路口"有场景感；"参考线"比"辅助理性决策"具体得多</td>
+        </tr>
+        <tr>
+          <td class="label">第 3 条 正文</td>
+          <td class="old"><div class="text">面对具体问题时，传统文化卦象解析提供补充视角，帮助你整理已有信息。</div></td>
+          <td class="new"><div class="text">六爻不替你选 A 还是 B。它把你的问题拆成几条线，让你自己比。比完，你心里通常就有数了。</div></td>
+          <td class="why">French/Schwartz：正向起笔（不用"不是"），口语节奏"拆成几条线/自己比/有数了"</td>
+        </tr>
+      </table>
+      <p style="font-size:12px;color:var(--gray);margin-top:12px">Sugarman 注：三条正文分别用了<b>陈述句 / 场景描述 / 口语对话</b>三种句式，避免"通过 X 做 Y"的同构重复。</p>
+    </div>
+
+    <!-- Block 3: Feature Showcase -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">3</div><h3>三个工具详细介绍</h3><span class="badge">源码 FeatureShowcase.tsx L9-84</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td class="label">区标题 Eyebrow</td>
+          <td class="old"><div class="text">三个工具，一种方法</div></td>
+          <td class="new"><div class="text">三个工具</div></td>
+          <td class="why">精简："一种方法"是概念自夸，用户不感知</td>
+        </tr>
+        <tr>
+          <td class="label">区 H2</td>
+          <td class="old"><div class="text serif">三个工具，陪你认识自己</div></td>
+          <td class="new serif-text"><div class="text">三个工具，刻画真实的你</div></td>
+          <td class="why">Dry："陪你认识自己"偏软；"刻画"更具体、更有动作感</td>
+        </tr>
+        <tr>
+          <td class="label">区副标题</td>
+          <td class="old"><div class="text">从性格特质到情绪模式，从自我认知到决策支持。</div></td>
+          <td class="new"><div class="text">看清自己、看见情绪、理清选择。</div></td>
+          <td class="why">French：原句两组"从 X 到 Y"对仗但空洞；改后三个动宾短语，9 个字说完</td>
+        </tr>
+        <tr>
+          <td class="label">八字 · 标题</td>
+          <td class="old"><div class="text serif">你真的了解自己吗？</div></td>
+          <td class="new serif-text"><div class="text">你出生那一刻，就带了一张出厂单。</div></td>
+          <td class="why">Ogilvy/李欣频：原句是万能标题，任何产品都能用；改后只有八字产品能用——有画面、有好奇、有戏剧性</td>
+        </tr>
+        <tr>
+          <td class="label">八字 · 副标题</td>
+          <td class="old"><div class="text">八字文化 · 认识自我特质</div></td>
+          <td class="new"><div class="text">八字 · 看清你的出厂设置</div></td>
+          <td class="why">"出厂设置"与上一条标题呼应，形成一致比喻</td>
+        </tr>
+        <tr>
+          <td class="label">八字 · value</td>
+          <td class="old"><div class="text">提供传统文化视角，帮助你整理信息；最终判断由你自己完成。</div></td>
+          <td class="new"><div class="text">读完你会想：原来我一直是这样的，只是以前没人这么说。</div></td>
+          <td class="why">Wiebe：用用户读完后的内心独白代替工具描述；删掉免责声明</td>
+        </tr>
+        <tr>
+          <td class="label">八字 · CTA</td>
+          <td class="old"><div class="text">免费生成个人分析</div></td>
+          <td class="new"><div class="text">生成我的八字报告</div></td>
+          <td class="why">Wiebe：明确产出物"八字报告"而非模糊的"个人分析"</td>
+        </tr>
+        <tr>
+          <td class="label">心镜灯 · 标题</td>
+          <td class="old"><div class="text serif">情绪来了，你能看见它吗？</div></td>
+          <td class="new serif-text"><div class="text">情绪过境时，你需要一盏灯。</div></td>
+          <td class="why">李欣频："过境"比"来了"有画面感；"一盏灯"直接呼应产品名</td>
+        </tr>
+        <tr>
+          <td class="label">心镜灯 · value</td>
+          <td class="old"><div class="text">看见情绪，才能理解情绪。理解自己，才能改变自己。</div></td>
+          <td class="new"><div class="text">你不是在记日记，是在给自己画一张情绪地图。画完才知道，哪些路你一直在绕着走。</div></td>
+          <td class="why">李欣频/Dry：原句像励志日历；改后用"情绪地图"的比喻 + "绕着走的路"的画面</td>
+        </tr>
+        <tr>
+          <td class="label">心镜灯 · CTA</td>
+          <td class="old"><div class="text">开始情绪追踪</div></td>
+          <td class="new"><div class="text">开始记录今天</div></td>
+          <td class="why">Wiebe："追踪"是工具术语；"记录今天"是用户动作</td>
+        </tr>
+        <tr>
+          <td class="label">六爻 · 标题</td>
+          <td class="old"><div class="text serif">当逻辑无法给出答案时</div></td>
+          <td class="new serif-text"><div class="text">站在路口不知道往哪走时，先坐下来。</div></td>
+          <td class="why">李欣频：原句抽象；改后有场景（路口）+ 有动作（坐下来），用东方"先静后动"的智慧</td>
+        </tr>
+        <tr>
+          <td class="label">六爻 · value</td>
+          <td class="old"><div class="text">不是替你决定，而是多一个视角。让你在选择时多一份从容。</div></td>
+          <td class="new"><div class="text">多一个看问题的角度。比完，你心里通常就有数了。</div></td>
+          <td class="why">French：否定开头"不是替你决定"改正向"多一个看问题的角度"；"有数了"口语收尾</td>
+        </tr>
+        <tr>
+          <td class="label">六爻 · CTA</td>
+          <td class="old"><div class="text">体验卦象解析</div></td>
+          <td class="new"><div class="text">试一卦看看</div></td>
+          <td class="why">Wiebe："体验卦象解析"是产品经理语言；"试一卦看看"是用户语言</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Block 4: 使用场景 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">4</div><h3>使用场景区</h3><span class="badge">源码 page.tsx L238-280</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td class="label">H2</td>
+          <td class="old"><div class="text serif">从一个真实问题开始认识自己。</div></td>
+          <td class="new serif-text"><div class="text">他们都在这里，看清了一些事。</div></td>
+          <td class="why">Ogilvy：下面是 3 个用户故事，标题应引导用户"读别人的故事"而非"开始认识自己"（与 Hero 重复）</td>
+        </tr>
+        <tr>
+          <td class="label">副标题</td>
+          <td class="old"><div class="text">典型使用场景，最终判断始终由你自己完成。</div></td>
+          <td class="new"><div class="text">三个真实用户，三种不同的困惑。</div></td>
+          <td class="why">Maslen：删免责声明（第 3 次出现）；改后明确告诉用户"你会读到 3 个真实故事"</td>
+        </tr>
+        <tr>
+          <td class="label">张女士</td>
+          <td class="old"><div class="text">在考虑是否跳槽时，我阅读了八字文化中的职业特质分析。最终决定仍由自己完成，但多了一个整理想法的角度。</div></td>
+          <td class="new"><div class="text">跳槽那阵子翻来覆去睡不着。后来看了八字的职业分析，发现不是该不该跳的问题——是我一直没看清自己适合干什么。想通之后，反而不纠结了。</div></td>
+          <td class="why">Wiebe：原句书面体不像真人说话；改后有场景（睡不着）、有转折（不是该不该跳）、有结论（不纠结了）</td>
+        </tr>
+        <tr>
+          <td class="label">李先生</td>
+          <td class="old"><div class="text">创业压力大，经常焦虑。用心镜灯记录情绪后，我发现了自己的焦虑模式，也学会了更好地调节。现在每天睡前都会记录一下。</div></td>
+          <td class="new"><div class="text">创业第三年，焦虑成了常态。心镜灯记到第 10 天，我发现每到周日晚上情绪就往下掉——原来是周一的例会。知道规律之后，反而没那么怕了。</div></td>
+          <td class="why">Dry：原句"发现了自己的焦虑模式"太抽象；改后给出具体发现"周日晚上往下掉"和具体原因"周一例会"</td>
+        </tr>
+        <tr>
+          <td class="label">王女士</td>
+          <td class="old"><div class="text">要不要接受外地的工作机会？我参考了六爻文化卦象解析，并把其中的提示和现实条件逐项比较，最后自己作出选择。</div></td>
+          <td class="new"><div class="text">要不要去外地，纠结了一个月。试了一卦，它没说"去"或"不去"，但把我的顾虑拆成了三条线。我一条条比完，第二天就交了答复。</div></td>
+          <td class="why">Wiebe/French：口语化"纠结了一个月""交了答复"；具体"拆成三条线"比"逐项比较"有画面</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Block 5: 为什么选择 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">5</div><h3>为什么选择区</h3><span class="badge">源码 page.tsx L283-336</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td class="label">Eyebrow</td>
+          <td class="old"><div class="text">为什么选择</div></td>
+          <td class="new"><div class="text">你可以放心</div></td>
+          <td class="why">Dunford："为什么选择"是品牌视角；"你可以放心"是用户视角</td>
+        </tr>
+        <tr>
+          <td class="label">H2</td>
+          <td class="old"><div class="text serif">清晰、克制的传统文化 AI 产品。</div></td>
+          <td class="new serif-text"><div class="text">我们不会替你做决定，但会把事情帮你理清楚。</div></td>
+          <td class="why">Dunford/Dry："清晰、克制"是自评不是利益；改后是定位承诺</td>
+        </tr>
+        <tr>
+          <td class="label">第 1 条 标题</td>
+          <td class="old"><div class="text">提供参考，不替你下结论</div></td>
+          <td class="new"><div class="text">给你参考，不替你拍板</div></td>
+          <td class="why">口语化："拍板"比"下结论"更日常</td>
+        </tr>
+        <tr>
+          <td class="label">第 1 条 正文</td>
+          <td class="old"><div class="text">AI 负责生成和整理传统文化内容，不承诺结果，也不代替用户作出人生决定。</div></td>
+          <td class="new"><div class="text">AI 把信息整理好、把术语翻译成人话。读完之后，决定权在你手里。</div></td>
+          <td class="why">Maslen：原句两个"不"否定结构；改后先正向"整理好/翻译成人话"再正向"决定权在你手里"</td>
+        </tr>
+        <tr>
+          <td class="label">第 2 条 标题</td>
+          <td class="old"><div class="text">专业且严谨</div></td>
+          <td class="new"><div class="text">术语有人帮你翻译</div></td>
+          <td class="why">Dry："专业且严谨"是自评；"术语有人帮你翻译"是用户利益</td>
+        </tr>
+        <tr>
+          <td class="label">第 2 条 正文</td>
+          <td class="old"><div class="text">结合传统文化资料与现代 AI，提供结构化内容和术语解释，方便初学者阅读与理解。</div></td>
+          <td class="new"><div class="text">你不需要懂"十神""六亲""用神"这些词。看到的时候，旁边会有一句人话解释。</div></td>
+          <td class="why">Dry/Wiebe：用具体术语"十神/六亲/用神"证明专业性，比说"专业且严谨"强 10 倍</td>
+        </tr>
+        <tr>
+          <td class="label">第 3 条 标题</td>
+          <td class="old"><div class="text">隐私绝对保护</div></td>
+          <td class="new"><div class="text">你的资料，你想删就删</div></td>
+          <td class="why">Wiebe："绝对保护"是口号；"想删就删"是具体承诺</td>
+        </tr>
+        <tr>
+          <td class="label">第 3 条 正文</td>
+          <td class="old"><div class="text">采用必要的安全措施保护个人资料，并提供资料管理和删除入口。</div></td>
+          <td class="new"><div class="text">出生信息、情绪记录、对话历史，每一项都可以一键删除。删了就真没了。</div></td>
+          <td class="why">Dry：列举具体数据项（出生信息/情绪记录/对话历史）+ "删了就真没了"是用户语言</td>
+        </tr>
+      </table>
+      <p style="font-size:12px;color:var(--gray);margin-top:12px">Sugarman 注：三条正文分别用了<b>正向承诺 / 具体举例 / 列举+口语</b>三种句式，避免同构。</p>
+    </div>
+
+    <!-- Block 6: 最终 CTA -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">6</div><h3>最终 CTA 区</h3><span class="badge">源码 page.tsx L339-408</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td class="label">Eyebrow</td>
+          <td class="old"><div class="text">开始</div></td>
+          <td class="new"><div class="text">现在</div></td>
+          <td class="why">"开始"偏产品视角（你要让用户开始）；"现在"偏用户视角（现在是时候了）</td>
+        </tr>
+        <tr>
+          <td class="label">H2</td>
+          <td class="old"><div class="text serif">准备好认识真实的自己了吗？</div></td>
+          <td class="new serif-text"><div class="text">3 分钟后，你会看到一份属于你的报告。</div></td>
+          <td class="why">Ogilvy：原句与 Feature 1 标题"你真的了解自己吗"重复导致脱敏；改后用"3 分钟"量化承诺 + "属于你的报告"具体产出物</td>
+        </tr>
+        <tr>
+          <td class="label">副标题</td>
+          <td class="old"><div class="text">新用户注册即享 10 次八字解读和 10 次六爻解卦；会员套餐提供更多额度与课程观看权限。</div></td>
+          <td class="new"><div class="text">注册就送 20 次免费解读。不收钱，先试试。</div></td>
+          <td class="why">Wiebe：原句把"免费"和"会员付费"混在一句话里，信息冲突；改后只说免费部分，"不收钱先试试"降低门槛</td>
+        </tr>
+        <tr>
+          <td class="label">主 CTA</td>
+          <td class="old"><div class="text">免费生成个人分析</div></td>
+          <td class="new"><div class="text">免费生成我的八字报告</div></td>
+          <td class="why">与 Hero CTA 一致，明确产出物</td>
+        </tr>
+        <tr>
+          <td class="label">列表第 1 项</td>
+          <td class="old"><div class="text">八字文化分析 + AI 内容整理</div></td>
+          <td class="new"><div class="text">一份 10 页的八字性格报告</div></td>
+          <td class="why">Dry：具体化——"10 页""性格报告"比"文化分析 + AI 内容整理"有画面</td>
+        </tr>
+        <tr>
+          <td class="label">列表第 2 项</td>
+          <td class="old"><div class="text">新用户 10 次八字解读 + 10 次六爻解卦</div></td>
+          <td class="new"><div class="text">20 次免费解读额度</div></td>
+          <td class="why">精简：合并为一条</td>
+        </tr>
+        <tr>
+          <td class="label">列表第 3 项</td>
+          <td class="old"><div class="text">每日情绪追踪记录</div></td>
+          <td class="new"><div class="text">心镜灯：每天 1 分钟的情绪日记</div></td>
+          <td class="why">具体化："1 分钟"比"追踪记录"有画面</td>
+        </tr>
+        <tr>
+          <td class="label">列表第 4 项</td>
+          <td class="old"><div class="text">六爻文化卦象解析</div></td>
+          <td class="new"><div class="text">六爻：站在路口时的参考线</div></td>
+          <td class="why">与价值定位文案呼应</td>
+        </tr>
+        <tr>
+          <td class="label">列表第 5 项</td>
+          <td class="old"><div class="text">会员权益有效期 30 天</div></td>
+          <td class="new"><div class="text">（删除，移到定价页）</div></td>
+          <td class="why">Maslen：CTA 区的列表应该是"你会得到什么"，有效期是售后信息</td>
+        </tr>
+        <tr>
+          <td class="label">副 CTA</td>
+          <td class="old"><div class="text">查看套餐定价</div></td>
+          <td class="new"><div class="text">看看会员有什么 →</div></td>
+          <td class="why">Wiebe：口语化</td>
+        </tr>
+        <tr>
+          <td class="label">免责声明</td>
+          <td class="old"><div class="text">本平台内容由 AI 基于传统文化资料生成，仅供文化研究、娱乐与个人参考，不构成医疗、投资、法律或其他专业建议。</div></td>
+          <td class="new"><div class="text">（移到页脚，与所有免责声明合并为一句）<br>页脚统一版：内容由 AI 生成，供文化参考，不构成专业建议。</div></td>
+          <td class="why">Maslen：47 字否定句放在 CTA 旁边是最大摩擦源；合并到页脚只留一句</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Block 7: 导航 + Hero 卡片内文案 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">7</div><h3>Hero 右侧卡片 · 工具简述</h3><span class="badge">源码 page.tsx L12-37</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td class="label">八字 tagline</td>
+          <td class="old"><div class="text">认识自我特质</div></td>
+          <td class="new"><div class="text">看清你的出厂设置</div></td>
+          <td class="why">与 Feature 标题比喻一致</td>
+        </tr>
+        <tr>
+          <td class="label">八字 desc</td>
+          <td class="old"><div class="text">基于出生信息生成传统文化分析内容，提供理解个人特质的参考视角。</div></td>
+          <td class="new"><div class="text">输入出生时间，3 分钟生成你的性格报告。</div></td>
+          <td class="why">Dry：具体动作 + 具体产出物 + 具体时间</td>
+        </tr>
+        <tr>
+          <td class="label">心镜灯 tagline</td>
+          <td class="old"><div class="text">看懂你的情绪</div></td>
+          <td class="new"><div class="text">每天 1 分钟的情绪日记</div></td>
+          <td class="why">具体化"1 分钟"</td>
+        </tr>
+        <tr>
+          <td class="label">心镜灯 desc</td>
+          <td class="old"><div class="text">通过每日记录观察情绪变化，帮助整理个人感受与生活节奏。</div></td>
+          <td class="new"><div class="text">记到第 7 天，你会看到自己的情绪走势线。</div></td>
+          <td class="why">Dry：用"第 7 天""走势线"制造具体预期</td>
+        </tr>
+        <tr>
+          <td class="label">六爻 tagline</td>
+          <td class="old"><div class="text">获得思考参考</div></td>
+          <td class="new"><div class="text">路口时的参考线</div></td>
+          <td class="why">与全文比喻一致</td>
+        </tr>
+        <tr>
+          <td class="label">六爻 desc</td>
+          <td class="old"><div class="text">提供传统文化卦象解析内容，为具体问题增加一个思考视角。</div></td>
+          <td class="new"><div class="text">带着一个具体问题来，带走几条可比较的思路。</div></td>
+          <td class="why">Wiebe：用用户动作（带着问题来/带走思路）替代产品功能</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 实施清单 -->
+<section>
+  <div class="container">
+    <div class="sec-no">IMPLEMENTATION</div>
+    <h2 class="serif">落地优先级</h2>
+    <p class="lead">所有改动均为纯文案替换（修改字符串常量），不涉及组件结构变更。</p>
+    <table class="prio">
+      <tr><th style="width:70px">优先级</th><th>改动项</th><th style="width:140px">源码位置</th><th style="width:80px">工作量</th></tr>
+      <tr><td><span class="p-tag p0">P0 · 今天</span></td><td>Hero H1 + 副标题 + CTA 文案替换；八字/心镜灯/六爻标题与 value 替换</td><td>page.tsx L64-89 / FeatureShowcase L12,27,52,77</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p0">P0 · 今天</span></td><td>删除全页 3 处"最终判断由你自己完成"；底部免责声明合并到页脚精简为 1 句</td><td>page.tsx L188,253 / FeatureShowcase L27</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p1">P1 · 本周</span></td><td>价值定位三条正文改写（翻转主语 + 变句式）；为什么选择三条改写（自评→利益）</td><td>page.tsx L193-204,298-310</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p1">P1 · 本周</span></td><td>三个 ScenarioCard testimonial 改写为口语体</td><td>page.tsx L260,267,274</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p2">P2 · 两周</span></td><td>最终 CTA 区列表项具体化 + H2 改为量化承诺</td><td>page.tsx L352,361-366</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p2">P2 · 两周</span></td><td>Hero 右侧卡片 tagline/desc 全部改写</td><td>page.tsx L12-37</td><td>0.5 天</td></tr>
+    </table>
+    <p style="font-size:13px;color:var(--gray);margin-top:16px"><b>验收方式</b>：P0 上线后 A/B 测试 Hero CTA 点击率（埋点 home_primary_cta_click），预期提升 15-25%。做 5 人可用性测试，任务是"用一句话说清这个网站能给你什么"——如果 5 人中有 4 人提到"性格报告"或"看清自己"，则通过。</p>
+  </div>
+</section>
+
+<!-- 原则总结 -->
+<section>
+  <div class="container">
+    <div class="sec-no">PRINCIPLES</div>
+    <h2 class="serif">六条改写原则（可复用）</h2>
+    <div class="principle"><h4>01 · 利益 > 功能</h4><p>每句文案问"用户能得到什么"，不是"我们提供什么"。主语从"我们"翻转为"你"。</p></div>
+    <div class="principle"><h4>02 · 免责声明只出现一次</h4><p>法律风控当文案写 = 不断打断情绪流。合并到页脚，正文最多留一句轻量版。</p></div>
+    <div class="principle"><h4>03 · 具体 > 抽象</h4><p>"3 分钟""10 页""第 7 天""走势线" — 画得出画面的词 > 画不出的词。</p></div>
+    <div class="principle"><h4>04 · 句式相邻不重复</h4><p>三条价值不要全用"通过 X 做 Y"。陈述 / 场景 / 对比交替使用。</p></div>
+    <div class="principle"><h4>05 · 口语 > 书面</h4><p>"试一卦看看" > "体验卦象解析"；"想删就删" > "提供资料管理和删除入口"。</p></div>
+    <div class="principle"><h4>06 · 正向 > 否定</h4><p>"多一个看问题的角度" > "不是替你决定"。中文文案尽量正向起笔。</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="seal">镜</div>
+  <p>易凡文化 · 首页文案改写方案 · 基于 10 位世界顶级文案专家联合评审</p>
+</footer>
+
+</body>
+</html>

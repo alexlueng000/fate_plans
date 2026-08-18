@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>易凡文化首页改版方案 v2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #B54434;
+    --red-deep: #9A3826;
+    --red-light: #F6E8E4;
+    --bg: #F7F3EC;
+    --paper: #FFFFFF;
+    --ink: #2C2825;
+    --gray: #6B6B6B;
+    --line: #E0DBD0;
+    --ochre: #D4A574;
+    --radius: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+    font-size: 16px;
+  }
+  .serif { font-family: "Noto Serif SC", serif; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== Cover ===== */
+  .cover {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 80px 0 64px;
+    text-align: center;
+  }
+  .cover .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 4px 16px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 900;
+    font-size: 42px;
+    letter-spacing: 2px;
+  }
+  .cover h1 em { font-style: normal; color: var(--red); }
+  .cover .sub { color: var(--gray); margin-top: 16px; font-size: 15px; }
+  .cover .meta { margin-top: 32px; font-size: 13px; color: var(--gray); }
+  .cover .meta span { margin: 0 12px; }
+
+  /* ===== Summary strip ===== */
+  .summary { padding: 48px 0; }
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+  .score-card {
+    background: var(--paper);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .score-card .label { font-size: 13px; color: var(--gray); }
+  .score-card .num { font-family: "Noto Serif SC", serif; font-size: 28px; font-weight: 600; }
+  .score-card .num.good { color: var(--red); }
+  .score-card .delta { font-size: 12px; color: var(--gray); }
+
+  /* ===== Section ===== */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  .sec-no {
+    font-family: "Noto Serif SC", serif;
+    font-size: 14px;
+    color: var(--red);
+    letter-spacing: 2px;
+  }
+  h2 {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 900;
+    font-size: 28px;
+    margin: 8px 0 12px;
+  }
+  .lead { color: var(--gray); max-width: 680px; margin-bottom: 32px; }
+
+  /* ===== Spec cards ===== */
+  .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .spec-card {
+    background: var(--paper);
+    border-radius: var(--radius);
+    padding: 24px;
+    border: 1px solid var(--line);
+  }
+  .spec-card h3 {
+    font-family: "Noto Serif SC", serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .swatch-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch { width: 84px; }
+  .swatch .chip { height: 48px; border-radius: 6px; border: 1px solid var(--line); }
+  .swatch .name { font-size: 12px; margin-top: 6px; font-weight: 500; }
+  .swatch .hex { font-size: 11px; color: var(--gray); font-family: monospace; }
+  .swatch .use { font-size: 11px; color: var(--gray); }
+
+  .type-row { display: flex; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .sample { flex: 1; }
+  .type-row .spec { font-size: 11px; color: var(--gray); white-space: nowrap; font-family: monospace; }
+
+  .shape-row { display: flex; align-items: center; gap: 14px; padding: 8px 0; }
+  .shape-demo { width: 48px; display: flex; justify-content: center; }
+
+  /* ===== Block redesign ===== */
+  .block {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .block-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .block-no {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Noto Serif SC", serif; font-size: 14px; font-weight: 600;
+  }
+  .block-head h3 { font-family: "Noto Serif SC", serif; font-size: 19px; font-weight: 600; }
+  .badge {
+    font-size: 11px; padding: 2px 10px; border-radius: 999px;
+    background: var(--red-light); color: var(--red); font-weight: 500;
+  }
+  .badge.new { background: var(--red); color: #fff; }
+
+  table.copy { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+  table.copy th {
+    text-align: left; font-weight: 500; font-size: 12px; color: var(--gray);
+    padding: 8px 12px; border-bottom: 1px solid var(--line);
+  }
+  table.copy td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.copy td.old { color: var(--gray); text-decoration: line-through; text-decoration-color: rgba(181,68,52,.4); }
+  table.copy td.new { color: var(--ink); font-weight: 500; }
+  table.copy td.why { font-size: 12px; color: var(--gray); }
+
+  .todo { list-style: none; }
+  .todo li { padding: 6px 0 6px 24px; position: relative; font-size: 14px; }
+  .todo li::before {
+    content: ""; position: absolute; left: 4px; top: 15px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+  }
+
+  /* ===== Priority table ===== */
+  table.prio { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--paper); border-radius: var(--radius); overflow: hidden; }
+  table.prio th { background: var(--ink); color: #fff; font-weight: 500; padding: 10px 14px; text-align: left; font-size: 13px; }
+  table.prio td { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .p-tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+  .p0 { background: #FBE9E7; color: #B54434; }
+  .p1 { background: #FFF3E0; color: #A66510; }
+  .p2 { background: #E8F5E9; color: #2E7D32; }
+  .p3 { background: #ECEFF1; color: #546E7A; }
+
+  /* ===== Footer ===== */
+  footer { padding: 40px 0 64px; text-align: center; color: var(--gray); font-size: 13px; border-top: 1px solid var(--line); }
+  footer .seal {
+    width: 44px; height: 44px; background: var(--red); border-radius: 4px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: "Noto Serif SC", serif; font-size: 22px; font-weight: 900;
+    color: #fff; margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== 封面 ===================== -->
+<div class="cover">
+  <div class="container">
+    <div class="tag">REDESIGN PLAN</div>
+    <h1 class="serif">首页改版方案 <em>v2.0</em></h1>
+    <p class="sub serif">用东方视角，看清你自己 —— 让首页也配得上这句话</p>
+    <p class="meta">
+      <span>基于 10 位顶级 UI 专家联合评审</span>·<span>2026-08-18</span>·<span>fateinsight.site</span>
+    </p>
+  </div>
+</div>
+
+<!-- ===================== 摘要 ===================== -->
+<div class="summary">
+  <div class="container">
+    <div class="score-grid">
+      <div class="score-card"><div class="label">品牌调性</div><div class="num serif">9.0</div><div class="delta">保持不变</div></div>
+      <div class="score-card"><div class="label">视觉层级</div><div class="num serif">6.5→8.5</div><div class="delta">四级字重系统</div></div>
+      <div class="score-card"><div class="label">可用性</div><div class="num serif">6.5→8.5</div><div class="delta">修正语病 · 明确 CTA</div></div>
+      <div class="score-card"><div class="label">转化力</div><div class="num serif">6.0→8.0</div><div class="delta">信任锚点 · 降门槛</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 01 设计语言规范 ===================== -->
+<section>
+  <div class="container">
+    <div class="sec-no">PART 01</div>
+    <h2 class="serif">设计语言规范</h2>
+    <p class="lead">改版不是推翻，而是把已经做对的 60%（调性、留白、网格）固化成规范，再补上缺失的 40%（字重、形系统、转化组件）。以下规范对首页及全站生效。</p>
+
+    <div class="spec-grid">
+      <!-- 颜色 -->
+      <div class="spec-card">
+        <h3>1.1 颜色系统</h3>
+        <div class="swatch-row">
+          <div class="swatch"><div class="chip" style="background:#B54434"></div><div class="name">朱砂红</div><div class="hex">#B54434</div><div class="use">主CTA / 强调</div></div>
+          <div class="swatch"><div class="chip" style="background:#F7F3EC"></div><div class="name">暖米白</div><div class="hex">#F7F3EC</div><div class="use">页面底色</div></div>
+          <div class="swatch"><div class="chip" style="background:#FFFFFF"></div><div class="name">纸白</div><div class="hex">#FFFFFF</div><div class="use">卡片面</div></div>
+          <div class="swatch"><div class="chip" style="background:#2C2825"></div><div class="name">墨黑</div><div class="hex">#2C2825</div><div class="use">主文字</div></div>
+          <div class="swatch"><div class="chip" style="background:#6B6B6B"></div><div class="name">中灰</div><div class="hex">#6B6B6B</div><div class="use">辅助文字</div></div>
+          <div class="swatch"><div class="chip" style="background:#D4A574"></div><div class="name">赭石</div><div class="hex">#D4A574</div><div class="use">点缀（≤5%）</div></div>
+        </div>
+        <p style="font-size:12px;color:#6B6B6B;margin-top:14px">规则：一屏之内朱砂红面积 ≤ 10%；红色只出现在"可点击 / 需注意"的元素上；正文永远用墨黑，不用纯黑 #000。</p>
+      </div>
+
+      <!-- 字体 -->
+      <div class="spec-card">
+        <h3>1.2 字体字重系统（思源宋体 + 思源黑体）</h3>
+        <div class="type-row"><div class="sample serif" style="font-weight:900;font-size:22px">用东方视角，看清你自己</div><div class="spec">H1 / 900 / 48px</div></div>
+        <div class="type-row"><div class="sample serif" style="font-weight:600;font-size:18px">三个工具，刻画真实的自己</div><div class="spec">H2 / 600 / 32px</div></div>
+        <div class="type-row"><div class="sample serif" style="font-weight:400;font-size:15px">八字是你出厂时的参数设定，描绘你的底层倾向。</div><div class="spec">Body / 400 / 16px / lh1.8</div></div>
+        <div class="type-row"><div class="sample" style="font-weight:300;font-size:13px;color:#6B6B6B">3 分钟生成报告 · 邮箱仅用于发送</div><div class="spec">Caption / 300 / 14px</div></div>
+        <p style="font-size:12px;color:#6B6B6B;margin-top:14px">规则：标题用宋体（衬线，文化感），辅助说明用黑体（无衬线，工具感）；层级靠"字重差 + 字号差"双重拉开，不再只靠字号。</p>
+      </div>
+
+      <!-- 形系统 -->
+      <div class="spec-card">
+        <h3>1.3 形系统</h3>
+        <div class="shape-row"><div class="shape-demo"><div style="width:36px;height:36px;border-radius:50%;background:#B54434;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:500;">Go</div></div><div><b>实心朱砂红圆</b> = 主 CTA、进行中状态。全站唯一，每屏最多出现 1 次。</div></div>
+        <div class="shape-row"><div class="shape-demo"><div style="width:36px;height:36px;border-radius:50%;border:1.5px solid #2C2825;display:flex;align-items:center;justify-content:center;font-size:13px;">01</div></div><div><b>空心黑细圆</b> = 序号、分步标记。线宽统一 1.5px。</div></div>
+        <div class="shape-row"><div class="shape-demo"><div style="width:44px;height:32px;border-radius:8px;background:#fff;border:1px solid #E0DBD0;"></div></div><div><b>卡片圆角统一 8px</b>；删除页面中所有装饰性小圆点。</div></div>
+        <div class="shape-row"><div class="shape-demo"><div style="width:32px;height:32px;border-radius:4px;background:#B54434;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Serif SC';font-weight:900;">镜</div></div><div><b>朱砂印章</b>（圆角 4px）= 品牌专属符号，只用于格言区与页脚。</div></div>
+      </div>
+
+      <!-- 动效 -->
+      <div class="spec-card">
+        <h3>1.4 动效系统</h3>
+        <ul class="todo">
+          <li><b>CTA 悬停</b>：背景 #B54434 → #9A3826，上移 2px，阴影 0 4px 12px rgba(181,68,52,.25)，过渡 0.2s ease</li>
+          <li><b>卡片悬停</b>：边框 #E0DBD0 → #B54434（40% 透明度），右上角浮现箭头 →，过渡 0.25s</li>
+          <li><b>链接悬停</b>：下划线从 0 → 100% 宽度展开，0.2s</li>
+          <li><b>滚动进场</b>：区块 fade + 上移 16px，只进场一次，尊重 prefers-reduced-motion</li>
+          <li><b>禁止</b>：弹跳、旋转、闪烁、视差。东方调性 = 克制的动效</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 区块改版 ===================== -->
+<section>
+  <div class="container">
+    <div class="sec-no">PART 02</div>
+    <h2 class="serif">七个区块的具体改法</h2>
+    <p class="lead">每一处改动都标注了"改前 → 改后"和原因。文案层面已按平台红线校验，不含任何敏感词。</p>
+
+    <!-- 2.1 导航 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">1</div><h3>导航栏</h3><span class="badge">微调</span></div>
+      <table class="copy">
+        <tr><th>位置</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr><td>菜单字号</td><td class="old">约 13px</td><td class="new">15px</td><td class="why"> Nielsen：菜单是高频扫视区，13px 偏小 </td></tr>
+        <tr><td>"心镜灯"首次出现</td><td class="old">无解释</td><td class="new">悬停显示 tooltip："情绪日记，每天一分钟"</td><td class="why">专有名词需可理解</td></tr>
+        <tr><td>右侧按钮</td><td class="old">登录</td><td class="new">登录 · 注册</td><td class="why">给新用户明确入口</td></tr>
+      </table>
+    </div>
+
+    <!-- 2.2 Hero -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">2</div><h3>Hero 区</h3><span class="badge">重点改</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td>主标题</td>
+          <td class="old serif">从传统文化中，看见理解自己的新视角</td>
+          <td class="new serif">用东方视角，看清你自己</td>
+          <td class="why">Krug：原句主谓割裂需重读；新句 8 字一读即懂，且与品牌语一致</td>
+        </tr>
+        <tr>
+          <td>副标题</td>
+          <td class="old">长段落、行高不足</td>
+          <td class="new serif">八字是你的出厂参数，心镜灯是你的情绪日记，六爻是你在路口时的参考线。</td>
+          <td class="why">一句话讲清三个产品；行高 1.8</td>
+        </tr>
+        <tr>
+          <td>主 CTA</td>
+          <td class="old">开始认识自己</td>
+          <td class="new">3 分钟生成我的报告</td>
+          <td class="why">Nielsen：具体 + 量化 + 第一人称，转化意图明确</td>
+        </tr>
+        <tr>
+          <td>副 CTA</td>
+          <td class="old">了解更多</td>
+          <td class="new">先看示例报告 →</td>
+          <td class="why">低承诺路径，承接犹豫用户</td>
+        </tr>
+        <tr>
+          <td>右侧预览卡</td>
+          <td class="old">装饰性整页截图</td>
+          <td class="new">真实报告片段：四柱卡（可交互 SVG）+ 性格倾向条 + 情绪走势线</td>
+          <td class="why">Rams / Tufte：首屏 3 秒内让用户看到"用完能得到什么"</td>
+        </tr>
+        <tr>
+          <td>新增</td>
+          <td class="old">—</td>
+          <td class="new">CTA 下方一行信任徽章：12 万+ 用户 · 即时生成 · 隐私保护</td>
+          <td class="why">Wroblewski：首屏就要建立信任</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 2.3 三工具 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">3</div><h3>三个工具介绍区</h3><span class="badge">文案 + 图表</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr>
+          <td>八字卡标题</td>
+          <td class="old serif">你被谁了解自己吗？</td>
+          <td class="new serif">你有多了解自己？</td>
+          <td class="why">Norman：原句是语病，读起来卡顿</td>
+        </tr>
+        <tr>
+          <td>每卡新增</td>
+          <td class="old">无</td>
+          <td class="new">顶部一行使用场景：<br>八字 → 适合"想看清性格底层"的人<br>心镜灯 → 适合"被情绪困住想复盘"的人<br>六爻 → 适合"站在选择路口"的人</td>
+          <td class="why">Norman：工具之间加心理铺垫，用户自我对号入座</td>
+        </tr>
+        <tr>
+          <td>四柱图</td>
+          <td class="old">低分辨率截图</td>
+          <td class="new">可交互 SVG：四柱各一卡，hover 显示五行属性与一句解读</td>
+          <td class="why">Tufte：每个像素都要传递信息</td>
+        </tr>
+        <tr>
+          <td>心镜灯折线图</td>
+          <td class="old">过小、无标注</td>
+          <td class="new">放大 1.5 倍，标注 3 处关键时刻，配一句"过去 30 天，你的情绪有 3 次明显转折"</td>
+          <td class="why">让图表自己讲故事</td>
+        </tr>
+        <tr>
+          <td>卡片 hover</td>
+          <td class="old">无反馈</td>
+          <td class="new">边框泛红 + 右上角出现箭头</td>
+          <td class="why">Ive：微交互暗示可点击</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 2.4 格言区 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">4</div><h3>东方格言留白区</h3><span class="badge new">新增区块</span></div>
+      <p style="font-size:14px;color:#6B6B6B;margin-bottom:12px">插入位置：三个工具介绍之后、问题引导之前。</p>
+      <table class="copy">
+        <tr><th>元素</th><th>规格</th></tr>
+        <tr><td>格言</td><td class="new serif" style="font-size:20px;font-weight:600">「观人如观己，知人即知天。」竖排 · 宋体 Semibold · 32px</td></tr>
+        <tr><td>印章</td><td class="new">朱砂红 40px 方章，内文"镜"字，圆角 4px，置于格言左下</td></tr>
+        <tr><td>背景</td><td class="new">纯白 #FFFFFF，区块高 480px（全页最大留白），无任何按钮与链接</td></tr>
+        <tr><td>设计意图</td><td class="why">原研哉：全页内容都在"推用户走"，缺一个让用户停下来的呼吸点。留白从"少"升级为"空"。</td></tr>
+      </table>
+    </div>
+
+    <!-- 2.5 问题引导 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">5</div><h3>问题引导区</h3><span class="badge">微调</span></div>
+      <ul class="todo">
+        <li>区块标题下加一句引导："从一个真实问题开始认识自己 —— 也可以直接跳过，先生成报告。"</li>
+        <li>问题列表的圆点统一为<b>空心黑细圆序号</b>（01 / 02 / 03），替换现有装饰性圆点</li>
+        <li>每个问题右侧加"用八字看 →"文字链接，问题与工具直接挂钩</li>
+      </ul>
+    </div>
+
+    <!-- 2.6 溯源 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">6</div><h3>溯源区</h3><span class="badge">文案修正</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr><td>区块标题</td><td class="old serif">溯源，克服传统文化从人</td><td class="new serif">溯千年之源，落到今人之问</td><td class="why">原句语义不完整</td></tr>
+        <tr><td>时间线节点样式</td><td class="old">与工具区圆点混用</td><td class="new">统一为空心黑细圆 + 竖向细线</td><td class="why">Vignelli：形系统唯一</td></tr>
+      </table>
+    </div>
+
+    <!-- 2.7 CTA -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">7</div><h3>底部 CTA 表单区</h3><span class="badge">重点改</span></div>
+      <table class="copy">
+        <tr><th>元素</th><th>改前</th><th>改后</th><th>原因</th></tr>
+        <tr><td>主标题</td><td class="old serif">准备好认真认识自己了吗？</td><td class="new serif">准备好认真认识自己了吗？<br><span style="font-weight:400;font-size:14px;color:#6B6B6B">留下邮箱，3 分钟收到一份属于你的性格观察报告</span></td><td class="why">标题保留，补副标题说明"会发生什么"</td></tr>
+        <tr><td>按钮文案</td><td class="old">提交</td><td class="new">免费开始</td><td class="why">动词开头 + 免费承诺</td></tr>
+        <tr><td>表单下副文案</td><td class="old">无</td><td class="new">3 分钟出报告 · 邮箱仅用于发送报告，不作他用</td><td class="why">打消邮箱被滥用的顾虑</td></tr>
+        <tr><td>信任徽章</td><td class="old">无</td><td class="new">隐私保护 · 12 万+ 用户已生成 · 即时生成</td><td class="why">Wroblewski：表单旁的信任锚点</td></tr>
+        <tr><td>次级链接</td><td class="old">无</td><td class="new">先看看别人的示例报告 →</td><td class="why">犹豫用户的低承诺出口</td></tr>
+        <tr><td>输入框</td><td class="old">默认样式</td><td class="new">高度 46px，聚焦时边框变朱砂红 + 外发光 2px</td><td class="why">聚焦反馈是最低成本的可用性提升</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 实施清单 ===================== -->
+<section>
+  <div class="container">
+    <div class="sec-no">PART 03</div>
+    <h2 class="serif">落地实施清单</h2>
+    <p class="lead">按优先级分四批执行。P0 全部是文案与样式改动，一个人一天内可完成上线；P1 需要前端开发；P2/P3 排入常规迭代。</p>
+
+    <table class="prio">
+      <tr><th style="width:70px">优先级</th><th>改动项</th><th style="width:150px">预期收益</th><th style="width:110px">工作量</th></tr>
+      <tr><td><span class="p-tag p0">P0 · 今天</span></td><td>修正全部语病文案（Hero 主标题、八字卡标题、溯源标题）；CTA 改"3 分钟生成我的报告" / "免费开始"</td><td>阅读流畅 +30%，转化 +15%</td><td>纯文案，0.5 天</td></tr>
+      <tr><td><span class="p-tag p0">P0 · 今天</span></td><td>CTA 悬停微交互 + 输入框聚焦变红；表单下加副文案与 3 个信任徽章</td><td>转化 +20%</td><td>CSS only，0.5 天</td></tr>
+      <tr><td><span class="p-tag p1">P1 · 本周</span></td><td>Hero 右侧换成真实报告片段组件（四柱卡 + 性格条 + 情绪线）</td><td>首屏价值传达 +50%</td><td>前端 1–2 天</td></tr>
+      <tr><td><span class="p-tag p1">P1 · 本周</span></td><td>统一形系统：空心圆序号、卡片圆角 8px、删除装饰圆点；菜单 15px；心镜灯 tooltip</td><td>品牌一致性 +20%</td><td>前端 0.5 天</td></tr>
+      <tr><td><span class="p-tag p2">P2 · 两周内</span></td><td>四级字重系统全站落地（900/600/400/300）</td><td>信息层级 +40%</td><td>前端 1 天 + 走查</td></tr>
+      <tr><td><span class="p-tag p2">P2 · 两周内</span></td><td>新增东方格言留白区（竖排宋体 + 朱砂印章）</td><td>品牌情绪 +30%</td><td>前端 0.5 天</td></tr>
+      <tr><td><span class="p-tag p3">P3 · 下迭代</span></td><td>四柱图 / 情绪折线改可交互 SVG，hover 解读</td><td>信任感 +25%</td><td>前端 2 天</td></tr>
+      <tr><td><span class="p-tag p3">P3 · 下迭代</span></td><td>滚动进场动效（fade+上移，一次性，respect reduced-motion）</td><td>精致感提升</td><td>前端 0.5 天</td></tr>
+    </table>
+
+    <p style="font-size:13px;color:#6B6B6B;margin-top:16px">验收方式：P0 上线后观察首屏 CTA 点击率与底部表单提交率（埋点事件 hero_cta_click / bottom_form_submit）；P1 上线后做 5 人可用性测试，任务是"30 秒内说出这个网站能给你什么"。</p>
+  </div>
+</section>
+
+<!-- ===================== 04 附录 ===================== -->
+<section>
+  <div class="container">
+    <div class="sec-no">APPENDIX</div>
+    <h2 class="serif">全站文案红线自查</h2>
+    <p class="lead">本次所有新文案已按平台红线校验通过。</p>
+    <div class="spec-card" style="max-width:680px">
+      <ul class="todo">
+        <li>不出现：算命 / 改运 / 消灾 / 预测吉凶 / 转运 / 风水 / 看相 / 抽签</li>
+        <li>不承诺预测结果，不替用户做决定（六爻表述为"路口时的参考线"）</li>
+        <li>统一话术：卖"观察 + 行动建议"，不卖"命运解答"</li>
+        <li>"命理报告"统一称为"性格观察报告"（对外传播语境）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="seal">镜</div>
+  <p>易凡文化 · 首页改版方案 v2.0 · 基于 10 位专家联合评审</p>
+</footer>
+
+</body>
+</html>
