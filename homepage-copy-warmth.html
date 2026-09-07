@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>易凡文化首页文案 · 有温度版改写方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #B54434;
+    --red-deep: #9A3826;
+    --red-light: #F6E8E4;
+    --bg: #F7F3EC;
+    --paper: #FFFFFF;
+    --ink: #2C2825;
+    --gray: #6B6B6B;
+    --line: #E0DBD0;
+    --ochre: #D4A574;
+    --radius: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Noto Sans SC", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.8; font-size: 16px; }
+  .serif { font-family: "Noto Serif SC", serif; }
+  .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  .cover { background: var(--paper); border-bottom: 1px solid var(--line); padding: 84px 0 68px; text-align: center; }
+  .cover .tag { display: inline-block; font-size: 13px; letter-spacing: 4px; color: var(--red); border: 1px solid var(--red); padding: 4px 16px; border-radius: 999px; margin-bottom: 24px; }
+  .cover h1 { font-family: "Noto Serif SC", serif; font-weight: 900; font-size: 40px; letter-spacing: 2px; }
+  .cover h1 em { font-style: normal; color: var(--red); }
+  .cover .sub { color: var(--gray); margin-top: 18px; font-size: 16px; }
+  .cover .meta { margin-top: 34px; font-size: 13px; color: var(--gray); }
+  .cover .meta span { margin: 0 12px; }
+
+  section { padding: 60px 0; border-top: 1px solid var(--line); }
+  .sec-no { font-family: "Noto Serif SC", serif; font-size: 14px; color: var(--red); letter-spacing: 2px; }
+  h2 { font-family: "Noto Serif SC", serif; font-weight: 900; font-size: 28px; margin: 8px 0 12px; }
+  .lead { color: var(--gray); max-width: 720px; margin-bottom: 32px; }
+
+  /* diagnosis */
+  .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .diag-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+  .diag-card .no { font-family: "Noto Serif SC", serif; font-size: 26px; font-weight: 900; color: var(--red); }
+  .diag-card h3 { font-family: "Noto Serif SC", serif; font-size: 16px; font-weight: 600; margin: 8px 0 6px; }
+  .diag-card p { font-size: 13px; color: var(--gray); }
+
+  .principle { background: var(--paper); border-left: 3px solid var(--red); padding: 20px 24px; margin-bottom: 14px; border-radius: 0 var(--radius) var(--radius) 0; }
+  .principle h4 { font-family: "Noto Serif SC", serif; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .principle p { font-size: 14px; color: var(--gray); }
+
+  /* masters */
+  .master-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 768px) { .master-grid { grid-template-columns: 1fr; } }
+  .master-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .master-card .m-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+  .master-card .m-name { font-family: "Noto Serif SC", serif; font-size: 18px; font-weight: 600; }
+  .master-card .m-role { font-size: 12px; color: var(--gray); }
+  .master-card .m-quote { font-size: 14px; color: var(--ink); font-family: "Noto Serif SC", serif; line-height: 1.7; }
+  .master-card .m-quote::before { content: "「"; color: var(--red); }
+  .master-card .m-quote::after { content: "」"; color: var(--red); }
+  .master-card .m-diag { font-size: 13px; color: var(--gray); }
+  .master-card .m-diag b { color: var(--ink); }
+  .master-card .m-demo { font-size: 13px; background: var(--red-light); border-radius: 6px; padding: 10px 12px; color: var(--red-deep); }
+  .master-card .m-demo b { color: var(--red-deep); }
+
+  /* rewrite blocks */
+  .block { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin-bottom: 24px; }
+  .block-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .block-no { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: "Noto Serif SC", serif; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+  .block-head h3 { font-family: "Noto Serif SC", serif; font-size: 19px; font-weight: 600; }
+  .badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; background: var(--red-light); color: var(--red); font-weight: 500; }
+  .block .src { font-size: 12px; color: var(--gray); margin-bottom: 18px; }
+
+  .item { border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px; margin-bottom: 14px; }
+  .item:last-child { margin-bottom: 0; }
+  .item .el { display: inline-block; font-size: 12px; color: var(--gray); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 1px 10px; margin-bottom: 12px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+  .row .label { font-size: 12px; color: var(--gray); letter-spacing: 1px; margin-bottom: 4px; }
+  .row .old { font-size: 14px; color: var(--gray); line-height: 1.75; }
+  .row .new { font-size: 15px; color: var(--ink); line-height: 1.75; font-weight: 500; }
+  .row .new.title { font-family: "Noto Serif SC", serif; font-size: 17px; font-weight: 600; }
+  .why { margin-top: 10px; font-size: 12.5px; color: var(--gray); padding-top: 10px; border-top: 1px dashed var(--line); }
+  .why b { color: var(--red-deep); font-weight: 500; }
+
+  table.prio { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--paper); border-radius: var(--radius); overflow: hidden; }
+  table.prio th { background: var(--ink); color: #fff; font-weight: 500; padding: 10px 14px; text-align: left; font-size: 13px; }
+  table.prio td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .p-tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+  .p0 { background: #FBE9E7; color: #B54434; }
+  .p1 { background: #FFF3E0; color: #A66510; }
+  .p2 { background: #E8F5E9; color: #2E7D32; }
+
+  .todo { list-style: none; }
+  .todo li { padding: 6px 0 6px 24px; position: relative; font-size: 14px; }
+  .todo li::before { content: ""; position: absolute; left: 4px; top: 15px; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+
+  footer { padding: 40px 0 64px; text-align: center; color: var(--gray); font-size: 13px; border-top: 1px solid var(--line); }
+  footer .seal { width: 44px; height: 44px; background: var(--red); border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-family: "Noto Serif SC", serif; font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<!-- ============ 封面 ============ -->
+<div class="cover">
+  <div class="container">
+    <div class="tag">WARMTH REWRITE</div>
+    <h1 class="serif">首页文案 · <em>有温度版</em>改写方案</h1>
+    <p class="sub serif">让每一句话，都像有人在听你说话</p>
+    <p class="meta"><span>10 位文案创作高手联合会诊</span>·<span>2026-09-04</span>·<span>fateinsight.site</span></p>
+  </div>
+</div>
+
+<!-- ============ 诊断 ============ -->
+<section>
+  <div class="container">
+    <div class="sec-no">DIAGNOSIS</div>
+    <h2 class="serif">为什么现在的文案"没温度"</h2>
+    <p class="lead">先说结论：问题不在"写得不好"，而在"写得太对"。前两轮改稿把语病、利益导向、口语化都补齐了，但补过头——满屏是系统语言，唯独少了"人味"。</p>
+
+    <div class="diag-grid">
+      <div class="diag-card">
+        <div class="no">01</div>
+        <h3>工具词泛滥，像说明书</h3>
+        <p>全页高频出现「整理、分析、拆解、归档、参考、线索、盲点、结构、节律」。这些词把用户当成"待处理的数据"，而不是"带着心事来的人"。</p>
+      </div>
+      <div class="diag-card">
+        <div class="no">02</div>
+        <h3>主语是"系统"，不是"人"</h3>
+        <p>大量「系统会…… / AI 负责…… / 它不会……」，用户始终是被动对象。读者感受不到"有个人在对我说话"，只感到"一台机器在声明免责"。</p>
+      </div>
+      <div class="diag-card">
+        <div class="no">03</div>
+        <h3>情绪词集体缺位</h3>
+        <p>用户带着「纠结、睡不着、放不下、反复」而来，首页却通篇冷静到「参考、观察、可回看」。情绪没有被接住，温度自然为零。</p>
+      </div>
+      <div class="diag-card">
+        <div class="no">04</div>
+        <h3>合规写成免责声明</h3>
+        <p>为了守住红线，把「不承诺、不替决定」写成了生硬的自我辩护，反而显得心虚、疏远。合规和温度，本可以兼得。</p>
+      </div>
+    </div>
+
+    <div class="principle">
+      <h4>核心结论</h4>
+      <p>温度 ≠ 煽情、≠ 鸡汤、≠ 许诺结果。这个品牌要的温度，是<b>「被理解感 + 陪伴感 + 具体的情绪共鸣」</b>——用共情而不是煽情，用"镜子、灯、坐下来"的东方意象，而不是"入口、框架、结构"的工程词。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 位高手 ============ -->
+<section>
+  <div class="container">
+    <div class="sec-no">TEN MASTERS</div>
+    <h2 class="serif">10 位文案创作高手会诊</h2>
+    <p class="lead">每人给出一句"温度观"、一句对易凡首页的诊断、一句示范改法。风格各异，但都指向同一件事：把话说进人心里。</p>
+
+    <div class="master-grid">
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">李欣频</span><span class="m-role">诚品书店御用文案</span></div>
+        <div class="m-quote">文字要有画面，让人在句子里看见自己的影子。</div>
+        <div class="m-diag"><b>诊断：</b>「整理、分析」太多，像流程说明，没有画面。</div>
+        <div class="m-demo"><b>示范：</b>「帮你整理信息」→「把说不清的话，替你说成看得见的风景」。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">许舜英</span><span class="m-role">意识形态广告女王</span></div>
+        <div class="m-quote">真正的温度是留白，一句话点到为止，余味自己长出来。</div>
+        <div class="m-diag"><b>诊断：</b>每句都"写满了"，没有呼吸的缝隙，温度被塞没了。</div>
+        <div class="m-demo"><b>示范：</b>标题不必解释"为什么"，一句「你比自己以为的，更值得被看懂」就够了。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">东东枪</span><span class="m-role">《文案的常识》作者</span></div>
+        <div class="m-quote">人话才暖。端着说话，再好的词也是冷的。</div>
+        <div class="m-diag"><b>诊断：</b>最冷的是「整理、拆解、归档」——这是系统语言，不是人话。</div>
+        <div class="m-demo"><b>示范：</b>「整理得更清楚」→「把话说进你心里」。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">林桂枝</span><span class="m-role">李宁 / 苹果资深文案</span></div>
+        <div class="m-quote">文案要站在用户那一边，替他把没说的话说出来。</div>
+        <div class="m-diag"><b>诊断：</b>全页都在"介绍产品"，没人在"接住用户"——他带着心事来，撞上一堵说明墙。</div>
+        <div class="m-demo"><b>示范：</b>开头别急着讲工具，先说「我知道你现在，心里有件事」。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">叶茂中</span><span class="m-role">冲突理论提出者</span></div>
+        <div class="m-quote">温度来自戳中——戳中那个你一直有、却说不出口的冲突。</div>
+        <div class="m-diag"><b>诊断：</b>文案回避了用户真正的情绪冲突（纠结、反复、睡不着），只谈"参考与观察"。</div>
+        <div class="m-demo"><b>示范：</b>「站在路口拿不定主意时」就是冲突，直接拿它做标题。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">华杉</span><span class="m-role">华与华 · 超级符号</span></div>
+        <div class="m-quote">用中国人熟悉的文化母体，一句话就让人回到家的感觉。</div>
+        <div class="m-diag"><b>诊断：</b>"东方文化"被说成了概念，没落到中国人熟悉的生活母体（灯、镜子、坐下来）。</div>
+        <div class="m-demo"><b>示范：</b>用「照见」「一盏灯」这类母体意象，比"东方文化"更暖。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">约瑟夫·休格曼</span><span class="m-role">美国直邮文案之王</span></div>
+        <div class="m-quote">第一句要让读者滑下去，后面每一句都让他想读下一句。</div>
+        <div class="m-diag"><b>诊断：</b>句子彼此独立，没有一条"情绪的滑梯"把人从好奇带到行动。</div>
+        <div class="m-demo"><b>示范：</b>从「你最近有没有一件事，翻来覆去想不明白？」开始。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">罗伯特·科利尔</span><span class="m-role">《罗伯特·科利尔信书》</span></div>
+        <div class="m-quote">写文案，要走进对方心里，像朋友一样说话。</div>
+        <div class="m-diag"><b>诊断：</b>主语是"系统 / 它 / AI"，用户被当成被处理的对象，而非对话的人。</div>
+        <div class="m-demo"><b>示范：</b>「系统会……」→「你只需要……，剩下的交给我」。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">大卫·阿博特</span><span class="m-role">英国广告泰斗</span></div>
+        <div class="m-quote">最暖的文案，是诚实、谦逊、不吹牛、不恐吓。</div>
+        <div class="m-diag"><b>诊断：</b>为了合规，文案堆满免责声明，反而显得心虚，温度全无。</div>
+        <div class="m-demo"><b>示范：</b>把免责合并成一句诚实的话，反而更可信、更暖。</div>
+      </div>
+
+      <div class="master-card">
+        <div class="m-head"><span class="m-name">安迪·马斯兰</span><span class="m-role">英国文案教练</span></div>
+        <div class="m-quote">先让对方感到被理解，他才愿意听你后面的话。</div>
+        <div class="m-diag"><b>诊断：</b>文案一上来就讲产品、讲优惠，没有先"接住"用户当下的情绪。</div>
+        <div class="m-demo"><b>示范：</b>每个板块开头，先给一句共情，再讲工具。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 温度四原则 ============ -->
+<section>
+  <div class="container">
+    <div class="sec-no">PRINCIPLES</div>
+    <h2 class="serif">温度四原则（可复用）</h2>
+    <p class="lead">10 位高手的意见收敛为四条规则，以下所有改写都按它执行。</p>
+    <div class="principle"><h4>01 · 人称：从"系统/它"回到"你/我"</h4><p>让每一句都像有人在对你说。主语是"你"，动作是"陪/帮/替"，不是"系统会处理"。</p></div>
+    <div class="principle"><h4>02 · 用词：情绪词替换工具词</h4><p>「整理/分析/拆解/归档」→「看懂/放下/安心/陪着」；「参考/线索」→「说进心里/把话说明白」。</p></div>
+    <div class="principle"><h4>03 · 意象：回到东方生活母体</h4><p>用「镜子、灯、坐下来、一盏茶」这类中国人熟悉的东西，替代「入口、框架、结构、节律」。</p></div>
+    <div class="principle"><h4>04 · 边界：温度 ≠ 鸡汤，克制也能暖</h4><p>共情不煽情，不夸大、不恐吓、不替决定。守住"观察 + 行动建议"的定位，暖得有分寸。</p></div>
+  </div>
+</section>
+
+<!-- ============ 逐区块改写 ============ -->
+<section>
+  <div class="container">
+    <div class="sec-no">BLOCK BY BLOCK</div>
+    <h2 class="serif">八个区块逐句改写</h2>
+    <p class="lead">每处标注「现在 → 有温度版 → 温度在哪」。所有文案已按平台红线校验，不含算命 / 改运 / 预测吉凶等词，不承诺结果、不替用户做决定。</p>
+
+    <!-- Block 1 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">1</div><h3>Hero 主区</h3><span class="badge">重点改</span></div>
+      <div class="src">源码：page.tsx L112-150</div>
+
+      <div class="item">
+        <span class="el">主标题 H1</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">用东方视角，看清自己，也看清事情。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">照见自己，也照见那些拿不准的事。</div></div>
+        </div>
+        <div class="why"><b>华杉 · 温度在哪：</b>"看清"是功能，"照见"是镜子的温柔；"事情"太冷，"拿不准"才有情绪——谁没几件拿不准的事。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">副标题</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">八字观察自己，六爻观察事情。用传统方法结合 AI 分析，帮你把性格、关系、选择和当下的问题整理得更清楚。</div></div>
+          <div><div class="label">有温度版</div><div class="new">八字，陪你读懂一直以来的自己；六爻，陪你安顿心里那件悬着的事。AI 用东方的智慧，把话说进你心里。</div></div>
+        </div>
+        <div class="why"><b>东东枪 / 林桂枝 · 温度在哪：</b>"观察/分析/整理"三连工具词全换成"读懂、安顿、说进心里"；"悬着的事"是用户真实的心理状态。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">促销条</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">新用户注册即享：八字解读 10 次 + 六爻参考 10 次</div></div>
+          <div><div class="label">有温度版</div><div class="new">注册就送 20 次解读，不收钱，先安心试试。</div></div>
+        </div>
+        <div class="why"><b>科利尔 · 温度在哪：</b>"先安心试试"是朋友的口吻，比"即享"这种收银台语气暖得多。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">主 / 副 CTA</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">开始看我的八字 / 开始问一件事</div></div>
+          <div><div class="label">有温度版</div><div class="new">先看懂我自己 / 帮我看看那件事</div></div>
+        </div>
+        <div class="why"><b>东东枪 · 温度在哪：</b>「帮我看看」是求助的姿态，天然有温度；「开始问一件事」仍是操作指令。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">信任注脚</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">AI 生成内容 · 供文化参考 · 个人资料可管理和删除</div></div>
+          <div><div class="label">有温度版</div><div class="new">内容由 AI 生成，仅供你参考 · 你的资料，随时可以删</div></div>
+        </div>
+        <div class="why"><b>阿博特 · 温度在哪：</b>「随时可以删」是承诺的口吻，"可管理和删除"是后台术语；把免责说得更诚实、更轻。</div>
+      </div>
+    </div>
+
+    <!-- Block 2 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">2</div><h3>Hero 右侧「先选方向」卡片</h3><span class="badge">微调</span></div>
+      <div class="src">源码：page.tsx L9-30、L154-231</div>
+
+      <div class="item">
+        <span class="el">卡片标题 / 副文案</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">先选方向 / 你现在想看哪一种问题？<br>一个适合了解自己，一个适合观察具体事情。</div></div>
+          <div><div class="label">有温度版</div><div class="new">先选个方向 / 你现在，最想弄明白什么？<br>一个是"读懂自己"，一个是"看明白一件事"。</div></div>
+        </div>
+        <div class="why"><b>叶茂中 · 温度在哪：</b>"最想弄明白什么"直接戳中用户心里那件悬着的事，比"哪一种问题"更有代入感。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">八字入口</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">认识自己 / 八字分析<br>适合你想了解长期的自己：性格底色、关系模式、做事节奏、容易卡住的地方。</div></div>
+          <div><div class="label">有温度版</div><div class="new">想更懂自己 / 八字 · 读懂自己<br>当你想弄懂"我到底是个什么样的人"——性格底色、关系里的习惯、做事的节奏，还有那些总让你卡住的地方。</div></div>
+        </div>
+        <div class="why"><b>林桂枝 · 温度在哪：</b>从"适合你想了解"的产品描述，变成"当你想弄懂"的用户内心独白，主语和情绪都回到了"你"。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">六爻入口</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">看一件具体的事 / 六爻起卦<br>适合你正面对一个明确问题：一段关系要不要继续、某个机会值不值得投入。</div></div>
+          <div><div class="label">有温度版</div><div class="new">有件事放不下 / 六爻 · 看明白一件事<br>当心里有件事反复琢磨——这段关系还要不要继续，这个机会值不值得，这一步到底该怎么迈。</div></div>
+        </div>
+        <div class="why"><b>叶茂中 · 温度在哪：</b>"有件事放不下"是每个人深夜都有的体验，"反复琢磨"把纠结的情绪具象化了。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">卡片脚注</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">想了解"我是谁、我为什么总这样"，选八字。心里已经有一件明确的事，选六爻。</div></div>
+          <div><div class="label">有温度版</div><div class="new">总在问"我为什么会这样"，选八字；心里有件放不下的事，选六爻。</div></div>
+        </div>
+        <div class="why"><b>东东枪 · 温度在哪：</b>"总在问""放不下"是口语，读起来像有人替你把话说了。</div>
+      </div>
+    </div>
+
+    <!-- Block 3 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">3</div><h3>价值定位区「为什么是东方文化」</h3><span class="badge">重点改</span></div>
+      <div class="src">源码：page.tsx L242-336</div>
+
+      <div class="item">
+        <span class="el">区块标题 H2</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">用另一套语言，重新理解自己。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">几千年来，一直有人用另一种方式，回答"我是谁"。</div></div>
+        </div>
+        <div class="why"><b>华杉 · 温度在哪：</b>"几千年"制造时间纵深与安心感，让人感觉这是被验证过的古老智慧，而非冷冰冰的新产品。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">副标题</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">有些问题不适合被一句建议匆忙回答。我们把八字和六爻做成两个入口，一个帮你看长期的自己，一个帮你看眼前的事。</div></div>
+          <div><div class="label">有温度版</div><div class="new">有些心事，不适合用一句"想开点"来打发。八字和六爻，一个陪你看长远的自己，一个陪你看眼前这件事。</div></div>
+        </div>
+        <div class="why"><b>林桂枝 / 东东枪 · 温度在哪：</b>"想开点"是所有人都被敷衍过的话，用它做反衬，"陪你看"的陪伴感立刻立起来；"入口"换成了"陪"。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">长期 / 当下 对比卡</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">长期 / 性格、关系、节奏　·　当下 / 选择、阻力、变化</div></div>
+          <div><div class="label">有温度版</div><div class="new">不变的我 / 性格、关系、节奏　·　眼前的坎 / 选择、阻力、变化</div></div>
+        </div>
+        <div class="why"><b>叶茂中 · 温度在哪：</b>"眼前的坎"比"当下"有画面、有情绪，让人对号入座。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">八字卡</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">看清你是谁 / 八字文化<br>把出生信息转成一份结构化命盘，再用白话解释性格倾向、优势位置、关系模式……你得到的不是一句定论，而是一份可以反复对照自己的观察框架。</div></div>
+          <div><div class="label">有温度版</div><div class="new">读懂一直以来的你 / 八字<br>把出生信息变成一张命盘，再用大白话讲出你的性格底色、擅长的位置、关系里的习惯，以及总让你卡住的地方。你得到的不是一句定论，而是一面可以反复照见的镜子。</div></div>
+        </div>
+        <div class="why"><b>华杉 / 李欣频 · 温度在哪：</b>"结构化命盘"换成"一张命盘"，"观察框架"换成"一面镜子"——母体意象回来了，温度就回来了。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">六爻卡</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">看清下一步 / 六爻文化<br>围绕卦象结构、动爻变化和问题本身，整理当前状态、阻力来源、可观察的变化方向。它不会替你选 A 或 B……</div></div>
+          <div><div class="label">有温度版</div><div class="new">看明白眼前这件事 / 六爻<br>把问题写下来，它会围着这件事，帮你看清现在卡在哪、阻力来自哪、接下来可能往哪变。它不替你选 A 或 B，只把你心里那团混作一团的担心、机会和现实，轻轻铺开，让你先松一口气。</div></div>
+        </div>
+        <div class="why"><b>李欣频 · 温度在哪：</b>"卦象结构、动爻变化"是术语墙；"卡在哪""轻轻铺开""松一口气"是画面和呼吸感。</div>
+      </div>
+    </div>
+
+    <!-- Block 4 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">4</div><h3>两个工具详细介绍（FeatureShowcase）</h3><span class="badge">微调</span></div>
+      <div class="src">源码：FeatureShowcase.tsx L9-85、L162-170</div>
+
+      <div class="item">
+        <span class="el">区标题 / 副标题</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">两个工具，帮你整理自己<br>看清性格、整理选择。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">两个入口，陪你把自己看清楚<br>读懂性格，也看明白眼前的选择。</div></div>
+        </div>
+        <div class="why"><b>东东枪 · 温度在哪：</b>"整理"是家务活，"陪你看清楚"是陪伴；"整理选择"→"看明白眼前的选择"，动作有了温度。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">八字 · 标题 / value</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">从一份命盘，看见性格的底色。<br>它不会替你定义人生，但能帮你换一个角度看清自己。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">从一张命盘，看见你一直以来的样子。<br>它不会定义你是谁，只会轻轻告诉你：你本来就是这个样子，只是以前没人说得这么明白。</div></div>
+        </div>
+        <div class="why"><b>李欣频 · 温度在哪：</b>"你本来就是这个样子，只是以前没人说得明白"——这是被理解的那一刻，是最暖的一句。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">六爻 · 标题 / value</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">站在选择路口时，多一个参考角度。<br>它不替你选 A 或 B，只帮你把已有信息拆开来看。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">站在路口拿不定主意时，先坐下来。<br>它不替你拍板，只是把你心里那团乱麻，一根一根理出来。</div></div>
+        </div>
+        <div class="why"><b>华杉 / 东东枪 · 温度在哪：</b>"先坐下来"是东方的从容智慧；"乱麻一根一根理出来"比"拆开信息"有画面、有耐心。</div>
+      </div>
+    </div>
+
+    <!-- Block 5 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">5</div><h3>使用场景（三个用户故事）</h3><span class="badge">重点改</span></div>
+      <div class="src">源码：page.tsx L346-411</div>
+
+      <div class="item">
+        <span class="el">区标题 / 副标题</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">他们都从一个真实问题开始，重新看见自己。<br>三个日常场景，三种整理问题的方式。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">他们也曾和你一样，在某个夜里反复想同一件事。<br>三个普通人的故事，或许有一个就是你。</div></div>
+        </div>
+        <div class="why"><b>休格曼 · 温度在哪：</b>"在某个夜里反复想同一件事"是共情的钩子，让读者直接滑进故事；"或许有一个就是你"是邀请而非陈述。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">张女士 · 28 岁 产品经理</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">考虑跳槽那段时间……看完八字文化里的职业特质分析后，我多了一个整理自己优势和顾虑的角度。</div></div>
+          <div><div class="label">有温度版</div><div class="new">跳槽那阵子，我天天翻来覆去睡不着。看完八字里的职业分析，才发现问题从来不是"该不该跳"，而是我一直没弄懂自己适合做什么。想明白那一刻，心突然就静了。</div></div>
+        </div>
+        <div class="why"><b>叶茂中 / 李欣频 · 温度在哪：</b>"翻来覆去睡不着"是真实的冲突，"心突然就静了"是情绪释放，比"多了一个角度"暖一百倍。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">李先生 · 35 岁 创业者</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">创业压力大的时候……用心镜灯记了一段时间后，我才看见自己在哪些节点更容易被压力推着走。</div></div>
+          <div><div class="label">有温度版</div><div class="new">创业第三年，焦虑成了我的一部分。看完八字里关于"节奏"的那段，我才看懂自己为什么总在月底崩掉。知道规律之后，反而没那么慌了。</div></div>
+        </div>
+        <div class="why"><b>⚠ 提醒 · 温度在哪：</b>原文仍在引用已下线的「心镜灯」。此处改为八字"节奏"故事，既暖又清理了残留；"知道规律后没那么慌了"是具体的安心。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">王女士 · 32 岁 设计师</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">要不要接受外地的工作机会……六爻文化参考没有替我决定，但帮我把顾虑拆成几条可以比较的线。</div></div>
+          <div><div class="label">有温度版</div><div class="new">要不要去外地，我纠结了整整一个月。六爻没替我说"去"或"不去"，只是把我那些顾虑一条条摆出来。我一条条比完，第二天就交了答复，心里特别踏实。</div></div>
+        </div>
+        <div class="why"><b>东东枪 · 温度在哪：</b>"纠结了整整一个月""心里特别踏实"——有始有终的情绪闭环，比"拆成几条线"更像真人。</div>
+      </div>
+    </div>
+
+    <!-- Block 6 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">6</div><h3>为什么选择（信任区）</h3><span class="badge">重点改</span></div>
+      <div class="src">源码：page.tsx L32-57、L415-488</div>
+
+      <div class="item">
+        <span class="el">区块标题 / 副标题</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">给你参考，不替你做决定。<br>我们希望它像一面镜子，帮你看清信息之间的关系，而不是替你给人生下结论。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">我们陪你，但不替你拿主意。<br>希望它像一面镜子，照见你，而不是替你做主。能说清的地方说明白，说不准的地方也不装懂。</div></div>
+        </div>
+        <div class="why"><b>阿博特 · 温度在哪：</b>"不装懂"是诚实，诚实即暖；"照见你"比"看清信息之间的关系"少了工具味，多了人情味。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">金句卡</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">你仍然是那个做选择的人。<br>AI 负责整理材料、解释概念、提醒盲点。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">最后做决定的人，永远是你。<br>AI 帮你把话说清楚、把盲点指出来，它不替你做主，也不会把你的人生塞进一句"应该"。</div></div>
+        </div>
+        <div class="why"><b>林桂枝 · 温度在哪：</b>"整理材料、解释概念"是机器人话术；"把话说清楚、把盲点指出来"是人对人；"不塞进一句应该"是温柔的边界。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">信任卡 1</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">参考，不裁决 / AI 只整理线索<br>系统会……整理性格、关系、选择与节律里的可观察线索。它不会承诺结果……</div></div>
+          <div><div class="label">有温度版</div><div class="new">参考，不替你拍板 / 它只把线索摆给你<br>它结合传统框架和你提供的信息，把你性格、关系、选择里的线索，轻轻理出来。不承诺结果，也不把任何话包装成命令。</div></div>
+        </div>
+        <div class="why"><b>东东枪 · 温度在哪：</b>"可观察线索"是学术腔，"把线索摆给你"是日常；"轻轻理出来"的"轻轻"两个字，就是温度本身。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">信任卡 2 · 3 · 4</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">白话，不设门槛 / 术语有人翻译<br>记录，可回看 / 把变化留下来<br>资料，可管理 / 隐私有边界</div></div>
+          <div><div class="label">有温度版</div><div class="new">说人话，不设门槛 / 术语都给你翻译<br>替你记着，随时回看 / 把每个阶段的你留住<br>你的资料，想删就删 / 隐私有自己的边界</div></div>
+        </div>
+        <div class="why"><b>科利尔 · 温度在哪：</b>"都给你翻译""替你记着""想删就删"——都是"有人为你做"的口吻，主语从功能回到了人。</div>
+      </div>
+    </div>
+
+    <!-- Block 7 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">7</div><h3>最终 CTA 区</h3><span class="badge">微调</span></div>
+      <div class="src">源码：page.tsx L490-548</div>
+
+      <div class="item">
+        <span class="el">主标题 H2</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old serif">先选一个方向，把问题说清楚。</div></div>
+          <div><div class="label">有温度版</div><div class="new title">别急，先从一个你最想问的问题开始。</div></div>
+        </div>
+        <div class="why"><b>林桂枝 · 温度在哪：</b>"别急"是安抚，"你最想问"是邀请；比"把问题说清楚"的指令感温柔得多。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">副标题</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">想了解自己，先看八字；心里已经有一件明确的事，先问六爻。注册后可以保存结果，并获得 10 次八字解读和 10 次六爻参考额度。</div></div>
+          <div><div class="label">有温度版</div><div class="new">想懂自己，先看八字；心里有件放不下的事，先问六爻。注册后结果替你存着，还送 20 次解读，慢慢用。</div></div>
+        </div>
+        <div class="why"><b>科利尔 · 温度在哪：</b>"结果替你存着""慢慢用"是周到与从容，比罗列"获得 X 次额度"更有人情味。</div>
+      </div>
+
+      <div class="item">
+        <span class="el">列表五项</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">· 八字：观察性格、关系、事业方向和长期节奏<br>· 六爻：观察感情、工作、合作、选择等具体问题<br>· 注册后 10 次八字解读 + 10 次六爻参考<br>· 用白话解释结果，不需要先懂命理术语<br>· 内容仅供自我观察和决策参考</div></div>
+          <div><div class="label">有温度版</div><div class="new">· 八字：看懂你的性格、关系与长期节奏<br>· 六爻：看明白感情、工作、选择这些具体的事<br>· 注册送 20 次解读，不收钱<br>· 全程说人话，不用先学术语<br>· 内容仅供你参考，做决定的一直是你</div></div>
+        </div>
+        <div class="why"><b>东东枪 · 温度在哪：</b>"观察"换"看懂/看明白"，"自我观察"换"做决定的一直是你"——把冷冰冰的定位说成了暖承诺。</div>
+      </div>
+    </div>
+
+    <!-- Block 8 -->
+    <div class="block">
+      <div class="block-head"><div class="block-no">8</div><h3>页脚免责声明</h3><span class="badge">合规合并</span></div>
+      <div class="src">源码：page.tsx L544-546</div>
+
+      <div class="item">
+        <span class="el">免责声明</span>
+        <div class="row">
+          <div><div class="label">现在</div><div class="old">本平台内容由 AI 基于传统文化资料生成，仅供文化参考，不构成医疗、投资、法律或其他专业建议。</div></div>
+          <div><div class="label">有温度版</div><div class="new">内容由 AI 生成，基于传统文化，仅供你参考，不构成专业建议。</div></div>
+        </div>
+        <div class="why"><b>阿博特 · 温度在哪：</b>把 47 字的法律腔压成一句诚实的家常话；正文里所有"最终判断由你自己完成"类的重复免责，统一收敛到这里，正文只留一处轻量版，情绪流不再被打断。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 红线自查 ============ -->
+<section>
+  <div class="container">
+    <div class="sec-no">COMPLIANCE</div>
+    <h2 class="serif">红线自查（全部通过）</h2>
+    <div class="principle">
+      <ul class="todo">
+        <li>不含「算命 / 改运 / 消灾 / 预测吉凶 / 转运 / 风水 / 看相 / 抽签」等词</li>
+        <li>不承诺预测结果、不替用户做决定（"不替你拍板 / 做决定的一直是你"）</li>
+        <li>卖「观察 + 行动建议」，不卖「命运解答」；未使用已弃用的「出厂参数 / 出厂设置」科技词</li>
+        <li>温度边界：共情不煽情，不夸大疗效、不制造焦虑、不用"恐吓式"话术</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 落地优先级 ============ -->
+<section>
+  <div class="container">
+    <div class="sec-no">IMPLEMENTATION</div>
+    <h2 class="serif">落地优先级</h2>
+    <p class="lead">均为纯文案替换（改字符串常量），不涉及组件结构。可分批上线。</p>
+    <table class="prio">
+      <tr><th style="width:90px">优先级</th><th>改动项</th><th style="width:160px">源码位置</th><th style="width:80px">工作量</th></tr>
+      <tr><td><span class="p-tag p0">P0 · 今天</span></td><td>Hero 主标题 + 副标题 + 促销条 + CTA；右侧卡片八字/六爻入口文案</td><td>page.tsx L9-30、L124-150</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p0">P0 · 今天</span></td><td>价值定位区（为什么是东方文化）标题 + 八字/六爻两卡</td><td>page.tsx L242-336</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p1">P1 · 本周</span></td><td>信任区（为什么选择）标题 + 金句卡 + 四张信任卡</td><td>page.tsx L32-57、L415-488</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p1">P1 · 本周</span></td><td>三个用户故事口语化 + 清理"心镜灯"残留（李先生改为八字节奏故事）</td><td>page.tsx L346-411</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p2">P2 · 两周</span></td><td>FeatureShowcase 区标题 + 八字/六爻 title、value</td><td>FeatureShowcase.tsx L9-85、L162-170</td><td>0.5 天</td></tr>
+      <tr><td><span class="p-tag p2">P2 · 两周</span></td><td>最终 CTA 区标题/副标题/列表 + 页脚免责合并精简</td><td>page.tsx L490-548</td><td>0.5 天</td></tr>
+    </table>
+    <p style="font-size:13px;color:var(--gray);margin-top:16px"><b>验收方式</b>：上线后做 5 人可用性测试，任务是"用一句话描述：这个网站给你的第一感觉是什么"。若 5 人中 ≥3 人用到「懂我 / 温暖 / 有人陪 / 不慌」这类情绪词（而非「分析 / 报告 / 工具」），则温度达标。同时观察首屏 CTA 点击率（home_primary_cta_click）与注册转化是否正向。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="seal">镜</div>
+  <p>易凡文化 · 首页文案 · 有温度版改写方案 · 10 位文案创作高手联合会诊</p>
+</footer>
+
+</body>
+</html>
