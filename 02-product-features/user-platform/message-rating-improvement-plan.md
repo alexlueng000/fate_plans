@@ -331,6 +331,6 @@ disabled={
 
 ## 参考资料
 
-- [消息评价 API 文档](../fate/app/routers/message_rating.py)
-- [排盘逻辑文档](./paipan-logic.md)
-- [CLAUDE.md 开发规范](../CLAUDE.md)
+- [消息评价 API 文档](../../../fate_backend/app/routers/message_rating.py)
+- [排盘逻辑文档](../bazi-report/paipan-logic.md)
+- [CLAUDE.md 开发规范](../../../CLAUDE.md)
